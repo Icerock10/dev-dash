@@ -20,6 +20,7 @@ const ignoresConfig = {
         'dangerfile.ts',
         '.next/**',
         'next-env.d.ts',
+        'src/generated/**',
     ],
 };
 
@@ -171,6 +172,7 @@ const overridesConfigs = [
             'prettier.config.js',
             'eslint.config.js',
             'postcss.config.mjs',
+            'prisma.config.ts',
         ],
         rules: {
             'import/no-default-export': ['off'],

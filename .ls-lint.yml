@@ -13,3 +13,5 @@ ignore:
     - .next
     - build
     - public
+    - src/generated
+    - src/libs/modules/prisma/migrations
