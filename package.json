@@ -1,0 +1,51 @@
+{
+    "name": "devdash",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "npm run lint:editor && npm run lint:fs && npm run lint:prettify && npm run lint:type && npm run lint:js",
+        "lint:editor": "editorconfig-checker",
+        "lint:fs": "ls-lint",
+        "lint:type": "tsc --noEmit",
+        "lint:js": "eslint .",
+        "lint:prettify": "prettier --check \"**/*.{ts,tsx,json,md,html,yml}\"",
+        "prettify": "prettier --write \"**/*.{ts,tsx,json,md,html,yml}\"",
+        "lint:fix": "eslint src --fix"
+    },
+    "dependencies": {
+        "next": "16.2.1",
+        "react": "19.2.4",
+        "react-dom": "19.2.4"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "20.5.0",
+        "@commitlint/config-conventional": "20.5.0",
+        "@ls-lint/ls-lint": "2.3.1",
+        "@tailwindcss/postcss": "^4",
+        "@types/node": "^20",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "danger": "13.0.7",
+        "editorconfig-checker": "6.1.1",
+        "eslint": "^9",
+        "eslint-config-next": "16.2.1",
+        "eslint-import-resolver-typescript": "^4.4.4",
+        "eslint-plugin-import": "^2.32.0",
+        "eslint-plugin-react": "^7.37.5",
+        "eslint-plugin-react-hooks": "^7.0.1",
+        "eslint-plugin-unicorn": "^63.0.0",
+        "lint-staged": "16.4.0",
+        "prettier": "3.8.1",
+        "simple-git-hooks": "2.13.1",
+        "tailwindcss": "^4",
+        "typescript": "^5"
+    },
+    "simple-git-hooks": {
+        "pre-commit": "npx lint-staged",
+        "commit-msg": "npx commitlint --edit $1"
+    }
+}
