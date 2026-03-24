@@ -1,4 +1,4 @@
-import { type User } from '~/generated/client';
+import { type User } from '~/libs/types/types';
 
 type UserResponseDto = Omit<User, 'password'>;
 type UserSignInRequestDto = Pick<User, 'email' | 'password'>;

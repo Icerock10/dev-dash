@@ -6,3 +6,5 @@ const userRepository = new UserRepository({ database: prisma });
 const userService = new UserService({ userRepository });
 
 export { userService };
+
+export { registerValidationSchema } from './libs/validation-schemas/validation-schemas';
