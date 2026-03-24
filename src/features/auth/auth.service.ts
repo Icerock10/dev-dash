@@ -1,5 +1,5 @@
-import bcrypt from 'bcrypt';
 import { type UserService } from '~/entities/user/user.service';
+import { type BaseEncryptor } from '~/libs/modules/encryptor/base-encryptor.module';
 import {
     type UserSignInRequestDto,
     type UserSignUpRequestDto,
@@ -8,12 +8,15 @@ import {
 
 type Constructor = {
     userService: UserService;
+    encryptor: BaseEncryptor;
 };
 
 class AuthService {
     private userService: UserService;
-    constructor({ userService }: Constructor) {
+    private encryptor: BaseEncryptor;
+    constructor({ userService, encryptor }: Constructor) {
         this.userService = userService;
+        this.encryptor = encryptor;
     }
     public async login(
         payload?: UserSignInRequestDto,
@@ -24,11 +27,10 @@ class AuthService {
         if (!user) {
             throw new Error('Not found');
         }
-
-        const valid = await bcrypt.compare(
-            String(payload?.password),
-            user.password,
-        );
+        const valid = await this.encryptor.compare({
+            value: String(payload?.password),
+            storedHash: user.password,
+        });
         if (!valid) {
             throw new Error('Password incorrect');
         }
@@ -41,11 +43,10 @@ class AuthService {
         name,
         email,
     }: UserSignUpRequestDto): Promise<unknown> {
-        const SALT_ROUNDS = 12;
-        const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+        const hashedPassword = await this.encryptor.encrypt(password);
         return this.userService.create({
             email,
-            password: hashedPassword,
+            password: hashedPassword.hash,
             name,
         });
     }

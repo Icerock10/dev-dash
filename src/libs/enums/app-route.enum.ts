@@ -1,6 +1,6 @@
 const AppRoute = {
     ROOT: '/',
-    LOGIN: '/',
+    LOGIN: '/login',
 } as const;
 
 export { AppRoute };
