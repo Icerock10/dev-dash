@@ -4,7 +4,13 @@ import {
     type FieldPath,
     type FieldValues,
 } from 'react-hook-form';
-import { useId, useState, useCallback, useFormController } from '~/hooks/hooks';
+import {
+    useId,
+    useState,
+    useCallback,
+    useFormController,
+} from '~/shared/hooks/hooks';
+import { EyeIcon } from '../icons/icons';
 
 const INPUT_DEFAULT_MAX_LENGTH = 25;
 
@@ -70,11 +76,11 @@ const Input = <T extends FieldValues>({
             >
                 {label}
             </label>
-            <div className="flex items-center rounded-md focus-within:outline-1 focus-within:outline-blue-400">
+            <div className="relative flex items-center rounded-md focus-within:outline-1 focus-within:outline-blue-400">
                 <input
                     {...field}
                     aria-invalid={hasError}
-                    className="border-border w-full placeholder:text-xs placeholder:text-border border focus:outline-none py-1.5 px-3 rounded-md"
+                    className="border-border w-full placeholder:text-xs placeholder:text-slate-600 border focus:outline-none py-1.5 px-3 rounded-md"
                     disabled={disabled}
                     id={inputId}
                     max={max}
@@ -88,13 +94,19 @@ const Input = <T extends FieldValues>({
                 />
                 {isPasswordField && (
                     <button
+                        className="absolute right-3 cursor-pointer"
                         aria-label={
                             showPassword ? 'Hide password' : 'Show password'
                         }
                         onClick={togglePasswordVisibility}
                         type="button"
                     >
-                        <span aria-hidden="true"></span>
+                        <span
+                            className="text-slate-600 hover:text-slate-400"
+                            aria-hidden="true"
+                        >
+                            <EyeIcon width={20} height={20} />
+                        </span>
                     </button>
                 )}
             </div>

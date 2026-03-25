@@ -1,10 +1,10 @@
-import { Input, Button } from '~/components/components';
+import { Input, Button } from '~/shared/ui/components/components';
 import { RegistrationDefaultValues } from '../../libs/constants/constants';
 import {
     registerValidationSchema,
     type RegisterDto,
 } from '~/entities/user/libs/validation-schemas/validation-schemas';
-import { useAppForm } from '~/hooks/hooks';
+import { useAppForm } from '~/shared/hooks/hooks';
 
 const Register: React.FC = () => {
     const { errors, control } = useAppForm<RegisterDto>({

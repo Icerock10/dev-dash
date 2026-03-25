@@ -1,5 +1,5 @@
 import { type ValueOf } from '~/libs/types/types';
-import { ButtonVariant } from '../libs/enums/enums';
+import { ButtonVariant } from '~/libs/enums/enums';
 
 type Properties<T extends string> = {
     className?: string;
