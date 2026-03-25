@@ -37,6 +37,7 @@
     "devDependencies": {
         "@commitlint/cli": "20.5.0",
         "@commitlint/config-conventional": "20.5.0",
+        "@hookform/resolvers": "5.2.2",
         "@ls-lint/ls-lint": "2.3.1",
         "@tailwindcss/postcss": "^4",
         "@types/bcrypt": "6.0.0",
@@ -55,6 +56,7 @@
         "lint-staged": "16.4.0",
         "prettier": "3.8.1",
         "prisma": "7.5.0",
+        "react-hook-form": "7.72.0",
         "simple-git-hooks": "2.13.1",
         "tailwindcss": "^4",
         "typescript": "^5"
