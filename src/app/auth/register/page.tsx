@@ -1,4 +1,4 @@
-import { AuthForm } from '~/features/auth/components/auth-form';
+import { AuthForm } from '~/features/auth/ui/auth-form';
 
 function AuthPage() {
     return <AuthForm />;

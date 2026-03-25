@@ -14,5 +14,5 @@ ignore:
     - build
     - public
     - src/generated
-    - src/libs/modules/prisma/migrations
+    - src/shared/libs/modules/prisma/migrations
     - src/app/api/auth/[...nextauth]

@@ -1,5 +1,5 @@
 import NextAuth from 'next-auth';
-import { authOptions } from '~/features/auth/auth';
+import { authOptions } from './auth-options';
 import { type NextRequest } from 'next/server';
 
 type AppRouteHandler = (

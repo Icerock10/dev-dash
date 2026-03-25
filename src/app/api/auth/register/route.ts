@@ -1,7 +1,7 @@
-import { authService } from '~/features/auth/auth';
-import { HTTPCode } from '~/libs/enums/enums';
-import { initRouteHandler } from '~/libs/modules/route-handler/route.handler';
-import { registerValidationSchema } from '~/entities/user/user';
+import { authService } from '~/features/auth/model/services/auth';
+import { HTTPCode } from '~/shared/libs/enums/enums';
+import { initRouteHandler } from '~/shared/libs/modules/route-handler/route.handler';
+import { registerValidationSchema } from '~/entities/user/index';
 
 const POST = initRouteHandler(
     registerValidationSchema,
