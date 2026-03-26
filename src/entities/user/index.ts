@@ -9,5 +9,3 @@ export {
     type UserSignUpRequestDto,
     type UserSignInRequestDto,
 } from './model/libs/types/types';
-
-export { userService } from './api/user';

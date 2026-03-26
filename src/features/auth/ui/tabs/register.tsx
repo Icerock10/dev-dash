@@ -2,7 +2,7 @@ import { Input, Button } from '~/shared/ui/components/components';
 import {
     registerValidationSchema,
     type RegisterDto,
-} from '~/entities/user/model/libs/validation-schemas/validation-schemas';
+} from '~/entities/user/index';
 import { useAppForm } from '~/shared/hooks/hooks';
 import { useAuth } from '../../model/hooks/hooks';
 

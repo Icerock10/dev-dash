@@ -1,16 +1,15 @@
-import { type UserSignUpRequestDto } from '../../libs/types/types';
+'use client';
+
 import { AppRoute, DefaultErrorMessage } from '../../libs/enums/enums';
+import { type SignInDto, type RegisterDto } from '~/entities/user/index';
 import { useState } from '~/shared/hooks/hooks';
 import { useRouter } from 'next/navigation';
-import {
-    login as loginAction,
-    register as registerAction,
-} from '../../actions/actions';
+import { actions as authActions } from '../../actions/actions';
 import { HTTPError } from '~/shared/libs/modules/exceptions/exceptions';
 
 type UseRegisterReturn = {
-    onRegister: (payload: UserSignUpRequestDto) => Promise<void>;
-    onLogin: (payload: UserSignUpRequestDto) => Promise<void>;
+    onRegister: (payload: RegisterDto) => Promise<void>;
+    onLogin: (payload: SignInDto) => Promise<void>;
     isLoading: boolean;
     error: string | null;
 };
@@ -20,12 +19,12 @@ const useAuth = (): UseRegisterReturn => {
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
 
-    const onLogin = async (payload: UserSignUpRequestDto): Promise<void> => {
+    const onLogin = async (payload: SignInDto): Promise<void> => {
         setIsLoading(true);
         setError(null);
 
         try {
-            await loginAction(payload.email, payload.password);
+            await authActions.login(payload);
             router.push(AppRoute.ROOT);
         } catch (error) {
             setError(
@@ -38,12 +37,12 @@ const useAuth = (): UseRegisterReturn => {
         }
     };
 
-    const onRegister = async (payload: UserSignUpRequestDto): Promise<void> => {
+    const onRegister = async (payload: RegisterDto): Promise<void> => {
         setIsLoading(true);
         setError(null);
 
         try {
-            await registerAction(payload);
+            await authActions.register(payload);
             router.push(AppRoute.ROOT);
         } catch (error) {
             setError(
