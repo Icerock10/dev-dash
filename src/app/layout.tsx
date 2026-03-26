@@ -1,5 +1,7 @@
 import { type Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { Loader } from '~/shared/ui/components/components';
+import { GlobalLoaderProvider } from './providers/loader-provider/index';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './globals.css';
@@ -30,8 +32,11 @@ function RootLayout({
             className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
         >
             <body className="min-h-full flex flex-col">
-                {children}
                 <ToastContainer />
+                <GlobalLoaderProvider>
+                    {children}
+                    <Loader />
+                </GlobalLoaderProvider>
             </body>
         </html>
     );

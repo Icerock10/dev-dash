@@ -5,6 +5,7 @@ import {
 } from '~/entities/user/index';
 import { useAppForm } from '~/shared/hooks/hooks';
 import { useAuth } from '../../model/hooks/hooks';
+import { actions as authActions } from '../../actions/actions';
 
 const Register: React.FC = () => {
     const { errors, control, handleSubmit } = useAppForm<RegisterDto>({
@@ -16,10 +17,12 @@ const Register: React.FC = () => {
         validationSchema: registerValidationSchema,
     });
 
-    const { onRegister } = useAuth();
+    const { handleAuthAction } = useAuth({
+        authAction: authActions.register,
+    });
 
     const onSubmit = (event: React.SyntheticEvent): void => {
-        void handleSubmit(onRegister)(event);
+        void handleSubmit(handleAuthAction)(event);
     };
 
     return (

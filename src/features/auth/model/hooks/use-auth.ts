@@ -1,61 +1,47 @@
 'use client';
 
 import { AppRoute, DefaultErrorMessage } from '../../libs/enums/enums';
-import { type SignInDto, type RegisterDto } from '~/entities/user/index';
-import { useState } from '~/shared/hooks/hooks';
+import { useCallback, useLoading } from '~/shared/hooks/hooks';
 import { useRouter } from 'next/navigation';
-import { actions as authActions } from '../../actions/actions';
 import { HTTPError } from '~/shared/libs/modules/exceptions/exceptions';
+import { notification } from '~/shared/libs/modules/notification/notification';
 
-type UseRegisterReturn = {
-    onRegister: (payload: RegisterDto) => Promise<void>;
-    onLogin: (payload: SignInDto) => Promise<void>;
-    isLoading: boolean;
-    error: string | null;
+type Payload<T> = {
+    authAction: (payload: T) => Promise<unknown>;
+    redirectTo?: string;
 };
 
-const useAuth = (): UseRegisterReturn => {
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+type UseAuthReturn<T> = {
+    handleAuthAction: (payload: T) => Promise<void>;
+};
+
+const useAuth = <T>({
+    authAction,
+    redirectTo,
+}: Payload<T>): UseAuthReturn<T> => {
     const router = useRouter();
+    const { startLoading, stopLoading } = useLoading();
 
-    const onLogin = async (payload: SignInDto): Promise<void> => {
-        setIsLoading(true);
-        setError(null);
+    const handleAuthAction = useCallback(
+        async (payload: T): Promise<void> => {
+            startLoading();
+            try {
+                await authAction(payload);
+                router.push(redirectTo ?? AppRoute.ROOT);
+            } catch (_error) {
+                if (_error instanceof HTTPError) {
+                    notification.error(_error.message);
+                    return;
+                }
+                notification.error(DefaultErrorMessage.INTERNAL_ERROR);
+            } finally {
+                stopLoading();
+            }
+        },
+        [authAction, router, redirectTo, startLoading, stopLoading],
+    );
 
-        try {
-            await authActions.login(payload);
-            router.push(AppRoute.ROOT);
-        } catch (error) {
-            setError(
-                error instanceof HTTPError
-                    ? error.message
-                    : DefaultErrorMessage.INTERNAL_ERROR,
-            );
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    const onRegister = async (payload: RegisterDto): Promise<void> => {
-        setIsLoading(true);
-        setError(null);
-
-        try {
-            await authActions.register(payload);
-            router.push(AppRoute.ROOT);
-        } catch (error) {
-            setError(
-                error instanceof HTTPError
-                    ? error.message
-                    : DefaultErrorMessage.INTERNAL_ERROR,
-            );
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    return { onLogin, onRegister, isLoading, error };
+    return { handleAuthAction };
 };
 
 export { useAuth };
