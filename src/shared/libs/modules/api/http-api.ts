@@ -47,7 +47,7 @@ class HTTP implements HttpApi {
         const data = error.response?.data;
 
         throw new HTTPError({
-            message: JSON.stringify(data ?? error.message),
+            message: (data as { message?: string }).message ?? error.message,
             status,
         });
     };

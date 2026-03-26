@@ -34,7 +34,9 @@ class AuthService {
             storedHash: user.password,
         });
         if (!isPasswordValid) {
-            throw HTTPError.unauthorized();
+            throw HTTPError.unauthorized(
+                UserValidationMessage.CURRENT_PASSWORD_INVALID,
+            );
         }
 
         return user;

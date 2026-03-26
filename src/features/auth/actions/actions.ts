@@ -11,7 +11,7 @@ const login = async (payload: SignInDto): Promise<unknown> => {
     });
 
     if (response?.error) {
-        throw HTTPError.internalError();
+        throw HTTPError.unauthorized(response.error);
     }
 
     return response;
@@ -22,6 +22,7 @@ const register = async (payload: RegisterDto): Promise<void> => {
         method: HttpMethod.POST,
         data: payload,
     });
+
     await login(payload);
 };
 
