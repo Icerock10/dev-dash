@@ -4,7 +4,7 @@ import { ProjectPrefix } from './project.config.js';
 
 const config: UserConfig = {
     extends: ['@commitlint/config-conventional'],
-    ignores: [(commit) => commit.startsWith('chore: release')],
+    ignores: [(commit) => /^chore(\([^)]+\))?: release/.test(commit)],
     parserPreset: {
         parserOpts: {
             issuePrefixes: ProjectPrefix.ISSUE_PREFIXES.map(
