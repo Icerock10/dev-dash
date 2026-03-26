@@ -12,6 +12,7 @@ class BaseConfig {
             APP: {
                 NODE_ENV: process.env.NODE_ENV,
                 NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET as string,
+                NEXTAUTH_URL: process.env.NEXTAUTH_URL as string,
             },
             DB: {
                 DATABASE_URL: process.env.DATABASE_URL as string,

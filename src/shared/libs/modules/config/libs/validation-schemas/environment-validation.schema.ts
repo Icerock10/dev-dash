@@ -10,6 +10,7 @@ const EnvironmentValidationSchema = z.object({
     APP: z.object({
         NODE_ENV: z.enum(NodeEnvironment),
         NEXTAUTH_SECRET: z.string(),
+        NEXTAUTH_URL: z.string(),
     }),
 
     DB: z.object({
