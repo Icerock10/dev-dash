@@ -79,7 +79,6 @@ const importConfig = {
         'import/exports-last': ['error'],
         'import/extensions': ['error', 'never'],
         'import/newline-after-import': ['error'],
-        'import/no-default-export': ['error'],
         'import/no-duplicates': ['error'],
     },
     settings: {
@@ -162,9 +161,6 @@ const overridesConfigs = [
         files: [
             'src/app/**/page.tsx',
             'src/app/**/layout.tsx',
-            'src/app/**/loading.tsx',
-            'src/app/**/error.tsx',
-            'src/app/**/route.ts',
             'next.config.ts',
             'tailwind.config.ts',
             'postcss.config.js',
@@ -175,7 +171,6 @@ const overridesConfigs = [
             'prisma.config.ts',
         ],
         rules: {
-            'import/no-default-export': ['off'],
             '@typescript-eslint/explicit-function-return-type': ['off'],
         },
     },

@@ -1,6 +1,6 @@
 import { type GitHubPRDSL as LibraryGitHubDSL, danger, fail } from 'danger';
 
-import { ProjectPrefix } from './project.config.js';
+import { ProjectPrefix } from './project.config';
 
 const LABELS_EMPTY_LENGTH = 0;
 
