@@ -1,36 +1,134 @@
+# Dev-Dash App
+
+## ℹ️ General Info
+
+This is a web application for tracking/searching jobs.
+
+## 🏭 Application
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+_To work properly, fill in the **`.env`** file. Use the **`.env.example`** file as an example._
+
+## 🖍 Requirements
+
+- [NodeJS](https://nodejs.org/en/) (22.x.x);
+- [NPM](https://www.npmjs.com/) (10.x.x);
+- [PostgreSQL](https://www.postgresql.org/) (16.0)
+- run **`npx simple-git-hooks`** at the root of the project, before the start (it will set
+  the [pre-commit hook](https://www.npmjs.com/package/simple-git-hooks) for any commits).
 
 ## Getting Started
 
-First, run the development server:
+**Run the following commands _at root_**:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- `npm install`
+- `docker compose up --build`
+- `npm run dev`
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏗 Architecture
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Database Schema:
 
-## Learn More
+```mermaid
+erDiagram
+    users ||--o{ jobs : userId
 
-To learn more about Next.js, take a look at the following resources:
+    users {
+        string id
+        string email
+        string password
+        string name
+        datetime createdAt
+        datetime updatedAt
+    }
+    jobs {
+        string id
+        string company
+        string title
+        string location
+        string salaryRange
+        string tags
+        string recruiterName
+        string status
+        string notes
+        string userId
+        datetime createdAt
+        datetime updatedAt
+    }
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🛖 Stack Overview
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🌑 Backend
 
-## Deploy on Vercel
+- [Next.js](https://nextjs.org/) — server‑side routes, API endpoints, and rendering.
+- [Prisma](https://www.prisma.io/postgres) — type‑safe ORM for PostgreSQL.
+- [PostgreSQL](https://www.postgresql.org/) — primary database.
+- [NextAuth](https://next-auth.js.org/) — authentication and session management.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🌕 Frontend
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [React](https://react.dev/) — UI library.
+- [Tailwind](https://tailwindcss.com/) — utility‑first styling.
+- [React-Hook-Form](https://react-hook-form.com/?utm_source=copilot.com) - form handling.
+
+### 🥊 Code quality
+
+- [simple-git-hooks](https://www.npmjs.com/package/simple-git-hooks) — a tool that lets you easily manage git hooks.
+- [lint-staged](https://www.npmjs.com/package/lint-staged) — run linters on git staged files.
+- [dangerjs](https://danger.systems/js/) — automate common code review chores.
+- [commitlint](https://commitlint.js.org/) — helps your team adhere to a commit convention.
+- [editorconfig](https://editorconfig.org/) — helps maintain consistent coding styles for multiple developers working on
+  the same project across various editors and IDEs.
+- [prettier](https://prettier.io/) — an opinionated code formatter.
+- [ls-lint](https://ls-lint.org/) — file and directory name linter.
+- [eslint](https://eslint.org/) — find problems in your JS code.
+- [stylelint](https://stylelint.io/) — find and fix problems in your CSS code.
+
+## 🧑‍💻 CI
+
+### 🗞 Git
+
+#### 🏅 Pull Request flow
+
+```
+<type>: <ticket-title> <project-prefix>-<issue-number>
+```
+
+For the full list of types check [Conventional Commits](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional)
+
+##### Example
+
+- `feat: + add dashboard screen ir-20`
+
+#### 🌳 Branch flow
+
+```
+<issue-number>-<type>-<short-desc>
+```
+
+##### Examples
+
+- `14-feat-add-dashboard`
+- `12-feat-add-user-flow`
+- `34-fix-user-flow`
+
+#### 🗂 Commit flow
+
+We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) to handle commit messages
+
+```
+<type>: <description> <project-prefix>-<issue-number>
+```
+
+##### Examples
+
+- `feat: + dashboard component dd-5`
+- `fix: * update dashboard card size dd-2`
+
+## 📦 CD
+
+[Handled](.github/workflows/cd.yml) by [GitHub Actions](https://docs.github.com/en/actions).
