@@ -1,5 +1,6 @@
 import { type AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { config } from '~/shared/libs/modules/config/config';
 import { authService } from '~/features/auth/index';
 import { AppRoute } from '~/shared/libs/enums/enums';
 
@@ -30,7 +31,7 @@ const authOptions: AuthOptions = {
         signIn: AppRoute.LOGIN,
     },
 
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: config.ENV.APP.NEXTAUTH_SECRET,
 };
 
 export { authOptions };

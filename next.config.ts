@@ -1,4 +1,5 @@
 import { type NextConfig } from 'next';
+import '~/shared/libs/modules/config/config';
 
 const nextConfig: NextConfig = {
     turbopack: {

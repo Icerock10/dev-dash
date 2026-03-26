@@ -65,7 +65,7 @@
         "typescript": "^5"
     },
     "simple-git-hooks": {
-        "pre-commit": "npx lint-staged",
+        "pre-commit": "npm run lint:type && npx lint-staged",
         "commit-msg": "npx commitlint --edit $1"
     }
 }
