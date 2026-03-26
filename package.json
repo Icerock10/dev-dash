@@ -19,7 +19,6 @@
         "prisma:migrate": "prisma migrate dev --name init",
         "prisma:reset": "prisma migrate reset",
         "prisma:studio": "prisma studio",
-        "prepare": "simple-git-hooks",
         "postinstall": "prisma generate"
     },
     "dependencies": {
@@ -31,6 +30,7 @@
         "dotenv": "17.3.1",
         "next": "16.2.1",
         "next-auth": "4.24.13",
+        "prisma": "7.5.0",
         "react": "19.2.4",
         "react-dom": "19.2.4",
         "react-toastify": "11.0.5",
@@ -58,7 +58,6 @@
         "eslint-plugin-unicorn": "^63.0.0",
         "lint-staged": "16.4.0",
         "prettier": "3.8.1",
-        "prisma": "7.5.0",
         "react-hook-form": "7.72.0",
         "simple-git-hooks": "2.13.1",
         "tailwindcss": "^4",
