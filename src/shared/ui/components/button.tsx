@@ -32,7 +32,8 @@ const Button = <T extends string>({
 
     const buttonClasses = {
         [ButtonVariant.TAB]: `flex-1 p-1.5 text-sm rounded-lg cursor-pointer ${getActiveTabClass}`,
-        [ButtonVariant.PRIMARY]: 'bg-primary w-full p-2 rounded-md text-sm',
+        [ButtonVariant.PRIMARY]:
+            'flex items-center justify-center gap-2 bg-primary w-full p-2 rounded-md text-sm cursor-pointer',
     };
 
     return (
@@ -43,7 +44,11 @@ const Button = <T extends string>({
             onClick={onClick}
             type={type}
         >
-            {icon && <span aria-hidden="true">{icon}</span>}
+            {icon && (
+                <span className="h-3 w-3" aria-hidden="true">
+                    {icon}
+                </span>
+            )}
             {!isIconOnly && <span>{label}</span>}
             {loader}
         </button>

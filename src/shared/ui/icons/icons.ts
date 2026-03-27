@@ -4,3 +4,4 @@ export { default as JobsIcon } from './jobs.svg';
 export { default as OverviewIcon } from './overview.svg';
 export { default as ProfileIcon } from './profile.svg';
 export { default as TasksIcon } from './tasks.svg';
+export { default as PlusIcon } from './plus.svg';
