@@ -32,7 +32,7 @@ function RootLayout({
             lang="en"
             className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
         >
-            <body className="flex min-h-full flex-col">
+            <body className="flex min-h-full">
                 <Providers>
                     <SideBar />
                     {children}
