@@ -34,10 +34,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ```mermaid
 erDiagram
-    users ||--o{ jobs : userId
-
+    users ||--o{ jobs : "userId"
+    jobs ||--o{ tasks : "jobId"
     users {
-        string id
+        string id PK
         string email
         string password
         string name
@@ -45,7 +45,8 @@ erDiagram
         datetime updatedAt
     }
     jobs {
-        string id
+        string id PK
+        string userId FK
         string company
         string title
         string location
@@ -54,7 +55,16 @@ erDiagram
         string recruiterName
         string status
         string notes
-        string userId
+        datetime createdAt
+        datetime updatedAt
+    }
+    tasks {
+        string id PK
+        string jobId FK
+        string title
+        string description
+        boolean completed
+        datetime dueDate
         datetime createdAt
         datetime updatedAt
     }
