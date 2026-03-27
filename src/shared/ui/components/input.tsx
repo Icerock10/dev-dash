@@ -71,7 +71,7 @@ const Input = <T extends FieldValues>({
     return (
         <div className="mb-5">
             <label
-                className="block text-[13px] font-medium text-slate-400 mb-1.5"
+                className="mb-1.5 block text-[13px] font-medium text-slate-400"
                 htmlFor={inputId}
             >
                 {label}
@@ -80,7 +80,7 @@ const Input = <T extends FieldValues>({
                 <input
                     {...field}
                     aria-invalid={hasError}
-                    className="border-border w-full placeholder:text-xs placeholder:text-slate-600 border focus:outline-none py-1.5 px-3 rounded-md"
+                    className="border-border w-full rounded-md border px-3 py-1.5 placeholder:text-xs placeholder:text-slate-600 focus:outline-none"
                     disabled={disabled}
                     id={inputId}
                     max={max}
@@ -111,7 +111,7 @@ const Input = <T extends FieldValues>({
                 )}
             </div>
             {hasError && (
-                <p className="text-sm text-red-400 mt-3">{error as string}</p>
+                <p className="mt-3 text-sm text-red-400">{error as string}</p>
             )}
         </div>
     );
