@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server';
 import { HTTPCode } from '~/shared/libs/enums/enums';
 import { jobService, jobValidationSchema } from '~/entities/job/index';
-import { handleRouteError } from '~/shared/libs/modules/route-handler/libs/helpers/helpers';
-import { initRouteHandler } from '~/shared/libs/modules/route-handler/route.handler';
+import {
+    initRouteHandler,
+    handleRouteError,
+} from '~/shared/libs/modules/route-handler/route.handler';
+import { getServerSession } from 'next-auth';
+import { HTTPError } from '~/shared/libs/modules/exceptions/exceptions';
 
 const GET = async (): Promise<NextResponse> => {
     try {
@@ -15,7 +19,14 @@ const GET = async (): Promise<NextResponse> => {
 
 const POST = initRouteHandler(
     jobValidationSchema,
-    (body) => jobService.create(body),
+    async (body) => {
+        const session = await getServerSession();
+        const userId = session?.user.id;
+        if (!userId) {
+            throw HTTPError.unauthorized();
+        }
+        return jobService.create(userId, body);
+    },
     HTTPCode.CREATED,
 );
 

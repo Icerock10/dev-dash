@@ -6,7 +6,11 @@ import { type HTTPCode } from '~/shared/libs/enums/enums';
 
 type Constructor<TBody, TResult> = {
     schema: ZodType<TBody>;
-    handler: (body: TBody, req: NextRequest) => Promise<TResult>;
+    handler: (
+        body: TBody,
+        req: NextRequest,
+        params: Record<string, string>,
+    ) => Promise<TResult>;
     status: ValueOf<typeof HTTPCode>;
 };
 
@@ -25,11 +29,15 @@ class RouteHandler<TBody, TResult> {
         this.status = status;
     }
 
-    public handle = async (req: NextRequest): Promise<Response> => {
+    public handle = async (
+        req: NextRequest,
+        { params }: { params: Promise<Record<string, string>> },
+    ): Promise<Response> => {
         try {
+            const resolvedParams = await params;
             const json = (await req.json()) as unknown;
             const body = this.schema.parse(json);
-            const result = await this.handler(body, req);
+            const result = await this.handler(body, req, resolvedParams);
             return NextResponse.json(result, { status: this.status });
         } catch (error) {
             return handleRouteError(error);

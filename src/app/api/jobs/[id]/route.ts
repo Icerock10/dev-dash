@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server';
-import { handleRouteError } from '~/shared/libs/modules/route-handler/libs/helpers/helpers';
+import {
+    handleRouteError,
+    initRouteHandler,
+} from '~/shared/libs/modules/route-handler/route.handler';
 import { HTTPCode } from '~/shared/libs/enums/enums';
-import { jobService, type JobUpdateDto } from '~/entities/job/index';
+import { jobService, jobUpdateValidationSchema } from '~/entities/job/index';
 
 const GET = async (
     req: Request,
@@ -17,20 +20,11 @@ const GET = async (
     }
 };
 
-const PATCH = async (
-    req: Request,
-    { params }: { params: Promise<{ id: string }> },
-): Promise<NextResponse> => {
-    try {
-        const { id } = await params;
-        const json = (await req.json()) as JobUpdateDto;
-        const job = await jobService.update(id, json);
-
-        return NextResponse.json(job, { status: HTTPCode.OK });
-    } catch (error) {
-        return handleRouteError(error);
-    }
-};
+const PATCH = initRouteHandler(
+    jobUpdateValidationSchema,
+    (body, _req, params) => jobService.update(params.id, body),
+    HTTPCode.OK,
+);
 
 const DELETE = async (
     req: Request,
