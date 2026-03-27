@@ -1,13 +1,22 @@
 const CHAR_INDEX = 0;
+import { LoaderVariant } from '~/shared/libs/enums/enums';
+import { Loader } from './loader';
 
 type Properties = {
     userName?: string | null;
 };
 
 const Avatar: React.FC<Properties> = ({ userName }) => {
-    if (!userName) {
-        return null;
+    const isLoading = !userName;
+
+    if (isLoading) {
+        return (
+            <div className="flex justify-center">
+                <Loader variant={LoaderVariant.INLINE} />
+            </div>
+        );
     }
+
     const firstChar = userName.charAt(CHAR_INDEX).toUpperCase();
 
     return (

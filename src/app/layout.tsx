@@ -2,6 +2,7 @@ import { type Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Loader } from '~/shared/ui/components/components';
 import { SideBar } from '~/widgets/index';
+import { LoaderVariant } from '../shared/libs/enums/enums';
 import { Providers } from './providers/providers';
 import 'react-toastify/dist/ReactToastify.css';
 import './globals.css';
@@ -35,7 +36,7 @@ function RootLayout({
                 <Providers>
                     <SideBar />
                     {children}
-                    <Loader />
+                    <Loader variant={LoaderVariant.FULL} />
                 </Providers>
             </body>
         </html>
