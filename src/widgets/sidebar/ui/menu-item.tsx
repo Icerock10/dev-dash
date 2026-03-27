@@ -7,7 +7,7 @@ type Properties = {
 };
 
 const MenuItem: React.FC<Properties> = ({ item, isActive }) => {
-    const Icon = item.icon;
+    const Icon = item.icon as React.FC<React.SVGProps<SVGSVGElement>>;
     const linkActiveClass = isActive
         ? 'text-white bg-white/8 font-medium'
         : 'text-slate-400 hover:text-white hover:bg-white/5';

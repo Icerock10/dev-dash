@@ -3,7 +3,7 @@ import { type AppRoute } from '~/shared/libs/enums/enums';
 
 type Menu = {
     label: string;
-    icon: React.FC<React.SVGProps<SVGSVGElement>>;
+    icon: unknown;
     to: ValueOf<typeof AppRoute>;
 };
 

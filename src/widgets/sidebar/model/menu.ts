@@ -10,24 +10,24 @@ import {
 const menuItems: Menu[] = [
     {
         label: 'Overview',
-        icon: OverviewIcon as Menu['icon'],
+        icon: OverviewIcon,
         to: AppRoute.ROOT,
     },
     {
         label: 'Jobs',
         to: AppRoute.JOBS,
-        icon: JobsIcon as Menu['icon'],
+        icon: JobsIcon,
     },
     {
         label: 'Tasks',
         to: AppRoute.TASKS,
-        icon: TasksIcon as Menu['icon'],
+        icon: TasksIcon,
     },
 
     {
         label: 'Profile',
         to: AppRoute.PROFILE,
-        icon: ProfileIcon as Menu['icon'],
+        icon: ProfileIcon,
     },
 ];
 
