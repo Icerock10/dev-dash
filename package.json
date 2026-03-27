@@ -16,9 +16,9 @@
         "prettify": "prettier --write \"**/*.{ts,tsx,json,md,html,yml}\"",
         "lint:fix": "eslint src --fix",
         "prisma:generate": "prisma generate",
-        "prisma:migrate": "prisma migrate dev --name init",
-        "prisma:reset": "prisma migrate reset",
-        "prisma:studio": "prisma studio",
+        "migrate:dev": "prisma migrate dev --name init",
+        "migrate:reset": "prisma migrate reset",
+        "seed:run": "prisma db seed",
         "postinstall": "prisma generate"
     },
     "dependencies": {
@@ -61,6 +61,7 @@
         "react-hook-form": "7.72.0",
         "simple-git-hooks": "2.13.1",
         "tailwindcss": "^4",
+        "tsx": "4.21.0",
         "typescript": "^5"
     },
     "simple-git-hooks": {
