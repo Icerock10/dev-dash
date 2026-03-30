@@ -33,19 +33,21 @@ const Button = <T extends string>({
     const buttonClasses = {
         [ButtonVariant.TAB]: `flex-1 p-1.5 text-sm rounded-lg cursor-pointer ${getActiveTabClass}`,
         [ButtonVariant.PRIMARY]:
-            'flex items-center justify-center gap-2 bg-primary w-full p-2 rounded-md text-sm cursor-pointer',
+            'gap-2 bg-primary w-full p-2 rounded-md text-sm cursor-pointer',
+        [ButtonVariant.GHOST]:
+            'flex-1 text-[11px] rounded-lg cursor-pointer flex-row-reverse',
     };
 
     return (
         <button
             aria-label={isIconOnly ? label : undefined}
             disabled={isDisabled}
-            className={buttonClasses[variant as keyof typeof buttonClasses]}
+            className={`${buttonClasses[variant as keyof typeof buttonClasses]} flex items-center justify-center gap-2`}
             onClick={onClick}
             type={type}
         >
             {icon && (
-                <span className="h-3 w-3" aria-hidden="true">
+                <span className="flex h-3 w-3 items-center" aria-hidden="true">
                     {icon}
                 </span>
             )}
