@@ -5,7 +5,7 @@ import {
 } from '../model/libs/validation-schemas/validation-schemas';
 import { type BaseService } from '~/shared/libs/types/types';
 import { type JobRepository } from './job.repository';
-import { HTTPError } from '../../../shared/libs/modules/exceptions/http-error.exception';
+import { HTTPError } from '~/shared/libs/modules/exceptions/exceptions';
 
 type Constructor = {
     jobRepository: JobRepository;
