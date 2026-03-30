@@ -1,19 +1,28 @@
 import { type JobDto } from '../model/libs/types/types';
-import { getCompanyColor, JOB_STATUS_COLORS } from './libs/helpers/helpers';
+import { getCompanyColor } from './libs/helpers/helpers';
+import { useCallback } from '~/shared/hooks/hooks';
 import { JobTagVariant, JobTag } from './job-tag';
 import { firstCharUpperCase } from '~/shared/libs/helpers/helpers';
 
+import { JobCardStatus } from '~/features/job/index';
+
 type Properties = {
     job: JobDto;
+    openJobId: string | null;
+    onOpen: (payload: null | string) => void;
 };
 
-const JobCard: React.FC<Properties> = ({ job }) => {
+const JobCard: React.FC<Properties> = ({ job, openJobId, onOpen }) => {
     const companyColor = getCompanyColor(job.company);
-    const statusColor = JOB_STATUS_COLORS[job.status];
     const companyInitial = firstCharUpperCase(job.company);
     const recruiterInitial = job.recruiterName
         ? firstCharUpperCase(job.recruiterName)
         : '?';
+    const isOpen = openJobId === job.id;
+
+    const onJobStatusOpen = useCallback(() => {
+        onOpen(isOpen ? null : job.id);
+    }, [isOpen, job.id, onOpen]);
 
     return (
         <div className="cursor-pointer rounded-xl border border-white/6 bg-[#161b27] p-4 hover:bg-[#1c2235]">
@@ -33,14 +42,11 @@ const JobCard: React.FC<Properties> = ({ job }) => {
                         </div>
                     </div>
                 </div>
-                <div
-                    className={`flex items-center gap-1.5 rounded-md border border-slate-800 px-2.5 py-1 text-[11px] ${statusColor.color} transition-opacity hover:opacity-80`}
-                >
-                    <span
-                        className={`${statusColor.bg} h-1.5 w-1.5 shrink-0 rounded-full`}
-                    ></span>
-                    <span>{job.status}</span>
-                </div>
+                <JobCardStatus
+                    jobStatus={job.status}
+                    isOpen={isOpen}
+                    onJobStatusOpen={onJobStatusOpen}
+                />
             </div>
             <div className="mb-1 text-[15px] leading-snug font-medium text-white">
                 {job.title}
