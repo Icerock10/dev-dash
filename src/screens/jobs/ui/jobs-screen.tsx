@@ -1,6 +1,7 @@
 import { Header } from '~/widgets/index';
 import { Button } from '~/shared/ui/components/components';
 import { PlusIcon } from '~/shared/ui/icons/icons';
+import { JobsList } from '~/widgets/jobs-list/index';
 
 const JobsScreen: React.FC = () => {
     return (
@@ -11,6 +12,7 @@ const JobsScreen: React.FC = () => {
             >
                 <Button icon={<PlusIcon />} label="Add Listing" />
             </Header>
+            <JobsList />
         </div>
     );
 };
