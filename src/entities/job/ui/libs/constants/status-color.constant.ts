@@ -1,4 +1,4 @@
-import { JobStatus } from '~/entities/job/model/libs/enums/enums';
+import { JobStatus } from '~/shared/libs/enums/enums';
 
 const JOB_STATUS_COLORS = {
     [JobStatus.NEW]: {
