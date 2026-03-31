@@ -22,6 +22,15 @@ const updateJobStatus = async (
     revalidatePath(AppRoute.JOBS);
 };
 
+const updateJob = async (
+    jobId: string,
+    payload: JobCreateDto,
+): Promise<void> => {
+    await checkAuthAndGetUserId();
+    await jobService.update(jobId, payload);
+    revalidatePath(AppRoute.JOBS);
+};
+
 const deleteJob = async (jobId: string): Promise<void> => {
     await checkAuthAndGetUserId();
     await jobService.delete(jobId);
@@ -37,4 +46,4 @@ const checkAuthAndGetUserId = async (): Promise<string> => {
     return userId;
 };
 
-export { createJob, deleteJob, updateJobStatus };
+export { createJob, deleteJob, updateJobStatus, updateJob };
