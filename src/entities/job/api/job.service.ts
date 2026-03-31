@@ -29,10 +29,9 @@ class JobService implements Pick<BaseService<JobDto, unknown>, 'getAll'> {
         }
         return foundJob;
     }
-    public async update(id: string, payload: JobUpdateDto): Promise<JobDto> {
+    public async update(id: string, payload: JobUpdateDto): Promise<void> {
         try {
-            const updatedJob = await this.jobRepository.update(id, payload);
-            return updatedJob;
+            await this.jobRepository.update(id, payload);
         } catch {
             throw HTTPError.badRequest();
         }

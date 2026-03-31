@@ -20,7 +20,7 @@ const JobCard: React.FC<Properties> = ({ job, openJobId, onOpen }) => {
         : '?';
     const isOpen = openJobId === job.id;
 
-    const onJobStatusOpen = useCallback(() => {
+    const onJobStatusToggle = useCallback(() => {
         onOpen(isOpen ? null : job.id);
     }, [isOpen, job.id, onOpen]);
 
@@ -45,7 +45,8 @@ const JobCard: React.FC<Properties> = ({ job, openJobId, onOpen }) => {
                 <JobCardStatus
                     jobStatus={job.status}
                     isOpen={isOpen}
-                    onJobStatusOpen={onJobStatusOpen}
+                    onJobStatusToggle={onJobStatusToggle}
+                    jobId={job.id}
                 />
             </div>
             <div className="mb-1 text-[15px] leading-snug font-medium text-white">
