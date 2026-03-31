@@ -35,8 +35,10 @@ const Button = <T extends string>({
     const buttonClasses: Record<ValueOf<typeof ButtonVariant>, string> = {
         [ButtonVariant.TAB]: `flex-1 p-1.5 text-sm rounded-lg cursor-pointer ${activeTabClass}`,
         [ButtonVariant.PRIMARY]:
-            'gap-2 bg-primary w-full p-2 rounded-md text-sm cursor-pointer',
+            'gap-2 bg-primary flex-1 p-2.5 rounded-md text-sm cursor-pointer',
         [ButtonVariant.GHOST]: 'rounded-lg cursor-pointer flex-row-reverse',
+        [ButtonVariant.SECONDARY]:
+            'flex-1 py-2.5 rounded-lg border border-[#1e2a45] text-sm text-slate-400 hover:text-white hover:bg-white/4 transition-colors font-medium',
     };
 
     return (
@@ -45,8 +47,8 @@ const Button = <T extends string>({
             disabled={isDisabled}
             className={getClassNames(
                 className,
-                buttonClasses[variant],
-                'flex items-center gap-2',
+                !isIconOnly && buttonClasses[variant],
+                'flex cursor-pointer items-center justify-center gap-2',
             )}
             onClick={onClick}
             type={type}
