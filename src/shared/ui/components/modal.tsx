@@ -11,6 +11,7 @@ type Properties = {
     children: React.ReactNode;
     onClose?: () => void;
     isOpen: boolean;
+    logo?: React.ReactNode;
 };
 
 const Modal: React.FC<Properties> = ({
@@ -19,6 +20,7 @@ const Modal: React.FC<Properties> = ({
     children,
     isOpen,
     onClose,
+    logo,
 }) => {
     const [portalElement, setPortalElement] = useState<HTMLElement | null>(
         null,
@@ -54,15 +56,18 @@ const Modal: React.FC<Properties> = ({
             >
                 {title && (
                     <div className="flex items-center justify-between border-b border-[#1e2a45] px-6 py-5">
-                        <div>
-                            <h2 className="text-[16px] font-semibold text-white">
-                                {title}
-                            </h2>
-                            {subTitle && (
-                                <p className="mt-0.5 text-xs text-slate-500">
-                                    {subTitle}
-                                </p>
-                            )}
+                        <div className="flex items-center gap-3">
+                            {logo}
+                            <div>
+                                <h2 className="text-[16px] font-semibold text-white">
+                                    {title}
+                                </h2>
+                                {subTitle && (
+                                    <p className="mt-0.5 text-xs text-slate-500">
+                                        {subTitle}
+                                    </p>
+                                )}
+                            </div>
                         </div>
                         <Button
                             className="h-8 w-8 justify-center rounded-lg text-slate-500 transition-colors hover:bg-white/6 hover:text-white"
