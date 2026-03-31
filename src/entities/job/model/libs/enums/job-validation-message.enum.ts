@@ -8,7 +8,7 @@ const JobValidationMessage = {
     LOCATION_MAX_LENGTH: `Location must be at most ${String(JobValidationRule.LOCATION_MAX_LENGTH)} characters`,
     RECRUITER_NAME_MAX_LENGTH: `Recruiter name must be at most ${String(JobValidationRule.RECRUITER_NAME_MAX_LENGTH)} characters`,
     SALARY_RANGE_INVALID: 'Salary range must be in format 0-500 (e.g. 80-100)',
-    TAGS_INVALID: 'Tag can only contain letters, numbers and: + # . -',
+    TAGS_INVALID: 'Tag can only contain letters, numbers, comma separated',
 } as const;
 
 export { JobValidationMessage };

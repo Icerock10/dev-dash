@@ -7,7 +7,6 @@ import {
 } from '../enums/enums';
 
 const jobValidationSchema = z.object({
-    userId: z.string(),
     company: z
         .string()
         .min(JobValidationRule.COMPANY_MIN_LENGTH, {
@@ -38,13 +37,27 @@ const jobValidationSchema = z.object({
         })
         .nullable()
         .optional(),
-    tags: z
-        .string()
-        .regex(JobValidationRegexRule.VALID_TAGS, {
-            message: JobValidationMessage.TAGS_INVALID,
-        })
-        .array()
-        .default([]),
+    tags: z.preprocess(
+        (value) => {
+            if (Array.isArray(value)) {
+                return value as unknown[];
+            }
+            if (typeof value === 'string') {
+                return value
+                    .split(',')
+                    .map((t) => t.trim())
+                    .filter(Boolean);
+            }
+            return [];
+        },
+        z
+            .string()
+            .regex(JobValidationRegexRule.VALID_TAGS, {
+                message: JobValidationMessage.TAGS_INVALID,
+            })
+            .array()
+            .default([]),
+    ),
     recruiterName: z
         .string()
         .max(JobValidationRule.RECRUITER_NAME_MAX_LENGTH, {

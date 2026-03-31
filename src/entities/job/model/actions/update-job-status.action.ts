@@ -7,7 +7,7 @@ import { type JobStatus } from '../libs/enums/enums';
 
 const updateJobStatus = async (
     jobId: string,
-    status: JobStatus,
+    status: keyof typeof JobStatus,
 ): Promise<void> => {
     await jobService.update(jobId, { status });
     revalidatePath(AppRoute.JOBS);
