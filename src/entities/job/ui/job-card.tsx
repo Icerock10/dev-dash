@@ -1,8 +1,13 @@
 import { type JobDto } from '../model/libs/types/types';
-import { getCompanyColor } from './libs/helpers/helpers';
-import { useCallback } from '~/shared/hooks/hooks';
+import { useCallback, useState } from '~/shared/hooks/hooks';
 import { JobTagVariant, JobTag } from './job-tag';
-import { firstCharUpperCase } from '~/shared/libs/helpers/helpers';
+import {
+    firstCharUpperCase,
+    normalizeStatus,
+} from '~/shared/libs/helpers/helpers';
+import { JOB_STATUS_COLORS } from '~/entities/job/ui/libs/helpers/helpers';
+import { JobPreview } from './job-preview';
+import { CompanyLogo } from './company-logo';
 
 import { JobCardStatus } from '~/features/job/index';
 
@@ -13,8 +18,6 @@ type Properties = {
 };
 
 const JobCard: React.FC<Properties> = ({ job, openJobId, onOpen }) => {
-    const companyColor = getCompanyColor(job.company);
-    const companyInitial = firstCharUpperCase(job.company);
     const recruiterInitial = job.recruiterName
         ? firstCharUpperCase(job.recruiterName)
         : '?';
@@ -24,59 +27,77 @@ const JobCard: React.FC<Properties> = ({ job, openJobId, onOpen }) => {
         onOpen(isOpen ? null : job.id);
     }, [isOpen, job.id, onOpen]);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const togglePreviewModal = useCallback(() => {
+        setIsModalOpen((prev) => !prev);
+    }, []);
+    const companyLogo = <CompanyLogo jobCompanyName={job.company} />;
+    const statusBadges = Object.keys(JOB_STATUS_COLORS).map((status) =>
+        normalizeStatus(status),
+    );
     return (
-        <div className="cursor-pointer rounded-xl border border-white/6 bg-[#161b27] p-4 hover:bg-[#1c2235]">
-            <div className="mb-3 flex items-start justify-between">
-                <div className="flex items-center gap-2.5">
-                    <div
-                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${companyColor.bg} text-sm font-semibold ${companyColor.text}`}
-                    >
-                        {companyInitial}
-                    </div>
-                    <div>
-                        <div className="text-sm font-medium text-white">
-                            {job.company}
+        <>
+            <JobPreview
+                isModalOpen={isModalOpen}
+                togglePreviewModal={togglePreviewModal}
+                job={job}
+                logo={companyLogo}
+                statusBadges={statusBadges}
+            />
+            <div
+                onClick={togglePreviewModal}
+                className="cursor-pointer rounded-xl border border-white/6 bg-[#161b27] p-4 hover:bg-[#1c2235]"
+            >
+                <div className="mb-3 flex items-start justify-between">
+                    <div className="flex items-center gap-2.5">
+                        {companyLogo}
+                        <div>
+                            <div className="text-sm font-medium text-white">
+                                {job.company}
+                            </div>
+                            <div className="text-[11px] text-slate-500">
+                                {job.location}
+                            </div>
                         </div>
-                        <div className="text-[11px] text-slate-500">
-                            {job.location}
-                        </div>
                     </div>
-                </div>
-                <JobCardStatus
-                    jobStatus={job.status}
-                    isOpen={isOpen}
-                    onJobStatusToggle={onJobStatusToggle}
-                    jobId={job.id}
-                />
-            </div>
-            <div className="mb-1 text-[15px] leading-snug font-medium text-white">
-                {job.title}
-            </div>
-            <div className="mt-2 mb-3 flex flex-wrap gap-1.5">
-                {job.tags.map((tag) => (
-                    <JobTag key={tag} label={tag} />
-                ))}
-                {job.salaryRange && (
-                    <JobTag
-                        label={job.salaryRange}
-                        variant={JobTagVariant.SALARY}
+                    <JobCardStatus
+                        jobStatus={job.status}
+                        isOpen={isOpen}
+                        onJobStatusToggle={onJobStatusToggle}
+                        jobId={job.id}
+                        statusBadges={statusBadges}
                     />
-                )}
-            </div>
-            <div className="flex items-center justify-between border-t border-white/6 pt-3">
-                <div className="flex items-center gap-2">
-                    <div className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-700 text-[9px] font-medium text-white">
-                        {recruiterInitial}
+                </div>
+                <div className="mb-1 text-[15px] leading-snug font-medium text-white">
+                    {job.title}
+                </div>
+                <div className="mt-2 mb-3 flex flex-wrap gap-1.5">
+                    {job.tags.map((tag) => (
+                        <JobTag key={tag} label={tag} />
+                    ))}
+                    {job.salaryRange && (
+                        <JobTag
+                            label={job.salaryRange}
+                            variant={JobTagVariant.SALARY}
+                        />
+                    )}
+                </div>
+                <div className="flex items-center justify-between border-t border-white/6 pt-3">
+                    <div className="flex items-center gap-2">
+                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-700 text-[9px] font-medium text-white">
+                            {recruiterInitial}
+                        </div>
+                        <span className="text-[11px] text-slate-500">
+                            {job.recruiterName}
+                        </span>
                     </div>
-                    <span className="text-[11px] text-slate-500">
-                        {job.recruiterName}
+                    <span className="text-[11px] text-slate-600">
+                        View details →
                     </span>
                 </div>
-                <span className="text-[11px] text-slate-600">
-                    View details →
-                </span>
             </div>
-        </div>
+        </>
     );
 };
 
