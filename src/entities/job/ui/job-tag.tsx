@@ -1,4 +1,5 @@
 import { type ValueOf } from '~/shared/libs/types/types';
+import { getClassNames } from '~/shared/libs/helpers/helpers';
 
 const JobTagVariant = {
     DEFAULT: 'default',
@@ -22,7 +23,10 @@ const JobTag: React.FC<Properties> = ({
 }) => {
     return (
         <span
-            className={`rounded-md border px-2 py-0.5 text-[10px] ${JOB_TAG_STYLES[variant]}`}
+            className={getClassNames(
+                'rounded-md border px-2 py-0.5 text-[10px]',
+                JOB_TAG_STYLES[variant],
+            )}
         >
             {variant === JobTagVariant.SALARY ? <span>€{label}k</span> : label}
         </span>
