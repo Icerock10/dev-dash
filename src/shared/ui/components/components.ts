@@ -7,3 +7,4 @@ export { Logo } from './logo';
 export { Avatar } from './avatar';
 export { Modal } from './modal';
 export { Textarea } from './text-area';
+export { Select } from './select';

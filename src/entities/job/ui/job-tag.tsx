@@ -24,7 +24,7 @@ const JobTag: React.FC<Properties> = ({
         <span
             className={`rounded-md border px-2 py-0.5 text-[10px] ${JOB_TAG_STYLES[variant]}`}
         >
-            {label}
+            {variant === JobTagVariant.SALARY ? <span>€{label}k</span> : label}
         </span>
     );
 };

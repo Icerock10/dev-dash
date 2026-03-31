@@ -8,8 +8,8 @@ import { AppRoute } from '~/shared/libs/enums/enums';
 import { revalidatePath } from 'next/cache';
 
 const createJob = async (job: JobCreateDto): Promise<void> => {
-    const data = await getServerSession(authOptions);
-    const userId = data?.user.id;
+    const session = await getServerSession(authOptions);
+    const userId = session?.user.id;
     if (!userId) {
         throw HTTPError.unauthorized();
     }
