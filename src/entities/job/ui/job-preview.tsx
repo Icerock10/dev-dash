@@ -2,6 +2,9 @@ import { Modal, Button } from '~/shared/ui/components/components';
 import { type JobDto } from '../model/libs/types/types';
 import { getClassNames } from '~/shared/libs/helpers/helpers';
 import { JobStatusBadge } from '~/features/job/ui/job-status-badge';
+import { notification } from '~/shared/libs/modules/notification/notification';
+import { useLoading } from '~/shared/hooks/hooks';
+import { deleteJob } from '../model/actions/actions';
 import { JobTag } from './job-tag';
 import { ButtonVariant } from '~/shared/libs/enums/enums';
 
@@ -24,6 +27,20 @@ const JobPreview: React.FC<Properties> = ({
         LOCATION: job.location,
         SALARY: `€${job.salaryRange ?? ''}k`,
         RECRUITER: job.recruiterName,
+    };
+
+    const { startLoading, stopLoading } = useLoading();
+
+    const onJobDelete = async (): Promise<void> => {
+        try {
+            startLoading();
+            await deleteJob(job.id);
+            togglePreviewModal();
+        } catch (error) {
+            notification.error((error as Record<'message', string>).message);
+        } finally {
+            stopLoading();
+        }
     };
 
     return (
@@ -101,6 +118,7 @@ const JobPreview: React.FC<Properties> = ({
                     className="border-red-500/20 text-red-400! hover:bg-red-500/10!"
                     label="Delete"
                     variant={ButtonVariant.SECONDARY}
+                    onClick={() => void onJobDelete()}
                 />
             </div>
         </Modal>

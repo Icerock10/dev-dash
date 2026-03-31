@@ -11,7 +11,7 @@ import {
 } from '~/entities/job/model/libs/validation-schemas/job-create-validation.schema';
 import { notification } from '~/shared/libs/modules/notification/notification';
 import { useLoading, useAppForm } from '~/shared/hooks/hooks';
-import { createJob } from '~/entities/job/model/actions/create-job.action';
+import { createJob } from '~/entities/job/model/actions/actions';
 import { ButtonVariant, JobStatus } from '~/shared/libs/enums/enums';
 import { normalizeStatus } from '~/shared/libs/helpers/helpers';
 

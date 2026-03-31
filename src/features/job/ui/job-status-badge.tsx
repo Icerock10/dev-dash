@@ -2,7 +2,7 @@ import { JOB_STATUS_COLORS } from '~/entities/job/ui/libs/helpers/helpers';
 import { type JobStatus } from '~/shared/libs/enums/enums';
 import { type ValueOf } from '~/shared/libs/types/types';
 import { notification } from '~/shared/libs/modules/notification/notification';
-import { updateJobStatus } from '~/entities/job/model/actions/update-job-status.action';
+import { updateJobStatus } from '~/entities/job/model/actions/actions';
 import { useLoading } from '~/shared/hooks/hooks';
 import { getClassNames } from '~/shared/libs/helpers/helpers';
 
