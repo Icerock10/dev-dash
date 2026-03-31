@@ -10,25 +10,21 @@ import {
     type JobCreateDto,
 } from '~/entities/job/model/libs/validation-schemas/job-create-validation.schema';
 import { notification } from '~/shared/libs/modules/notification/notification';
-import { useLoading, useAppForm } from '~/shared/hooks/hooks';
-import { createJob } from '~/entities/job/model/actions/actions';
+import {
+    useLoading,
+    useAppForm,
+    useEffect,
+    useMemo,
+} from '~/shared/hooks/hooks';
+import { createJob, updateJob } from '~/entities/job/model/actions/actions';
 import { ButtonVariant, JobStatus } from '~/shared/libs/enums/enums';
 import { normalizeStatus } from '~/shared/libs/helpers/helpers';
-
-const DefaultJobCreateValues = {
-    company: '',
-    title: '',
-    location: '',
-    salaryRange: '',
-    tags: [''],
-    recruiterName: '',
-    status: JobStatus.NEW,
-    notes: '',
-};
+import { type JobDto } from '~/entities/job/index';
 
 type Properties = {
-    toggleModal: () => void;
+    onJobFormModalClose: () => void;
     isModalOpen: boolean;
+    job?: JobDto | null;
 };
 
 const JOB_STATUS_OPTIONS = Object.values(JobStatus).map((status) => ({
@@ -36,7 +32,25 @@ const JOB_STATUS_OPTIONS = Object.values(JobStatus).map((status) => ({
     value: status,
 }));
 
-const CreateJob: React.FC<Properties> = ({ toggleModal, isModalOpen }) => {
+const JobForm: React.FC<Properties> = ({
+    onJobFormModalClose,
+    isModalOpen,
+    job,
+}) => {
+    const DefaultJobCreateValues = useMemo(
+        () => ({
+            company: job?.company ?? '',
+            title: job?.title ?? '',
+            location: job?.location ?? '',
+            salaryRange: job?.salaryRange ?? '',
+            tags: job?.tags ?? [''],
+            recruiterName: job?.recruiterName ?? '',
+            status: job?.status ?? JobStatus.NEW,
+            notes: job?.notes ?? '',
+        }),
+        [job],
+    );
+
     const { control, errors, handleSubmit, reset } = useAppForm<JobCreateDto>({
         defaultValues: DefaultJobCreateValues,
         validationSchema: jobValidationSchema,
@@ -44,16 +58,18 @@ const CreateJob: React.FC<Properties> = ({ toggleModal, isModalOpen }) => {
 
     const { startLoading, stopLoading } = useLoading();
 
-    const onModalClose = (): void => {
-        toggleModal();
-        reset();
-    };
-
-    const onJobCreate = async (job: JobCreateDto): Promise<void> => {
+    const onJobUpdate = async (payload: JobCreateDto): Promise<void> => {
         try {
             startLoading();
-            await createJob(job);
-            toggleModal();
+
+            const jobAction = job
+                ? updateJob(job.id, payload)
+                : createJob(payload);
+
+            await jobAction;
+
+            reset();
+            onJobFormModalClose();
         } catch (error) {
             notification.error((error as Record<'message', string>).message);
         } finally {
@@ -61,9 +77,12 @@ const CreateJob: React.FC<Properties> = ({ toggleModal, isModalOpen }) => {
         }
     };
 
+    useEffect(() => {
+        reset(DefaultJobCreateValues);
+    }, [DefaultJobCreateValues, reset]);
+
     const onSubmit = (event: React.BaseSyntheticEvent): void => {
-        void handleSubmit(onJobCreate)(event);
-        reset();
+        void handleSubmit(onJobUpdate)(event);
     };
     const firstTagError = errors.tags?.find?.((error) =>
         Boolean(error?.message),
@@ -72,10 +91,10 @@ const CreateJob: React.FC<Properties> = ({ toggleModal, isModalOpen }) => {
 
     return (
         <Modal
-            title="Add listing"
+            title={job ? 'Update Listing' : 'Add listing'}
             subTitle="Fill in the details about the position"
             isOpen={isModalOpen}
-            onClose={onModalClose}
+            onClose={onJobFormModalClose}
         >
             <form className="flex max-h-[65vh] flex-col gap-5 overflow-y-auto px-6 py-5">
                 <div className="grid grid-cols-2 gap-x-5 text-white">
@@ -145,18 +164,18 @@ const CreateJob: React.FC<Properties> = ({ toggleModal, isModalOpen }) => {
             </form>
             <div className="flex gap-3 border-t border-[#1e2a45] bg-[#0c1020] px-6 py-4">
                 <Button
-                    onClick={onModalClose}
+                    onClick={onJobFormModalClose}
                     label="Cancel"
                     variant={ButtonVariant.SECONDARY}
                 />
                 <Button
                     onClick={onSubmit}
                     className="text-white"
-                    label="Add listing"
+                    label={job ? 'Update' : 'Add listing'}
                 />
             </div>
         </Modal>
     );
 };
 
-export { CreateJob };
+export { JobForm };

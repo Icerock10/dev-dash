@@ -8,6 +8,7 @@ import {
 import { JOB_STATUS_COLORS } from '~/entities/job/ui/libs/helpers/helpers';
 import { JobPreview } from './job-preview';
 import { CompanyLogo } from './company-logo';
+import { JobForm } from '~/screens/jobs/ui/job-form';
 
 import { JobCardStatus } from '~/features/job/index';
 
@@ -27,26 +28,53 @@ const JobCard: React.FC<Properties> = ({ job, openJobId, onOpen }) => {
         onOpen(isOpen ? null : job.id);
     }, [isOpen, job.id, onOpen]);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [previewJob, setPreviewJob] = useState<JobDto | null>(null);
+    const [editJob, setEditJob] = useState<JobDto | null>(null);
 
-    const togglePreviewModal = useCallback(() => {
-        setIsModalOpen((prev) => !prev);
+    const openJobPreview = useCallback(() => {
+        setPreviewJob(job);
+    }, [job]);
+
+    const openEditJob = useCallback(() => {
+        setEditJob(job);
+    }, [job]);
+
+    const closeEditJob = useCallback(() => {
+        setEditJob(null);
     }, []);
+
+    const closeJobPreview = useCallback(() => {
+        setPreviewJob(null);
+    }, []);
+
+    const onEdit = useCallback(() => {
+        openEditJob();
+        closeJobPreview();
+    }, [closeJobPreview, openEditJob]);
+
     const companyLogo = <CompanyLogo jobCompanyName={job.company} />;
     const statusBadges = Object.keys(JOB_STATUS_COLORS).map((status) =>
         normalizeStatus(status),
     );
+
     return (
         <>
             <JobPreview
-                isModalOpen={isModalOpen}
-                togglePreviewModal={togglePreviewModal}
+                isModalOpen={Boolean(previewJob)}
+                onPreviewClose={closeJobPreview}
                 job={job}
                 logo={companyLogo}
                 statusBadges={statusBadges}
+                onEdit={onEdit}
             />
+            <JobForm
+                onJobFormModalClose={closeEditJob}
+                isModalOpen={Boolean(editJob)}
+                job={job}
+            />
+
             <div
-                onClick={togglePreviewModal}
+                onClick={openJobPreview}
                 className="cursor-pointer rounded-xl border border-white/6 bg-[#161b27] p-4 hover:bg-[#1c2235]"
             >
                 <div className="mb-3 flex items-start justify-between">

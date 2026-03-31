@@ -6,7 +6,7 @@ import { useState, useCallback } from '~/shared/hooks/hooks';
 import { JobsList } from '~/widgets/jobs-list/index';
 import { PlusIcon } from '~/shared/ui/icons/icons';
 import { type JobDto } from '~/entities/job/index';
-import { CreateJob } from './create-job';
+import { JobForm } from './job-form';
 
 type Properties = {
     jobs: JobDto[];
@@ -21,7 +21,10 @@ const JobsScreen: React.FC<Properties> = ({ jobs }) => {
 
     return (
         <div className="flex-1">
-            <CreateJob isModalOpen={isModalOpen} toggleModal={toggleModal} />
+            <JobForm
+                isModalOpen={isModalOpen}
+                onJobFormModalClose={toggleModal}
+            />
             <Header
                 title="Jobs"
                 subTitle="Track your job search across companies"

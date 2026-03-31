@@ -10,32 +10,33 @@ import { ButtonVariant } from '~/shared/libs/enums/enums';
 
 type Properties = {
     isModalOpen: boolean;
-    togglePreviewModal: () => void;
+    onPreviewClose: () => void;
     job: JobDto;
     logo: React.ReactNode;
     statusBadges: string[];
+    onEdit: () => void;
 };
 
 const JobPreview: React.FC<Properties> = ({
     isModalOpen,
-    togglePreviewModal,
+    onPreviewClose,
     job,
     logo,
     statusBadges,
+    onEdit,
 }) => {
     const jobInfo = {
         LOCATION: job.location,
         SALARY: `€${job.salaryRange ?? ''}k`,
         RECRUITER: job.recruiterName,
     };
-
     const { startLoading, stopLoading } = useLoading();
 
     const onJobDelete = async (): Promise<void> => {
         try {
             startLoading();
             await deleteJob(job.id);
-            togglePreviewModal();
+            onPreviewClose();
         } catch (error) {
             notification.error((error as Record<'message', string>).message);
         } finally {
@@ -47,7 +48,7 @@ const JobPreview: React.FC<Properties> = ({
         <Modal
             title={job.title}
             subTitle={`${job.company} · ${String(job.location)}`}
-            onClose={togglePreviewModal}
+            onClose={onPreviewClose}
             isOpen={isModalOpen}
             logo={logo}
         >
@@ -101,7 +102,7 @@ const JobPreview: React.FC<Properties> = ({
                     <div className="flex flex-wrap gap-2">
                         {statusBadges.map((badge) => (
                             <JobStatusBadge
-                                onDomNodeClose={togglePreviewModal}
+                                onDomNodeClose={onPreviewClose}
                                 jobStatus={job.status}
                                 key={badge}
                                 jobStatusBadge={badge}
@@ -113,7 +114,11 @@ const JobPreview: React.FC<Properties> = ({
                 </div>
             </div>
             <div className="flex gap-3 border-t border-[#1e2a45] bg-[#0c1020] px-6 py-4">
-                <Button label="Edit" variant={ButtonVariant.SECONDARY} />
+                <Button
+                    onClick={onEdit}
+                    label="Edit"
+                    variant={ButtonVariant.SECONDARY}
+                />
                 <Button
                     className="border-red-500/20 text-red-400! hover:bg-red-500/10!"
                     label="Delete"
