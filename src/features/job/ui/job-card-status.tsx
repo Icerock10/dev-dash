@@ -1,4 +1,7 @@
-import { JOB_STATUS_COLORS } from '~/entities/job/ui/libs/helpers/helpers';
+import {
+    JOB_STATUS_COLORS,
+    formatAndGetStatusBadges,
+} from '~/entities/job/ui/libs/helpers/helpers';
 import { type JobStatus, ButtonVariant } from '~/shared/libs/enums/enums';
 import { normalizeStatus } from '~/shared/libs/helpers/helpers';
 import { type ValueOf } from '~/shared/libs/types/types';
@@ -11,7 +14,6 @@ type Properties = {
     jobStatus: ValueOf<typeof JobStatus>;
     onJobStatusToggle: () => void;
     jobId: string;
-    statusBadges: string[];
 };
 
 const JobCardStatus: React.FC<Properties> = ({
@@ -19,11 +21,10 @@ const JobCardStatus: React.FC<Properties> = ({
     jobStatus,
     onJobStatusToggle,
     jobId,
-    statusBadges,
 }) => {
     const statusColor = JOB_STATUS_COLORS[jobStatus];
     const formattedStatus = normalizeStatus(jobStatus);
-
+    const statusBadges = formatAndGetStatusBadges();
     return (
         <div
             className={`relative flex items-center gap-1.5 rounded-md border border-slate-800 px-2.5 py-1 ${statusColor.color}`}

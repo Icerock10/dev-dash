@@ -1,4 +1,5 @@
 import { Modal, Button } from '~/shared/ui/components/components';
+import { formatAndGetStatusBadges } from './libs/helpers/helpers';
 import { type JobDto } from '../model/libs/types/types';
 import { getClassNames } from '~/shared/libs/helpers/helpers';
 import { JobStatusBadge } from '~/features/job/ui/job-status-badge';
@@ -13,7 +14,6 @@ type Properties = {
     onPreviewClose: () => void;
     job: JobDto;
     logo: React.ReactNode;
-    statusBadges: string[];
     onEdit: () => void;
 };
 
@@ -22,7 +22,6 @@ const JobPreview: React.FC<Properties> = ({
     onPreviewClose,
     job,
     logo,
-    statusBadges,
     onEdit,
 }) => {
     const jobInfo = {
@@ -30,6 +29,7 @@ const JobPreview: React.FC<Properties> = ({
         SALARY: `€${job.salaryRange ?? ''}k`,
         RECRUITER: job.recruiterName,
     };
+    const statusBadges = formatAndGetStatusBadges();
     const { startLoading, stopLoading } = useLoading();
 
     const onJobDelete = async (): Promise<void> => {

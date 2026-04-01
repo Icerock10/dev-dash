@@ -1,11 +1,7 @@
 import { type JobDto } from '../model/libs/types/types';
 import { useCallback, useState } from '~/shared/hooks/hooks';
 import { JobTagVariant, JobTag } from './job-tag';
-import {
-    firstCharUpperCase,
-    normalizeStatus,
-} from '~/shared/libs/helpers/helpers';
-import { JOB_STATUS_COLORS } from '~/entities/job/ui/libs/helpers/helpers';
+import { firstCharUpperCase } from '~/shared/libs/helpers/helpers';
 import { JobPreview } from './job-preview';
 import { CompanyLogo } from './company-logo';
 import { JobForm } from '~/screens/jobs/ui/job-form';
@@ -53,9 +49,6 @@ const JobCard: React.FC<Properties> = ({ job, openJobId, onOpen }) => {
     }, [closeJobPreview, openEditJob]);
 
     const companyLogo = <CompanyLogo jobCompanyName={job.company} />;
-    const statusBadges = Object.keys(JOB_STATUS_COLORS).map((status) =>
-        normalizeStatus(status),
-    );
 
     return (
         <>
@@ -64,7 +57,6 @@ const JobCard: React.FC<Properties> = ({ job, openJobId, onOpen }) => {
                 onPreviewClose={closeJobPreview}
                 job={job}
                 logo={companyLogo}
-                statusBadges={statusBadges}
                 onEdit={onEdit}
             />
             <JobForm
@@ -94,7 +86,6 @@ const JobCard: React.FC<Properties> = ({ job, openJobId, onOpen }) => {
                         isOpen={isOpen}
                         onJobStatusToggle={onJobStatusToggle}
                         jobId={job.id}
-                        statusBadges={statusBadges}
                     />
                 </div>
                 <div className="mb-1 text-[15px] leading-snug font-medium text-white">
