@@ -3,11 +3,11 @@
 import { Header } from '~/widgets/index';
 import { Button } from '~/shared/ui/components/components';
 import { useState, useCallback } from '~/shared/hooks/hooks';
-import { JobsList } from '~/widgets/jobs-list/index';
+import { JobsList } from '~/widgets/job-list/ui/jobs-list';
 import { PlusIcon } from '~/shared/ui/icons/icons';
 import { type JobDto } from '~/entities/job/index';
-import { JobForm } from './job-form';
-import { JobFilters } from './job-filters';
+import { JobForm } from '~/features/job/manage/ui/job-form';
+import { JobFilters } from '~/features/job/filter/ui/job-filters';
 import { type JobFilters as TJobFilters } from '~/entities/job/model/libs/types/types';
 
 type Properties = {
@@ -15,7 +15,7 @@ type Properties = {
     rawFilters: TJobFilters[];
 };
 
-const JobsScreen: React.FC<Properties> = ({ jobs, rawFilters }) => {
+const JobsPage: React.FC<Properties> = ({ jobs, rawFilters }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = useCallback(() => {
@@ -44,4 +44,4 @@ const JobsScreen: React.FC<Properties> = ({ jobs, rawFilters }) => {
     );
 };
 
-export { JobsScreen };
+export { JobsPage };

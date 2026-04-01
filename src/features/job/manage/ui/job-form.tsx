@@ -16,7 +16,7 @@ import {
     useEffect,
     useMemo,
 } from '~/shared/hooks/hooks';
-import { createJob, updateJob } from '~/entities/job/model/actions/actions';
+import { createJob, updateJob } from '~/features/job/model/actions';
 import { ButtonVariant, JobStatus } from '~/shared/libs/enums/enums';
 import { normalizeStatus } from '~/shared/libs/helpers/helpers';
 import { type JobDto } from '~/entities/job/index';

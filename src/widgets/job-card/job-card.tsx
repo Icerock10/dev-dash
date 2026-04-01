@@ -1,12 +1,12 @@
-import { type JobDto } from '../model/libs/types/types';
+import { type JobDto } from '~/entities/job/model/libs/types/types';
 import { useCallback, useState } from '~/shared/hooks/hooks';
-import { JobTagVariant, JobTag } from './job-tag';
+import { JobTagVariant, JobTag } from '~/entities/job/ui/job-tag';
 import { firstCharUpperCase } from '~/shared/libs/helpers/helpers';
-import { JobPreview } from './job-preview';
+import { JobPreview } from '~/features/job/preview/ui/job-preview';
 import { CompanyLogo } from './company-logo';
-import { JobForm } from '~/screens/jobs/ui/job-form';
+import { JobForm } from '~/features/job/manage/ui/job-form';
 
-import { JobCardStatus } from '~/features/job/index';
+import { JobCardStatus } from './job-card-status';
 
 type Properties = {
     job: JobDto;

@@ -1,5 +1,5 @@
 import { firstCharUpperCase } from '~/shared/libs/helpers/helpers';
-import { getCompanyColor } from './libs/helpers/helpers';
+import { getCompanyColor } from '~/entities/job/model/libs/helpers/helpers';
 
 type Properties = {
     jobCompanyName: string;

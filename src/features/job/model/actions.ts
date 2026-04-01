@@ -6,7 +6,7 @@ import { authOptions } from '~/app/api/auth/[...nextauth]/auth-options';
 import { HTTPError } from '~/shared/libs/modules/exceptions/exceptions';
 import { AppRoute } from '~/shared/libs/enums/enums';
 import { revalidatePath } from 'next/cache';
-import { type JobStatus } from '../libs/enums/enums';
+import { type JobStatus } from '~/entities/job/model/libs/enums/enums';
 
 const createJob = async (job: JobCreateDto): Promise<void> => {
     const userId = await checkAuthAndGetUserId();

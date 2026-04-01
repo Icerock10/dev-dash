@@ -6,7 +6,7 @@ import { useMemo } from '~/shared/hooks/hooks';
 import {
     formatAndGetStatusBadges,
     JOB_STATUS_COLORS,
-} from '~/entities/job/ui/libs/helpers/helpers';
+} from '~/entities/job/model/libs/helpers/helpers';
 
 const DEFAULT_STATUS_COUNT = 0;
 

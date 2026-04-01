@@ -1,12 +1,12 @@
 import { Modal, Button } from '~/shared/ui/components/components';
-import { formatAndGetStatusBadges } from './libs/helpers/helpers';
-import { type JobDto } from '../model/libs/types/types';
+import { formatAndGetStatusBadges } from '~/entities/job/model/libs/helpers/helpers';
+import { type JobDto } from '~/entities/job/model/libs/types/types';
 import { getClassNames } from '~/shared/libs/helpers/helpers';
-import { JobStatusBadge } from '~/features/job/ui/job-status-badge';
+import { JobStatusChange } from '~/features/job/status-change/ui/job-status-change';
 import { notification } from '~/shared/libs/modules/notification/notification';
 import { useLoading } from '~/shared/hooks/hooks';
-import { deleteJob } from '../model/actions/actions';
-import { JobTag } from './job-tag';
+import { deleteJob } from '~/features/job/model/actions';
+import { JobTag } from '~/entities/job/ui/job-tag';
 import { ButtonVariant } from '~/shared/libs/enums/enums';
 
 type Properties = {
@@ -101,11 +101,11 @@ const JobPreview: React.FC<Properties> = ({
                     </h1>
                     <div className="flex flex-wrap gap-2">
                         {statusBadges.map((badge) => (
-                            <JobStatusBadge
-                                onDomNodeClose={onPreviewClose}
+                            <JobStatusChange
+                                onStatusClose={onPreviewClose}
                                 jobStatus={job.status}
                                 key={badge}
-                                jobStatusBadge={badge}
+                                statusBadge={badge}
                                 jobId={job.id}
                                 variant="bordered"
                             />

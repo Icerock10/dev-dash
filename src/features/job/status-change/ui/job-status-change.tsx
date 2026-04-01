@@ -1,24 +1,24 @@
-import { JOB_STATUS_COLORS } from '~/entities/job/ui/libs/helpers/helpers';
+import { JOB_STATUS_COLORS } from '~/entities/job/model/libs/helpers/helpers';
 import { type JobStatus } from '~/shared/libs/enums/enums';
 import { type ValueOf } from '~/shared/libs/types/types';
 import { notification } from '~/shared/libs/modules/notification/notification';
-import { updateJobStatus } from '~/entities/job/model/actions/actions';
+import { updateJobStatus } from '~/features/job/model/actions';
 import { useLoading } from '~/shared/hooks/hooks';
 import { getClassNames } from '~/shared/libs/helpers/helpers';
 
 type Properties = {
     jobId: string;
     jobStatus: ValueOf<typeof JobStatus>;
-    onDomNodeClose: () => void;
-    jobStatusBadge: string;
+    onStatusClose: () => void;
+    statusBadge: string;
     variant?: 'default' | 'bordered';
 };
 
-const JobStatusBadge: React.FC<Properties> = ({
+const JobStatusChange: React.FC<Properties> = ({
     jobId,
     jobStatus,
-    onDomNodeClose,
-    jobStatusBadge,
+    onStatusClose,
+    statusBadge,
     variant = 'default',
 }) => {
     const { startLoading, stopLoading } = useLoading();
@@ -29,7 +29,7 @@ const JobStatusBadge: React.FC<Properties> = ({
         try {
             startLoading();
             await updateJobStatus(jobId, status);
-            onDomNodeClose();
+            onStatusClose();
         } catch (error) {
             notification.error((error as Record<'message', string>).message);
         } finally {
@@ -37,15 +37,15 @@ const JobStatusBadge: React.FC<Properties> = ({
         }
     };
 
-    const upperCasedStatus = jobStatusBadge.toUpperCase();
+    const normalizedStatus = statusBadge.toUpperCase();
 
     const itemColor =
-        JOB_STATUS_COLORS[upperCasedStatus as keyof typeof JOB_STATUS_COLORS];
+        JOB_STATUS_COLORS[normalizedStatus as keyof typeof JOB_STATUS_COLORS];
 
     const statusBadgeClasses = getClassNames(
         'flex cursor-pointer items-center gap-2.5 rounded-lg px-3 py-2 text-[12px] hover:bg-white/4 hover:text-white text-white transition-colors',
         variant === 'bordered' && 'border border-[#1e2a45]',
-        upperCasedStatus === jobStatus && 'bg-white/4 text-white',
+        normalizedStatus === jobStatus && 'bg-white/4 text-white',
     );
 
     return (
@@ -53,7 +53,7 @@ const JobStatusBadge: React.FC<Properties> = ({
             onClick={(event: React.BaseSyntheticEvent) => {
                 event.stopPropagation();
                 void onStatusSelect(
-                    upperCasedStatus as Properties['jobStatus'],
+                    normalizedStatus as Properties['jobStatus'],
                 );
             }}
             className={statusBadgeClasses}
@@ -61,9 +61,9 @@ const JobStatusBadge: React.FC<Properties> = ({
             <span
                 className={`${itemColor.bg} h-1.5 w-1.5 shrink-0 rounded-full`}
             ></span>
-            <span>{jobStatusBadge}</span>
+            <span>{statusBadge}</span>
         </div>
     );
 };
 
-export { JobStatusBadge };
+export { JobStatusChange };

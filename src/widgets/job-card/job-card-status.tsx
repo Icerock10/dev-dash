@@ -1,13 +1,13 @@
 import {
     JOB_STATUS_COLORS,
     formatAndGetStatusBadges,
-} from '~/entities/job/ui/libs/helpers/helpers';
+} from '~/entities/job/model/libs/helpers/helpers';
 import { type JobStatus, ButtonVariant } from '~/shared/libs/enums/enums';
 import { normalizeStatus } from '~/shared/libs/helpers/helpers';
 import { type ValueOf } from '~/shared/libs/types/types';
 import { ArrowDownIcon } from '~/shared/ui/icons/icons';
 import { Button } from '~/shared/ui/components/components';
-import { JobStatusBadge } from './job-status-badge';
+import { JobStatusChange } from '~/features/job/status-change/ui/job-status-change';
 
 type Properties = {
     isOpen: boolean;
@@ -45,10 +45,10 @@ const JobCardStatus: React.FC<Properties> = ({
             {isOpen && (
                 <div className="absolute top-full right-0 z-20 mt-1.5 min-w-35 rounded-xl border border-[#1e2a45] bg-[#111827] p-1.5">
                     {statusBadges.map((badge) => (
-                        <JobStatusBadge
+                        <JobStatusChange
                             key={badge}
-                            onDomNodeClose={onJobStatusToggle}
-                            jobStatusBadge={badge}
+                            onStatusClose={onJobStatusToggle}
+                            statusBadge={badge}
                             jobId={jobId}
                             jobStatus={jobStatus}
                         />

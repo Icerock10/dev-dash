@@ -1,7 +1,6 @@
-'use client';
 import { useCallback, useState } from '~/shared/hooks/hooks';
 import { type JobDto } from '~/entities/job/index';
-import { JobCard } from '~/entities/job/ui/job-card';
+import { JobCard } from '../../job-card/job-card';
 
 const JobsList: React.FC<{ jobs: JobDto[] }> = ({ jobs }) => {
     const [openJobId, setOpenJobId] = useState<string | null>(null);
