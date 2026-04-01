@@ -1,7 +1,7 @@
-import { AuthForm } from '~/features/auth/ui/auth-form';
+import { AuthWidget } from '~/widgets/auth/index';
 
 function AuthPage() {
-    return <AuthForm />;
+    return <AuthWidget />;
 }
 
 export default AuthPage;

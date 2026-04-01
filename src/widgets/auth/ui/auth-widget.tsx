@@ -3,16 +3,16 @@
 import { useState } from '~/shared/hooks/hooks';
 import { type ValueOf } from '~/shared/libs/types/types';
 import { Button, Logo } from '~/shared/ui/components/components';
-import { Register } from './tabs/register';
+import { SignIn } from '~/features/auth/ui/sign-in';
+import { Register } from '~/features/auth/ui/register';
 import { ButtonVariant } from '~/shared/libs/enums/enums';
-import { SignIn } from './tabs/sign-in';
 
 const AuthTab = {
     REGISTER: 'Register',
     SIGN_IN: 'Signin',
 } as const;
 
-const AuthForm = (): React.ReactElement => {
+const AuthWidget = (): React.ReactElement => {
     const [activeTab, setActiveTab] = useState<ValueOf<typeof AuthTab>>(
         AuthTab.REGISTER,
     );
@@ -54,4 +54,4 @@ const AuthForm = (): React.ReactElement => {
     );
 };
 
-export { AuthForm };
+export { AuthWidget };

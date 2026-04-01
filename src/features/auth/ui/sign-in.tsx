@@ -1,24 +1,20 @@
 import { Input, Button } from '~/shared/ui/components/components';
-import {
-    registerValidationSchema,
-    type RegisterDto,
-} from '~/entities/user/index';
+import { signInValidationSchema, type SignInDto } from '~/entities/user/index';
 import { useAppForm } from '~/shared/hooks/hooks';
-import { useAuth } from '../../model/hooks/hooks';
-import { actions as authActions } from '../../actions/actions';
+import { useAuth } from '../model/hooks/hooks';
+import { actions as authActions } from '../actions/actions';
 
-const Register: React.FC = () => {
-    const { errors, control, handleSubmit } = useAppForm<RegisterDto>({
+const SignIn: React.FC = () => {
+    const { errors, control, handleSubmit } = useAppForm<SignInDto>({
         defaultValues: {
-            name: '',
             email: '',
             password: '',
         },
-        validationSchema: registerValidationSchema,
+        validationSchema: signInValidationSchema,
     });
 
     const { handleAuthAction } = useAuth({
-        authAction: authActions.register,
+        authAction: authActions.login,
     });
 
     const onSubmit = (event: React.SyntheticEvent): void => {
@@ -27,13 +23,6 @@ const Register: React.FC = () => {
 
     return (
         <form onSubmit={onSubmit}>
-            <Input
-                label="Name"
-                name="name"
-                placeholder="Your name"
-                control={control}
-                errors={errors}
-            />
             <Input
                 label="Email"
                 name="email"
@@ -44,14 +33,14 @@ const Register: React.FC = () => {
             <Input
                 label="Password"
                 name="password"
+                type="password"
                 control={control}
                 errors={errors}
                 placeholder="*********"
-                type="password"
             />
-            <Button type="submit" label="Create Account" />
+            <Button className="w-full" type="submit" label="Sign in" />
         </form>
     );
 };
 
-export { Register };
+export { SignIn };
