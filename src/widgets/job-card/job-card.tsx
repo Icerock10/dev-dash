@@ -1,6 +1,5 @@
-import { type JobDto } from '~/entities/job/model/libs/types/types';
 import { useCallback, useState } from '~/shared/hooks/hooks';
-import { JobTagVariant, JobTag } from '~/entities/job/ui/job-tag';
+import { JobTagVariant, JobTag, type JobDto } from '~/entities/job/index';
 import { firstCharUpperCase } from '~/shared/libs/helpers/helpers';
 import { JobPreview } from '~/features/job/preview/ui/job-preview';
 import { CompanyLogo } from './company-logo';

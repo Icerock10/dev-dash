@@ -1,12 +1,14 @@
 import { Modal, Button } from '~/shared/ui/components/components';
-import { formatAndGetStatusBadges } from '~/entities/job/model/libs/helpers/helpers';
-import { type JobDto } from '~/entities/job/model/libs/types/types';
+import {
+    formatAndGetStatusBadges,
+    type JobDto,
+    JobTag,
+} from '~/entities/job/index';
 import { getClassNames } from '~/shared/libs/helpers/helpers';
 import { JobStatusChange } from '~/features/job/status-change/ui/job-status-change';
 import { notification } from '~/shared/libs/modules/notification/notification';
 import { useLoading } from '~/shared/hooks/hooks';
 import { deleteJob } from '~/features/job/model/actions';
-import { JobTag } from '~/entities/job/ui/job-tag';
 import { ButtonVariant } from '~/shared/libs/enums/enums';
 
 type Properties = {

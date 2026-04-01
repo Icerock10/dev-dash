@@ -8,7 +8,8 @@ import {
 import {
     jobValidationSchema,
     type JobCreateDto,
-} from '~/entities/job/model/libs/validation-schemas/job-create-validation.schema';
+    type JobDto,
+} from '~/entities/job/index';
 import { notification } from '~/shared/libs/modules/notification/notification';
 import {
     useLoading,
@@ -19,7 +20,6 @@ import {
 import { createJob, updateJob } from '~/features/job/model/actions';
 import { ButtonVariant, JobStatus } from '~/shared/libs/enums/enums';
 import { normalizeStatus } from '~/shared/libs/helpers/helpers';
-import { type JobDto } from '~/entities/job/index';
 
 type Properties = {
     onJobFormModalClose: () => void;

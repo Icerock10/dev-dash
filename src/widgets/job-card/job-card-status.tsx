@@ -1,7 +1,7 @@
 import {
     JOB_STATUS_COLORS,
     formatAndGetStatusBadges,
-} from '~/entities/job/model/libs/helpers/helpers';
+} from '~/entities/job/index';
 import { type JobStatus, ButtonVariant } from '~/shared/libs/enums/enums';
 import { normalizeStatus } from '~/shared/libs/helpers/helpers';
 import { type ValueOf } from '~/shared/libs/types/types';

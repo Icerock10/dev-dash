@@ -1,12 +1,12 @@
 import { Button } from '~/shared/ui/components/components';
 import { ButtonVariant, AppRoute } from '~/shared/libs/enums/enums';
-import { type JobFilters as TJobFilters } from '~/entities/job/model/libs/types/types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useMemo } from '~/shared/hooks/hooks';
 import {
     formatAndGetStatusBadges,
     JOB_STATUS_COLORS,
-} from '~/entities/job/model/libs/helpers/helpers';
+    type JobFilters as TJobFilters,
+} from '~/entities/job/index';
 
 const DEFAULT_STATUS_COUNT = 0;
 

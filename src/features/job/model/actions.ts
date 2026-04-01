@@ -1,12 +1,13 @@
 'use server';
 
-import { type JobCreateDto, jobService } from '~/entities/job/index';
+import { type JobCreateDto } from '~/entities/job/index';
+import { jobService } from '~/entities/job/api/job';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '~/app/api/auth/[...nextauth]/auth-options';
 import { HTTPError } from '~/shared/libs/modules/exceptions/exceptions';
 import { AppRoute } from '~/shared/libs/enums/enums';
 import { revalidatePath } from 'next/cache';
-import { type JobStatus } from '~/entities/job/model/libs/enums/enums';
+import { type JobStatus } from '~/shared/libs/enums/enums';
 
 const createJob = async (job: JobCreateDto): Promise<void> => {
     const userId = await checkAuthAndGetUserId();

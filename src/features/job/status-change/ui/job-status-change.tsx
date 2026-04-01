@@ -1,4 +1,4 @@
-import { JOB_STATUS_COLORS } from '~/entities/job/model/libs/helpers/helpers';
+import { JOB_STATUS_COLORS } from '~/entities/job/index';
 import { type JobStatus } from '~/shared/libs/enums/enums';
 import { type ValueOf } from '~/shared/libs/types/types';
 import { notification } from '~/shared/libs/modules/notification/notification';

@@ -5,10 +5,12 @@ import { Button } from '~/shared/ui/components/components';
 import { useState, useCallback } from '~/shared/hooks/hooks';
 import { JobsList } from '~/widgets/job-list/ui/jobs-list';
 import { PlusIcon } from '~/shared/ui/icons/icons';
-import { type JobDto } from '~/entities/job/index';
+import {
+    type JobDto,
+    type JobFilters as TJobFilters,
+} from '~/entities/job/index';
 import { JobForm } from '~/features/job/manage/ui/job-form';
 import { JobFilters } from '~/features/job/filter/ui/job-filters';
-import { type JobFilters as TJobFilters } from '~/entities/job/model/libs/types/types';
 
 type Properties = {
     jobs: JobDto[];

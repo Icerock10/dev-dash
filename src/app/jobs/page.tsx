@@ -1,5 +1,5 @@
 import { JobsPage } from './ui/jobs-page';
-import { jobService } from '~/entities/job/index';
+import { jobService } from '~/entities/job/api/job';
 import { type SearchParams } from '~/shared/libs/types/types';
 
 async function Page({ searchParams }: { searchParams: Promise<SearchParams> }) {
