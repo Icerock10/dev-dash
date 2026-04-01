@@ -5,8 +5,8 @@ import {
     type UserSignInRequestDto,
     type UserResponseDto,
     type UserSignUpRequestDto,
-} from '../../libs/types/types';
-import { UserValidationMessage } from '../../libs/enums/enums';
+} from '../libs/types/types';
+import { UserValidationMessage } from '../libs/enums/enums';
 
 type Constructor = {
     userService: UserService;

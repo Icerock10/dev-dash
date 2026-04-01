@@ -1,15 +1,15 @@
-import { JobsScreen } from '~/screens/jobs/index';
-import { jobService } from '~/entities/job/index';
+import { JobsPage } from './ui/jobs-page';
+import { jobService } from '~/entities/job/api/job';
 import { type SearchParams } from '~/shared/libs/types/types';
 
-async function Jobs({ searchParams }: { searchParams: Promise<SearchParams> }) {
+async function Page({ searchParams }: { searchParams: Promise<SearchParams> }) {
     const params = await searchParams;
     const { tags, status } = params;
 
     const jobs = await jobService.getAll({ tags, status });
     const rawFilters = await jobService.getStatusAndTags();
 
-    return <JobsScreen jobs={jobs} rawFilters={rawFilters} />;
+    return <JobsPage jobs={jobs} rawFilters={rawFilters} />;
 }
 
-export default Jobs;
+export default Page;
