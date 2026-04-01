@@ -1,0 +1,3 @@
+const DEFAULT_STATUS_COUNT = 0;
+
+export { DEFAULT_STATUS_COUNT };
