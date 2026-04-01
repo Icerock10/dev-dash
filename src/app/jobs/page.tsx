@@ -3,7 +3,8 @@ import { jobService } from '~/entities/job/index';
 
 async function Jobs() {
     const jobs = await jobService.getAll();
-    return <JobsScreen jobs={jobs} />;
+    const rawFilters = await jobService.getStatusAndTags();
+    return <JobsScreen jobs={jobs} rawFilters={rawFilters} />;
 }
 
 export default Jobs;

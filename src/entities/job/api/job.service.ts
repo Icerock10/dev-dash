@@ -43,6 +43,14 @@ class JobService implements Pick<BaseService<JobDto, unknown>, 'getAll'> {
         }
         return deletedJob;
     }
+    public async getStatusAndTags(): Promise<
+        {
+            tags: JobDto['tags'];
+            status: JobDto['status'];
+        }[]
+    > {
+        return this.jobRepository.getStatusAndTags();
+    }
 }
 
 export { JobService };

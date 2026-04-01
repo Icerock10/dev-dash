@@ -45,6 +45,16 @@ class JobRepository implements Pick<
             return null;
         }
     }
+    public async getStatusAndTags(): Promise<
+        {
+            tags: JobDto['tags'];
+            status: JobDto['status'];
+        }[]
+    > {
+        return this.database.job.findMany({
+            select: { tags: true, status: true },
+        });
+    }
 }
 
 export { JobRepository };
