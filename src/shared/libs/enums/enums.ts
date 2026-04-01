@@ -4,3 +4,5 @@ export { DefaultErrorMessage } from './default-error-message.enum';
 export { ButtonVariant } from './button-variant.enum';
 export { HttpMethod } from './http-method.enum';
 export { AppApiPath } from './app-api-path.enum';
+export { LoaderVariant } from './loader-variant.enum';
+export { JobStatus } from './job-status.enum';

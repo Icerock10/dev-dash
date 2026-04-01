@@ -16,3 +16,4 @@ ignore:
     - src/generated
     - src/shared/libs/modules/prisma/migrations
     - src/app/api/auth/[...nextauth]
+    - src/app/api/jobs/**

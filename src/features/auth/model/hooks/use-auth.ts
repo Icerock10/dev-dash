@@ -1,6 +1,6 @@
 'use client';
 
-import { AppRoute, DefaultErrorMessage } from '../../libs/enums/enums';
+import { AppRoute, DefaultErrorMessage } from '../libs/enums/enums';
 import { useCallback, useLoading } from '~/shared/hooks/hooks';
 import { useRouter } from 'next/navigation';
 import { HTTPError } from '~/shared/libs/modules/exceptions/exceptions';
