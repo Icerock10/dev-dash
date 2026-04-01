@@ -3,7 +3,7 @@ import {
     formatAndGetStatusBadges,
 } from '~/entities/job/index';
 import { type JobStatus, ButtonVariant } from '~/shared/libs/enums/enums';
-import { normalizeStatus } from '~/shared/libs/helpers/helpers';
+import { normalizeStatus, getClassNames } from '~/shared/libs/helpers/helpers';
 import { type ValueOf } from '~/shared/libs/types/types';
 import { ArrowDownIcon } from '~/shared/ui/icons/icons';
 import { Button } from '~/shared/ui/components/components';
@@ -27,10 +27,16 @@ const JobCardStatus: React.FC<Properties> = ({
     const statusBadges = formatAndGetStatusBadges();
     return (
         <div
-            className={`relative flex items-center gap-1.5 rounded-md border border-slate-800 px-2.5 py-1 ${statusColor.color}`}
+            className={getClassNames(
+                'relative flex items-center gap-1.5 rounded-md border border-slate-800 px-2.5 py-1',
+                statusColor.color,
+            )}
         >
             <span
-                className={`${statusColor.bg} h-1.5 w-1.5 shrink-0 rounded-full`}
+                className={getClassNames(
+                    'h-1.5 w-1.5 shrink-0 rounded-full',
+                    statusColor.bg,
+                )}
             ></span>
             <Button
                 icon={<ArrowDownIcon />}

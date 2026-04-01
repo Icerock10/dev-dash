@@ -1,4 +1,7 @@
-import { firstCharUpperCase } from '~/shared/libs/helpers/helpers';
+import {
+    firstCharUpperCase,
+    getClassNames,
+} from '~/shared/libs/helpers/helpers';
 import { getCompanyColor } from '~/entities/job/index';
 
 type Properties = {
@@ -11,13 +14,13 @@ const CompanyLogo: React.FC<Properties> = ({
     const companyColor = getCompanyColor(jobCompanyName);
     const companyInitial = firstCharUpperCase(jobCompanyName);
 
-    const logo = (
-        <div
-            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${companyColor.bg} text-sm font-semibold ${companyColor.text}`}
-        >
-            {companyInitial}
-        </div>
+    const logoClasses = getClassNames(
+        'flex h-9 w-9 shrink-0 items-center justify-center rounded-lg',
+        companyColor.bg,
+        companyColor.text,
     );
+
+    const logo = <div className={logoClasses}>{companyInitial}</div>;
 
     return logo;
 };

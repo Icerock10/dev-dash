@@ -1,6 +1,6 @@
 import { useCallback, useState } from '~/shared/hooks/hooks';
 import { type JobDto } from '~/entities/job/index';
-import { JobCard } from '../../job-card/job-card';
+import { JobCard } from '../../job-card/index';
 
 const JobsList: React.FC<{ jobs: JobDto[] }> = ({ jobs }) => {
     const [openJobId, setOpenJobId] = useState<string | null>(null);

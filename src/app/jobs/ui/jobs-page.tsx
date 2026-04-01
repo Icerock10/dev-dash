@@ -3,7 +3,7 @@
 import { Header } from '~/widgets/index';
 import { Button } from '~/shared/ui/components/components';
 import { useState, useCallback } from '~/shared/hooks/hooks';
-import { JobsList } from '~/widgets/job-list/ui/jobs-list';
+import { JobsList } from '~/widgets/job-list/index';
 import { PlusIcon } from '~/shared/ui/icons/icons';
 import {
     type JobDto,
