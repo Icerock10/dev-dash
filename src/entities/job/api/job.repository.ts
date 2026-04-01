@@ -1,8 +1,6 @@
 import { type JobDto } from '../model/libs/types/types';
-import {
-    type PrismaClient,
-    type BaseRepository,
-} from '~/shared/libs/types/types';
+import { type PrismaClient } from '~/shared/libs/types/types';
+
 import {
     type JobCreateDto,
     type JobUpdateDto,
@@ -12,10 +10,7 @@ type Constructor = {
     database: PrismaClient;
 };
 
-class JobRepository implements Pick<
-    BaseRepository<JobDto, JobCreateDto>,
-    'getAll'
-> {
+class JobRepository {
     private readonly database: PrismaClient;
     public constructor({ database }: Constructor) {
         this.database = database;
@@ -23,8 +18,20 @@ class JobRepository implements Pick<
     public create(userId: string, payload: JobCreateDto): Promise<JobDto> {
         return this.database.job.create({ data: { ...payload, userId } });
     }
-    public getAll(): Promise<JobDto[]> {
-        return this.database.job.findMany();
+    public getAll(
+        tags: JobDto['tags'],
+        status?: JobDto['status'],
+    ): Promise<JobDto[]> {
+        const DEFAULT_TAGS_LENGTH = 0;
+
+        return this.database.job.findMany({
+            where: {
+                ...(tags.length > DEFAULT_TAGS_LENGTH && {
+                    tags: { hasSome: tags },
+                }),
+                ...(status && { status }),
+            },
+        });
     }
     public getById(id: string): Promise<JobDto | null> {
         return this.database.job.findUnique({ where: { id } });

@@ -1,9 +1,9 @@
 import { type JobDto } from '../model/libs/types/types';
+import { type SearchParams } from '~/shared/libs/types/types';
 import {
     type JobCreateDto,
     type JobUpdateDto,
 } from '../model/libs/validation-schemas/validation-schemas';
-import { type BaseService } from '~/shared/libs/types/types';
 import { type JobRepository } from './job.repository';
 import { HTTPError } from '~/shared/libs/modules/exceptions/exceptions';
 
@@ -11,7 +11,7 @@ type Constructor = {
     jobRepository: JobRepository;
 };
 
-class JobService implements Pick<BaseService<JobDto, unknown>, 'getAll'> {
+class JobService {
     private readonly jobRepository: JobRepository;
     public constructor({ jobRepository }: Constructor) {
         this.jobRepository = jobRepository;
@@ -19,8 +19,11 @@ class JobService implements Pick<BaseService<JobDto, unknown>, 'getAll'> {
     public create(userId: string, payload: JobCreateDto): Promise<JobDto> {
         return this.jobRepository.create(userId, payload);
     }
-    public getAll(): Promise<JobDto[]> {
-        return this.jobRepository.getAll();
+    public getAll({ tags, status }: SearchParams): Promise<JobDto[]> {
+        const jobTags = Array.isArray(tags) ? tags : [tags];
+        const tagsWithoutEmptyValues = jobTags.filter(Boolean) as string[];
+
+        return this.jobRepository.getAll(tagsWithoutEmptyValues, status);
     }
     public async getById(id: string): Promise<JobDto | null> {
         const foundJob = await this.jobRepository.getById(id);
