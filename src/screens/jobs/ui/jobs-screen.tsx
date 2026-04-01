@@ -7,12 +7,15 @@ import { JobsList } from '~/widgets/jobs-list/index';
 import { PlusIcon } from '~/shared/ui/icons/icons';
 import { type JobDto } from '~/entities/job/index';
 import { JobForm } from './job-form';
+import { JobFilters } from './job-filters';
+import { type JobFilters as TJobFilters } from '~/entities/job/model/libs/types/types';
 
 type Properties = {
     jobs: JobDto[];
+    rawFilters: TJobFilters[];
 };
 
-const JobsScreen: React.FC<Properties> = ({ jobs }) => {
+const JobsScreen: React.FC<Properties> = ({ jobs, rawFilters }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = useCallback(() => {
@@ -35,6 +38,7 @@ const JobsScreen: React.FC<Properties> = ({ jobs }) => {
                     label="Add Listing"
                 />
             </Header>
+            <JobFilters rawFilters={rawFilters} />
             <JobsList jobs={jobs} />
         </div>
     );

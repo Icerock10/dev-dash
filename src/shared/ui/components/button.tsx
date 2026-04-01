@@ -37,6 +37,8 @@ const Button = <T extends string>({
         [ButtonVariant.PRIMARY]:
             'gap-2 bg-primary flex-1 p-2.5 rounded-md text-sm cursor-pointer',
         [ButtonVariant.GHOST]: 'rounded-lg cursor-pointer flex-row-reverse',
+        [ButtonVariant.TAG]:
+            'font-mono border border-[#1e2a45] text-xs py-1 px-2 text-slate-500 rounded-md hover:text-slate-400',
         [ButtonVariant.SECONDARY]:
             'flex-1 py-2.5 rounded-lg border border-[#1e2a45] text-sm text-slate-400 hover:text-white hover:bg-white/4 transition-colors font-medium',
     };
