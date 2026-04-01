@@ -22,6 +22,11 @@ class HTTPError extends Error {
     ): HTTPError {
         return new HTTPError({ message, status: HTTPCode.NOT_FOUND });
     }
+    static badRequest(
+        message: string = DefaultErrorMessage.BAD_REQUEST,
+    ): HTTPError {
+        return new HTTPError({ message, status: HTTPCode.BAD_REQUEST });
+    }
     static unauthorized(
         message: string = DefaultErrorMessage.UNAUTHORIZED,
     ): HTTPError {

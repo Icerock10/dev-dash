@@ -1,5 +1,5 @@
-const CHAR_INDEX = 0;
 import { LoaderVariant } from '~/shared/libs/enums/enums';
+import { firstCharUpperCase } from '~/shared/libs/helpers/helpers';
 import { Loader } from './loader';
 
 type Properties = {
@@ -17,12 +17,12 @@ const Avatar: React.FC<Properties> = ({ userName }) => {
         );
     }
 
-    const firstChar = userName.charAt(CHAR_INDEX).toUpperCase();
+    const userInitial = firstCharUpperCase(userName);
 
     return (
         <div className="flex items-center gap-2.5 border-t border-white/6 px-2 pt-4">
             <div className="flex h-7 w-7 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-purple-600 text-xs font-semibold text-white">
-                {firstChar}
+                {userInitial}
             </div>
             <div className="text-xs leading-tight font-medium text-white">
                 <p>{userName}</p>

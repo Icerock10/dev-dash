@@ -1,0 +1,11 @@
+const JobValidationRule = {
+    TITLE_MIN_LENGTH: 3,
+    COMPANY_MIN_LENGTH: 5,
+    COMPANY_MAX_LENGTH: 20,
+    TITLE_MAX_LENGTH: 25,
+    NON_EMPTY_STRING_MIN_LENGTH: 1,
+    LOCATION_MAX_LENGTH: 15,
+    RECRUITER_NAME_MAX_LENGTH: 20,
+} as const;
+
+export { JobValidationRule };
