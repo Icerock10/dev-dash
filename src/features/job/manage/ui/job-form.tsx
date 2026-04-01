@@ -5,21 +5,10 @@ import {
     Textarea,
     Select,
 } from '~/shared/ui/components/components';
-import {
-    jobValidationSchema,
-    type JobCreateDto,
-    type JobDto,
-} from '~/entities/job/index';
-import { notification } from '~/shared/libs/modules/notification/notification';
-import {
-    useLoading,
-    useAppForm,
-    useEffect,
-    useMemo,
-} from '~/shared/hooks/hooks';
-import { createJob, updateJob } from '~/features/job/model/actions';
-import { ButtonVariant, JobStatus } from '~/shared/libs/enums/enums';
-import { normalizeStatus } from '~/shared/libs/helpers/helpers';
+import { type JobDto } from '~/entities/job/index';
+import { ButtonVariant } from '~/shared/libs/enums/enums';
+import { JOB_STATUS_OPTIONS } from '../model/libs/constants/constants';
+import { useJobForm } from './use-job-form';
 
 type Properties = {
     onJobFormModalClose: () => void;
@@ -27,67 +16,15 @@ type Properties = {
     job?: JobDto | null;
 };
 
-const JOB_STATUS_OPTIONS = Object.values(JobStatus).map((status) => ({
-    label: normalizeStatus(status),
-    value: status,
-}));
-
 const JobForm: React.FC<Properties> = ({
     onJobFormModalClose,
     isModalOpen,
     job,
 }) => {
-    const DefaultJobCreateValues = useMemo(
-        () => ({
-            company: job?.company ?? '',
-            title: job?.title ?? '',
-            location: job?.location ?? '',
-            salaryRange: job?.salaryRange ?? '',
-            tags: job?.tags ?? [''],
-            recruiterName: job?.recruiterName ?? '',
-            status: job?.status ?? JobStatus.NEW,
-            notes: job?.notes ?? '',
-        }),
-        [job],
-    );
-
-    const { control, errors, handleSubmit, reset } = useAppForm<JobCreateDto>({
-        defaultValues: DefaultJobCreateValues,
-        validationSchema: jobValidationSchema,
+    const { control, errors, tagErrorMessage, onSubmit } = useJobForm({
+        job,
+        onClose: onJobFormModalClose,
     });
-
-    const { startLoading, stopLoading } = useLoading();
-
-    const onJobUpdate = async (payload: JobCreateDto): Promise<void> => {
-        try {
-            startLoading();
-
-            const jobAction = job
-                ? updateJob(job.id, payload)
-                : createJob(payload);
-
-            await jobAction;
-
-            reset();
-            onJobFormModalClose();
-        } catch (error) {
-            notification.error((error as Record<'message', string>).message);
-        } finally {
-            stopLoading();
-        }
-    };
-
-    useEffect(() => {
-        reset(DefaultJobCreateValues);
-    }, [DefaultJobCreateValues, reset]);
-
-    const onSubmit = (event: React.BaseSyntheticEvent): void => {
-        void handleSubmit(onJobUpdate)(event);
-    };
-    const firstTagError = errors.tags?.find?.((error) =>
-        Boolean(error?.message),
-    );
-    const tagErrorMessage = firstTagError?.message ?? '';
 
     return (
         <Modal
