@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/Icerock10/dev-dash/compare/v1.1.0...v1.2.0) (2026-04-01)
+
+
+### Features
+
+* + jobs page dd-0 ([#13](https://github.com/Icerock10/dev-dash/issues/13)) ([2f7f0db](https://github.com/Icerock10/dev-dash/commit/2f7f0dbbf045475eda58415ff4e43a1bd1e6643c))
+
 ## [1.1.0](https://github.com/Icerock10/dev-dash/compare/v1.0.0...v1.1.0) (2026-03-26)
 
 
