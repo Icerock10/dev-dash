@@ -24,11 +24,15 @@ class TaskRepository {
         filters: TaskGetAllFilters = {},
     ): Promise<JobWithTasksDto[]> {
         const { completed, jobId } = filters;
-
         return this.database.job.findMany({
             where: {
                 userId,
                 ...(jobId && { id: jobId }),
+                ...(completed !== undefined && {
+                    tasks: {
+                        some: { completed },
+                    },
+                }),
             },
             include: {
                 tasks: {

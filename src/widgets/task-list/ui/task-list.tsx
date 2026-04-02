@@ -4,18 +4,19 @@ import { type JobWithTasksDto } from '~/entities/task/index';
 import { useMemo } from '~/shared/hooks/hooks';
 import { TaskListGroup } from './task-list-group';
 import { TaskItem } from './task-item';
-import { getCompletedTasksCount } from '../model/libs/helpers/get-completed-tasks-count.helper';
+import { getCompletedTasksCount } from '../model/libs/helpers/helpers';
 
 const MIN_TASKS_LENGTH = 0;
 
 type Properties = {
-    jobWithTasks: JobWithTasksDto[];
+    jobsWithTasks: JobWithTasksDto[];
 };
 
-const TaskList: React.FC<Properties> = ({ jobWithTasks }) => {
+const TaskList: React.FC<Properties> = ({ jobsWithTasks }) => {
     const filteredJobs = useMemo(
-        () => jobWithTasks.filter((job) => job.tasks.length > MIN_TASKS_LENGTH),
-        [jobWithTasks],
+        () =>
+            jobsWithTasks.filter((job) => job.tasks.length > MIN_TASKS_LENGTH),
+        [jobsWithTasks],
     );
 
     return (

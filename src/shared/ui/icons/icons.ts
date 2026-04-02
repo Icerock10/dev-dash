@@ -11,3 +11,4 @@ export { default as OverDueIcon } from './overdue.svg';
 export { default as EditIcon } from './edit.svg';
 export { default as DeleteIcon } from './delete.svg';
 export { default as CompletedIcon } from './completed.svg';
+export { default as ToggleIcon } from './toggle.svg';
