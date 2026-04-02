@@ -15,3 +15,4 @@ export {
 } from './model/libs/helpers/helpers';
 export { type JobFilters } from './model/libs/types/types';
 export { JobTag, JobTagVariant } from './ui/job-tag';
+export { CompanyLogo } from './ui/company-logo';

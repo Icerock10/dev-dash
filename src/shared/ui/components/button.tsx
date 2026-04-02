@@ -55,11 +55,7 @@ const Button = <T extends string>({
             onClick={onClick}
             type={type}
         >
-            {icon && (
-                <span className="flex h-3 w-3 items-center" aria-hidden="true">
-                    {icon}
-                </span>
-            )}
+            {icon && <span aria-hidden="true">{icon}</span>}
             {!isIconOnly && <span>{label}</span>}
             {loader}
         </button>

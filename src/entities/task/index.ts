@@ -5,4 +5,4 @@ export {
     type TaskCreateDto,
 } from './model/validation-schemas/validation-schemas';
 
-export { type TaskDto } from './model/libs/types/types';
+export { type TaskDto, type JobWithTasksDto } from './model/libs/types/types';

@@ -4,10 +4,15 @@ import { Header, TaskList } from '~/widgets/index';
 import { Button } from '~/shared/ui/components/components';
 import { PlusIcon } from '~/shared/ui/icons/icons';
 import { TasksFilter } from '~/features/tasks/filter/ui/tasks-filter';
+import { type JobWithTasksDto } from '~/entities/task/index';
 
-const TasksPage: React.FC = () => {
+type Properties = {
+    jobWithTasks: JobWithTasksDto[];
+};
+
+const TasksPage: React.FC<Properties> = ({ jobWithTasks }) => {
     return (
-        <div className="flex-1">
+        <div className="flex-1 font-sans">
             <Header
                 title="Tasks"
                 subTitle="Manage your job search action items"
@@ -15,7 +20,7 @@ const TasksPage: React.FC = () => {
                 <Button icon={<PlusIcon />} label="Add Task" />
             </Header>
             <TasksFilter />
-            <TaskList />
+            <TaskList jobWithTasks={jobWithTasks} />
         </div>
     );
 };
