@@ -4,7 +4,7 @@ import { type JobWithTasksDto } from '~/entities/task/index';
 import { useMemo } from '~/shared/hooks/hooks';
 import { TaskListGroup } from './task-list-group';
 import { TaskItem } from './task-item';
-import { getCompletedTasksCount } from '../model/libs/helpers/get-completed-tasks-count.helper';
+import { getCompletedTasksCount } from '../model/libs/helpers/helpers';
 
 const MIN_TASKS_LENGTH = 0;
 

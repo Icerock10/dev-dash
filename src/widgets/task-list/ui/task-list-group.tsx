@@ -3,8 +3,7 @@ import { Button } from '~/shared/ui/components/components';
 import { PlusIcon } from '~/shared/ui/icons/icons';
 import { getClassNames, normalizeStatus } from '~/shared/libs/helpers/helpers';
 import { JOB_STATUS_COLORS, CompanyLogo } from '~/entities/job/index';
-
-const TASK_PROGRESS_OFFSET = 100;
+import { getTasksProgress } from '../model/libs/helpers/helpers';
 
 type Properties = {
     jobCompany: JobWithTasksDto['company'];
@@ -22,8 +21,9 @@ const TaskListGroup: React.FC<Properties> = ({
     completedTasks,
 }) => {
     const jobStatusColor = JOB_STATUS_COLORS[jobStatus];
-    const taskProgressPercent = String(
-        (completedTasks / jobTasks.length) * TASK_PROGRESS_OFFSET,
+    const taskProgressPercent = getTasksProgress(
+        completedTasks,
+        jobTasks.length,
     );
 
     return (

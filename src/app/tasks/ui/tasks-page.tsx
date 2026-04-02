@@ -19,7 +19,7 @@ const TasksPage: React.FC<Properties> = ({ jobWithTasks }) => {
             >
                 <Button icon={<PlusIcon />} label="Add Task" />
             </Header>
-            <TasksFilter />
+            <TasksFilter jobWithTasks={jobWithTasks} />
             <TaskList jobWithTasks={jobWithTasks} />
         </div>
     );
