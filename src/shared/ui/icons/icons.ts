@@ -7,3 +7,7 @@ export { default as TasksIcon } from './tasks.svg';
 export { default as PlusIcon } from './plus.svg';
 export { default as ArrowDownIcon } from './arrow-down.svg';
 export { default as CrossIcon } from './cross.svg';
+export { default as OverDueIcon } from './overdue.svg';
+export { default as EditIcon } from './edit.svg';
+export { default as DeleteIcon } from './delete.svg';
+export { default as CompletedIcon } from './completed.svg';
