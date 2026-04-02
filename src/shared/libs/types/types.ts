@@ -3,4 +3,9 @@ export { type BaseService } from './base-service.type';
 export { type ValueOf } from './value-of.type';
 export { type SearchParams } from './search-params.type';
 
-export { type User, type PrismaClient, type Job } from '~/generated/client';
+export {
+    type User,
+    type PrismaClient,
+    type Job,
+    type Task,
+} from '~/generated/client';
