@@ -6,6 +6,7 @@ import {
 import {
     type TaskDto,
     type TaskGetAllFilters,
+    type JobWithTasksDto,
 } from '../model/libs/types/types';
 
 type Constructor = {
@@ -18,17 +19,23 @@ class TaskRepository {
         this.database = database;
     }
 
-    public getAll(
+    public getAllWithTasks(
         userId: string,
         filters: TaskGetAllFilters = {},
-    ): Promise<TaskDto[]> {
+    ): Promise<JobWithTasksDto[]> {
         const { completed, jobId } = filters;
 
-        return this.database.task.findMany({
+        return this.database.job.findMany({
             where: {
-                job: { userId },
-                ...(completed !== undefined && { completed }),
-                ...(jobId && { jobId }),
+                userId,
+                ...(jobId && { id: jobId }),
+            },
+            include: {
+                tasks: {
+                    where: {
+                        ...(completed !== undefined && { completed }),
+                    },
+                },
             },
         });
     }

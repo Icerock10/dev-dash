@@ -7,6 +7,7 @@ import {
 import {
     type TaskDto,
     type TaskGetAllFilters,
+    type JobWithTasksDto,
 } from '../model/libs/types/types';
 import { type JobService } from '~/entities/job/api/job.service';
 
@@ -24,11 +25,11 @@ class TaskService {
         this.jobService = jobService;
     }
 
-    public getAll(
+    public getAllWithTasks(
         userId: string,
         filters: TaskGetAllFilters,
-    ): Promise<TaskDto[]> {
-        return this.taskRepository.getAll(userId, filters);
+    ): Promise<JobWithTasksDto[]> {
+        return this.taskRepository.getAllWithTasks(userId, filters);
     }
 
     public async checkOwnership(jobId: string, userId: string): Promise<void> {

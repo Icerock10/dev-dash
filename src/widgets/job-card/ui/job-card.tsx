@@ -1,6 +1,5 @@
-import { type JobDto } from '~/entities/job/index';
+import { type JobDto, CompanyLogo } from '~/entities/job/index';
 import { JobPreview } from '~/features/job/preview/ui/job-preview';
-import { CompanyLogo } from './company-logo';
 import { JobForm } from '~/features/job/manage/ui/job-form';
 import { useJobCard } from './use-job-card';
 import { JobCardHeader } from './job-card-header';
