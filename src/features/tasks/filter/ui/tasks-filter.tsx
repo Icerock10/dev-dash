@@ -2,19 +2,22 @@ import { type JobWithTasksDto } from '~/entities/task/index';
 import { FilterTabs } from '~/shared/ui/components/filter-tabs';
 import { TaskFilter, TaskFilterTabs } from '../model/index';
 import { useTaskFilter } from './use-task-filter';
+import { JobSelectItem } from './job-select-item';
 
 type Properties = {
-    jobWithTasks: JobWithTasksDto[];
+    allJobsWithTasks: JobWithTasksDto[];
 };
 
-const TasksFilter: React.FC<Properties> = ({ jobWithTasks }) => {
+const TasksFilter: React.FC<Properties> = ({ allJobsWithTasks }) => {
     const {
         setFilter,
         searchParams,
         completedTasks,
         tasksProgress,
         tasksLength,
-    } = useTaskFilter({ jobWithTasks });
+        jobsWithActiveTasks,
+        selectedJobId,
+    } = useTaskFilter({ allJobsWithTasks });
 
     return (
         <div className="flex items-center gap-6 border-b border-white/6 px-6 py-3">
@@ -45,6 +48,11 @@ const TasksFilter: React.FC<Properties> = ({ jobWithTasks }) => {
                     setFilter(TaskFilter.COMPLETED, value);
                 }}
                 activeValue={searchParams.get(TaskFilter.COMPLETED)}
+            />
+            <JobSelectItem
+                selectedJobId={selectedJobId}
+                setFilter={setFilter}
+                jobsWithActiveTasks={jobsWithActiveTasks}
             />
         </div>
     );
