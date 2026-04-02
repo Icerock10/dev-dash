@@ -1,5 +1,6 @@
 import { useSearchParams, useRouter } from 'next/navigation.js';
 import { useCallback, useMemo } from '~/shared/hooks/hooks';
+import { TaskFilter } from '../model/index';
 import { AppRoute } from '~/shared/libs/enums/enums';
 import { type JobWithTasksDto } from '~/entities/task/index';
 import {
@@ -7,7 +8,7 @@ import {
     getTasksProgress,
 } from '~/widgets/task-list/model/libs/helpers/helpers';
 
-const DEFAULT_FILTER_TAG = 'reset';
+const MIN_TASKS_LENGTH = 0;
 
 type UseTaskFilterReturn = {
     setFilter: (key: string, value: string) => void;
@@ -15,14 +16,21 @@ type UseTaskFilterReturn = {
     tasksProgress: string;
     completedTasks: number;
     tasksLength: number;
+    jobsWithActiveTasks: JobWithTasksDto[];
+    selectedJobId: string | null;
 };
 
-type Payload = { jobWithTasks: JobWithTasksDto[] };
+type Payload = { allJobsWithTasks: JobWithTasksDto[] };
 
-const useTaskFilter = ({ jobWithTasks }: Payload): UseTaskFilterReturn => {
-    const tasks = useMemo(
-        () => jobWithTasks.flatMap((job) => job.tasks),
-        [jobWithTasks],
+const useTaskFilter = ({ allJobsWithTasks }: Payload): UseTaskFilterReturn => {
+    const { tasks, jobsWithActiveTasks } = useMemo(
+        () => ({
+            tasks: allJobsWithTasks.flatMap((job) => job.tasks),
+            jobsWithActiveTasks: allJobsWithTasks.filter(
+                (job) => job.tasks.length > MIN_TASKS_LENGTH,
+            ),
+        }),
+        [allJobsWithTasks],
     );
 
     const completedTasks = getCompletedTasksCount(tasks);
@@ -30,12 +38,13 @@ const useTaskFilter = ({ jobWithTasks }: Payload): UseTaskFilterReturn => {
 
     const router = useRouter();
     const searchParams = useSearchParams();
+    const selectedJobId = searchParams.get(TaskFilter.JOB_ID);
 
     const setFilter = useCallback(
         (key: string, value: string): void => {
             const params = new URLSearchParams(searchParams.toString());
 
-            if (value === DEFAULT_FILTER_TAG) {
+            if (!value) {
                 router.push(AppRoute.TASKS);
                 return;
             }
@@ -55,6 +64,8 @@ const useTaskFilter = ({ jobWithTasks }: Payload): UseTaskFilterReturn => {
         tasksProgress,
         completedTasks,
         tasksLength: tasks.length,
+        jobsWithActiveTasks,
+        selectedJobId,
     };
 };
 

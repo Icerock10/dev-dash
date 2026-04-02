@@ -9,13 +9,14 @@ import { getCompletedTasksCount } from '../model/libs/helpers/helpers';
 const MIN_TASKS_LENGTH = 0;
 
 type Properties = {
-    jobWithTasks: JobWithTasksDto[];
+    jobsWithTasks: JobWithTasksDto[];
 };
 
-const TaskList: React.FC<Properties> = ({ jobWithTasks }) => {
+const TaskList: React.FC<Properties> = ({ jobsWithTasks }) => {
     const filteredJobs = useMemo(
-        () => jobWithTasks.filter((job) => job.tasks.length > MIN_TASKS_LENGTH),
-        [jobWithTasks],
+        () =>
+            jobsWithTasks.filter((job) => job.tasks.length > MIN_TASKS_LENGTH),
+        [jobsWithTasks],
     );
 
     return (

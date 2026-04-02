@@ -7,10 +7,14 @@ import { TasksFilter } from '~/features/tasks/filter/ui/tasks-filter';
 import { type JobWithTasksDto } from '~/entities/task/index';
 
 type Properties = {
-    jobWithTasks: JobWithTasksDto[];
+    jobsWithTasks: JobWithTasksDto[];
+    allJobsWithTasks: JobWithTasksDto[];
 };
 
-const TasksPage: React.FC<Properties> = ({ jobWithTasks }) => {
+const TasksPage: React.FC<Properties> = ({
+    jobsWithTasks,
+    allJobsWithTasks,
+}) => {
     return (
         <div className="flex-1 font-sans">
             <Header
@@ -19,8 +23,8 @@ const TasksPage: React.FC<Properties> = ({ jobWithTasks }) => {
             >
                 <Button icon={<PlusIcon />} label="Add Task" />
             </Header>
-            <TasksFilter jobWithTasks={jobWithTasks} />
-            <TaskList jobWithTasks={jobWithTasks} />
+            <TasksFilter allJobsWithTasks={allJobsWithTasks} />
+            <TaskList jobsWithTasks={jobsWithTasks} />
         </div>
     );
 };

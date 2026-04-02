@@ -12,12 +12,20 @@ async function Page({ searchParams }: { searchParams: Promise<SearchParams> }) {
 
     const userId = session?.user.id;
 
-    const jobWithTasks = await taskService.getAllWithTasks(String(userId), {
-        completed: parseBooleanParam(completed),
-        jobId,
-    });
+    const [jobsWithTasks, allJobsWithTasks] = await Promise.all([
+        taskService.getAllWithTasks(String(userId), {
+            completed: parseBooleanParam(completed),
+            jobId,
+        }),
+        taskService.getAllWithTasks(String(userId), {}),
+    ]);
 
-    return <TasksPage jobWithTasks={jobWithTasks} />;
+    return (
+        <TasksPage
+            jobsWithTasks={jobsWithTasks}
+            allJobsWithTasks={allJobsWithTasks}
+        />
+    );
 }
 
 export default Page;
