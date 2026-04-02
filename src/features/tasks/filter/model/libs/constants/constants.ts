@@ -1,5 +1,5 @@
 const TaskFilterTabs = [
-    { label: 'Reset', value: 'reset' },
+    { label: 'Reset', value: '' },
     { label: 'Pending', value: 'false' },
     { label: 'Completed', value: 'true' },
 ];
