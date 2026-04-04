@@ -3,7 +3,7 @@ import { Button } from '~/shared/ui/components/components';
 import { PlusIcon } from '~/shared/ui/icons/icons';
 import { getClassNames, normalizeStatus } from '~/shared/libs/helpers/helpers';
 import { JOB_STATUS_COLORS, CompanyLogo } from '~/entities/job/index';
-import { getTasksProgress } from '../model/libs/helpers/helpers';
+import { TaskProgressBar } from '~/shared/ui/components/task-progress-bar';
 
 type Properties = {
     jobCompany: JobWithTasksDto['company'];
@@ -23,10 +23,6 @@ const TaskListGroup: React.FC<Properties> = ({
     onCreateTask,
 }) => {
     const jobStatusColor = JOB_STATUS_COLORS[jobStatus];
-    const taskProgressPercent = getTasksProgress(
-        completedTasks,
-        jobTasks.length,
-    );
 
     return (
         <div className="flex items-center gap-3 px-4 py-3">
@@ -38,17 +34,10 @@ const TaskListGroup: React.FC<Properties> = ({
                         · {jobTitle}
                     </span>
                 </div>
-                <div className="mt-0.5 flex items-center gap-2">
-                    <div className="h-0.5 max-w-20 flex-1 bg-[#1e2a45]">
-                        <div
-                            className="h-full bg-[#2563eb]"
-                            style={{ width: `${taskProgressPercent}%` }}
-                        ></div>
-                    </div>
-                    <span className="font-mono text-[10px] text-slate-600">
-                        {completedTasks}/{jobTasks.length}
-                    </span>
-                </div>
+                <TaskProgressBar
+                    completedTasksCount={completedTasks}
+                    allTasksCount={jobTasks.length}
+                />
             </div>
             <span
                 className={getClassNames(
