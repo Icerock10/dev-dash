@@ -11,7 +11,7 @@ type Payload = {
 type OverviewStatsReturn = {
     totalJobsCount: number;
     jobsInProgressCount: number;
-    totalIncompleteTasksCount: number;
+    totalIncompleteTasks: JobWithTasksDto['tasks'];
     responseRate: number;
     totalTasksCount: number;
     completedTasksCount: number;
@@ -29,9 +29,7 @@ const getOverViewStats = ({ jobs }: Payload): OverviewStatsReturn => {
 
     const tasks = jobs.flatMap((job) => job.tasks);
 
-    const totalIncompleteTasksCount = tasks.filter(
-        (task) => !task.completed,
-    ).length;
+    const totalIncompleteTasks = tasks.filter((task) => !task.completed);
 
     const completedTasksCount = tasks.filter((task) => task.completed).length;
     const totalTasksCount = tasks.length;
@@ -54,7 +52,7 @@ const getOverViewStats = ({ jobs }: Payload): OverviewStatsReturn => {
     return {
         totalJobsCount,
         jobsInProgressCount,
-        totalIncompleteTasksCount,
+        totalIncompleteTasks,
         responseRate,
         totalTasksCount,
         completedTasksCount,

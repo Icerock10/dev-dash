@@ -1,18 +1,16 @@
 import { type JobDto } from '~/entities/job/index';
 import { PipelineJobRow } from './pipeline-job-row';
-
-const JOBS_START_INDEX = 0;
-const JOBS_END_INDEX = 5;
+import { getFirstElements } from '../../model/libs/helpers/helpers';
 
 type Properties = {
     jobs: JobDto[];
 };
 
 const PipeLineJobList: React.FC<Properties> = ({ jobs }) => {
-    const getRecentFiveJobs = jobs.slice(JOBS_START_INDEX, JOBS_END_INDEX);
+    const recentJobs = getFirstElements(jobs);
     return (
         <div className="flex flex-col overflow-hidden rounded-lg border border-white/5">
-            {getRecentFiveJobs.map((job) => (
+            {recentJobs.map((job) => (
                 <PipelineJobRow job={job} key={job.id} />
             ))}
         </div>
