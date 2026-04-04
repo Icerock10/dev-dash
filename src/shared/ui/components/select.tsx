@@ -4,12 +4,12 @@ import {
     type FieldPath,
     type FieldValues,
 } from 'react-hook-form';
-import { type JSX } from 'react';
 import { useFormController, useId } from '~/shared/hooks/hooks';
+import { type SelectOption } from '~/shared/libs/types/types';
 
-type SelectOption = {
-    label: string;
-    value: string;
+const booleanMap: Record<string, boolean> = {
+    true: true,
+    false: false,
 };
 
 type Properties<T extends FieldValues> = {
@@ -18,6 +18,7 @@ type Properties<T extends FieldValues> = {
     label?: string;
     name: FieldPath<T>;
     options: SelectOption[];
+    placeholder?: string;
 };
 
 const Select = <T extends FieldValues>({
@@ -26,7 +27,8 @@ const Select = <T extends FieldValues>({
     label,
     name,
     options,
-}: Properties<T>): JSX.Element => {
+    placeholder,
+}: Properties<T>): React.ReactElement => {
     const id = useId();
     const { field } = useFormController({ control, name });
     const error = errors[name]?.message;
@@ -44,22 +46,35 @@ const Select = <T extends FieldValues>({
             )}
 
             <select
-                className="flex-1 rounded-md border border-[#1e2a45] px-3 py-1.5 focus-within:outline-1 focus-within:outline-blue-400"
+                className="flex-1 rounded-md border border-[#1e2a45] px-3 py-2 focus-within:outline-1 focus-within:outline-blue-400"
                 {...field}
+                onChange={(event) => {
+                    const { value } = event.target;
+                    const isBooleanValue =
+                        value in booleanMap ? booleanMap[value] : value;
+                    field.onChange(isBooleanValue);
+                }}
                 id={id}
             >
+                {placeholder && (
+                    <option value="" disabled>
+                        {placeholder}
+                    </option>
+                )}
                 {options.map((option) => (
                     <option
                         className="bg-[#111827]"
-                        key={option.value}
-                        value={option.value}
+                        key={String(option.value)}
+                        value={String(option.value)}
                     >
                         {option.label}
                     </option>
                 ))}
             </select>
 
-            {hasError && <p>{error as string}</p>}
+            {hasError && (
+                <p className="mt-3 text-sm text-red-400">{error as string}</p>
+            )}
         </div>
     );
 };

@@ -1,11 +1,9 @@
 import { type JobWithTasksDto } from '~/entities/task/index';
+import { type SelectOption } from '~/shared/libs/types/types';
 
 const getUniqueCompanyOptions = (
     allJobsWithTasks: JobWithTasksDto[],
-): {
-    label: string;
-    value: string;
-}[] => {
+): SelectOption[] => {
     const getUniqueJobsWithTasks = [
         ...new Map(
             allJobsWithTasks
