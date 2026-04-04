@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.3.0](https://github.com/Icerock10/dev-dash/compare/v1.2.0...v1.3.0) (2026-04-04)
+
+
+### Features
+
+* add task api dd-12 ([#17](https://github.com/Icerock10/dev-dash/issues/17)) ([80c9712](https://github.com/Icerock10/dev-dash/commit/80c971260e9413da98a17f23e070c67f4652fb08))
+* add task base layout dd-11 ([#15](https://github.com/Icerock10/dev-dash/issues/15)) ([5b7168f](https://github.com/Icerock10/dev-dash/commit/5b7168f998b183ea8295bed8dc482e144f8710ce))
+* implement manage task dd-15 ([#20](https://github.com/Icerock10/dev-dash/issues/20)) ([23c3531](https://github.com/Icerock10/dev-dash/commit/23c3531c0bdb888ef1978320a35ebcc030038066))
+* render task filters dd-14 ([#19](https://github.com/Icerock10/dev-dash/issues/19)) ([863be52](https://github.com/Icerock10/dev-dash/commit/863be527e7809a2447ebe6a3c7fff577a2723a3c))
+* render task list dd-13 ([#18](https://github.com/Icerock10/dev-dash/issues/18)) ([ecac52a](https://github.com/Icerock10/dev-dash/commit/ecac52a6793fb96a8b26a7ddb20d6c20bb9ad043))
+
 ## [1.2.0](https://github.com/Icerock10/dev-dash/compare/v1.1.0...v1.2.0) (2026-04-01)
 
 
