@@ -2,6 +2,7 @@ import { Header } from '../../header/index';
 import { formatFullDate } from '~/shared/libs/helpers/helpers';
 import { StatsOverview } from './stats-overview';
 import { type JobWithTasksDto } from '~/entities/task/index';
+import { Pipeline } from './overview-pipeline/pipeline';
 
 type Properties = {
     userName: string;
@@ -18,6 +19,7 @@ const OverviewPage: React.FC<Properties> = ({ userName, jobs }) => {
             </Header>
             <div className="m-auto flex max-w-4xl flex-col gap-5 p-6">
                 <StatsOverview jobs={jobs} />
+                <Pipeline jobs={jobs} />
             </div>
         </div>
     );
