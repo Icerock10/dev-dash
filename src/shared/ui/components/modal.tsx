@@ -72,7 +72,7 @@ const Modal: React.FC<Properties> = ({
                         <Button
                             className="h-8 w-8 justify-center rounded-lg text-slate-500 transition-colors hover:bg-white/6 hover:text-white"
                             isIconOnly
-                            icon={<CrossIcon />}
+                            icon={<CrossIcon className="h-4 w-4" />}
                             label=""
                             onClick={onClose}
                         />

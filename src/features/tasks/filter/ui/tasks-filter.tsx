@@ -1,7 +1,6 @@
 import { type JobWithTasksDto } from '~/entities/task/index';
 import { FilterTabs } from '~/shared/ui/components/filter-tabs';
-import { TaskFilter, TaskFilterTabs } from '../model/index';
-import { useTaskFilter } from './use-task-filter';
+import { TaskFilter, TaskFilterTabs, useTaskFilter } from '../model/index';
 import { JobSelectItem } from './job-select-item';
 
 type Properties = {

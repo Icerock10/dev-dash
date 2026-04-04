@@ -1,6 +1,6 @@
 import { useSearchParams, useRouter } from 'next/navigation.js';
 import { useCallback, useMemo } from '~/shared/hooks/hooks';
-import { TaskFilter } from '../model/index';
+import { TaskFilter } from './index';
 import { AppRoute } from '~/shared/libs/enums/enums';
 import { type JobWithTasksDto } from '~/entities/task/index';
 import {
