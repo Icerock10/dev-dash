@@ -1,6 +1,6 @@
 'use client';
 
-import { type JobWithTasksDto } from '~/entities/task/index';
+import { type JobWithTasksDto, type TaskDto } from '~/entities/task/index';
 import { useMemo } from '~/shared/hooks/hooks';
 import { TaskListGroup } from './task-list-group';
 import { TaskItem } from './task-item';
@@ -10,9 +10,15 @@ const MIN_TASKS_LENGTH = 0;
 
 type Properties = {
     jobsWithTasks: JobWithTasksDto[];
+    onEditTask: (task: TaskDto | null) => void;
+    onCreateTask: () => void;
 };
 
-const TaskList: React.FC<Properties> = ({ jobsWithTasks }) => {
+const TaskList: React.FC<Properties> = ({
+    jobsWithTasks,
+    onEditTask,
+    onCreateTask,
+}) => {
     const filteredJobs = useMemo(
         () =>
             jobsWithTasks.filter((job) => job.tasks.length > MIN_TASKS_LENGTH),
@@ -34,9 +40,14 @@ const TaskList: React.FC<Properties> = ({ jobsWithTasks }) => {
                             jobCompany={job.company}
                             jobStatus={job.status}
                             completedTasks={completedTasks}
+                            onCreateTask={onCreateTask}
                         />
                         {job.tasks.map((task) => (
-                            <TaskItem key={task.id} task={task} />
+                            <TaskItem
+                                key={task.id}
+                                task={task}
+                                onEditTask={onEditTask}
+                            />
                         ))}
                     </div>
                 );

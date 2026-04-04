@@ -11,6 +11,7 @@ type Properties = {
     jobTasks: JobWithTasksDto['tasks'];
     jobStatus: JobWithTasksDto['status'];
     completedTasks: number;
+    onCreateTask: () => void;
 };
 
 const TaskListGroup: React.FC<Properties> = ({
@@ -19,6 +20,7 @@ const TaskListGroup: React.FC<Properties> = ({
     jobTasks,
     jobStatus,
     completedTasks,
+    onCreateTask,
 }) => {
     const jobStatusColor = JOB_STATUS_COLORS[jobStatus];
     const taskProgressPercent = getTasksProgress(
@@ -61,6 +63,7 @@ const TaskListGroup: React.FC<Properties> = ({
                 className="h-6 w-6 shrink-0 rounded-md text-slate-600 transition-colors hover:bg-white/6 hover:text-slate-300"
                 label=""
                 isIconOnly
+                onClick={onCreateTask}
                 icon={<PlusIcon className="h-3.5 w-3.5" />}
             />
         </div>
