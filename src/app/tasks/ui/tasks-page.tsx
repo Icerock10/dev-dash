@@ -4,10 +4,11 @@ import { Header, TaskList } from '~/widgets/index';
 import { Button } from '~/shared/ui/components/components';
 import { PlusIcon } from '~/shared/ui/icons/icons';
 import { TasksFilter } from '~/features/tasks/filter/ui/tasks-filter';
-import { type TaskDto, type JobWithTasksDto } from '~/entities/task/index';
-import { useState, useMemo, useCallback } from '~/shared/hooks/hooks';
+import { type JobWithTasksDto } from '~/entities/task/index';
+import { useMemo } from '~/shared/hooks/hooks';
 import { TaskForm } from '~/features/tasks/manage/task-form';
 import { getUniqueCompanyOptions } from '../model/libs/helpers/helpers';
+import { useTaskModal } from '../model/use-task-modal';
 
 type Properties = {
     jobsWithTasks: JobWithTasksDto[];
@@ -18,22 +19,13 @@ const TasksPage: React.FC<Properties> = ({
     jobsWithTasks,
     allJobsWithTasks,
 }) => {
-    const [editingTask, setEditingTask] = useState<
-        TaskDto | undefined | null
-    >();
-    const isFormOpen = editingTask !== undefined;
-
-    const closeTaskForm = useCallback(() => {
-        setEditingTask(undefined);
-    }, []);
-
-    const openCreateTaskForm = useCallback(() => {
-        setEditingTask(null);
-    }, []);
-
-    const openEditTaskForm = useCallback((task: TaskDto | null) => {
-        setEditingTask(task);
-    }, []);
+    const {
+        editingTask,
+        isFormOpen,
+        closeTaskForm,
+        openCreateTaskForm,
+        openEditTaskForm,
+    } = useTaskModal();
 
     const uniqueCompanyOptions = useMemo(
         () => getUniqueCompanyOptions(allJobsWithTasks),
