@@ -10,7 +10,7 @@ const StatsOverview: React.FC<Properties> = ({ jobs }) => {
     const {
         totalJobsCount,
         jobsInProgressCount,
-        totalIncompleteTasksCount,
+        totalIncompleteTasks,
         totalTasksCount,
         completedTasksCount,
         responseRate,
@@ -45,7 +45,7 @@ const StatsOverview: React.FC<Properties> = ({ jobs }) => {
                     Tasks Pending
                 </h1>
                 <p className="mb-1 font-mono text-3xl font-semibold text-blue-400">
-                    {totalIncompleteTasksCount}
+                    {totalIncompleteTasks.length}
                 </p>
                 <TaskProgressBar
                     completedTasksCount={completedTasksCount}
