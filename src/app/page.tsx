@@ -1,5 +1,11 @@
-function HomePage() {
-    return <div className="flex-1" />;
+import { OverviewPage } from '~/widgets/index';
+import { getServerSession } from 'next-auth';
+
+async function Page() {
+    const session = await getServerSession();
+    const userName = session?.user.name ?? 'Guest';
+
+    return <OverviewPage userName={userName} />;
 }
 
-export default HomePage;
+export default Page;
