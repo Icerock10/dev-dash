@@ -1,10 +1,11 @@
-import Link from 'next/link';
 import { AppRoute } from '~/shared/libs/enums/enums';
 import { type JobWithTasksDto } from '~/entities/task/index';
 import { getStatusFiltersWithCount } from '~/features/job/filter/model/libs/helpers/helpers';
 import { PipelineBar } from './pipeline-bar';
 import { PipelineStatusList } from './pipeline-status';
 import { PipeLineJobList } from './pipeline-job-list';
+import { SectionHeader } from '~/shared/ui/components/section-header';
+import { PipelineTasksList } from './pipeline-tasks-list';
 
 type Properties = {
     jobs: JobWithTasksDto[];
@@ -17,17 +18,7 @@ const Pipeline: React.FC<Properties> = ({ jobs }) => {
     return (
         <div className="grid grid-cols-5 gap-4">
             <div className="col-span-3 rounded-lg border border-white/4 bg-[#161b27] p-5">
-                <div className="mb-4 flex items-center justify-between">
-                    <h1 className="text-[13px] font-medium text-white">
-                        Pipeline
-                    </h1>
-                    <Link
-                        className="text-[11px] text-slate-500 transition-colors hover:text-slate-300"
-                        href={AppRoute.JOBS}
-                    >
-                        View all →
-                    </Link>
-                </div>
+                <SectionHeader title="Pipeline" href={AppRoute.JOBS} />
                 <PipelineBar
                     statusCounts={statusCounts}
                     totalJobsCount={totalJobsCount}
@@ -38,6 +29,7 @@ const Pipeline: React.FC<Properties> = ({ jobs }) => {
                 </h1>
                 <PipeLineJobList jobs={jobs} />
             </div>
+            <PipelineTasksList jobs={jobs} />
         </div>
     );
 };
