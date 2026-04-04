@@ -54,10 +54,13 @@ const useTasks = ({
         reset(DefaultTaskValues);
     }, [reset, DefaultTaskValues]);
 
-    const onTaskDelete = async (taskId: string): Promise<void> => {
+    const handleTaskAction = async <T>(
+        taskAction: (payload: T) => Promise<void>,
+        payload: T,
+    ): Promise<void> => {
         try {
             startLoading();
-            await deleteTask(taskId);
+            await taskAction(payload);
         } catch (error) {
             notification.error((error as Record<'message', string>).message);
         } finally {
@@ -65,26 +68,32 @@ const useTasks = ({
         }
     };
 
-    const onSubmit = handleSubmit(async (data) => {
-        await (task ? onTaskUpdate(task.id, data) : createTask(data));
-        if (typeof onTaskFormClose === 'function') {
-            onTaskFormClose();
-        }
-    });
+    const onTaskDelete = async (taskId: string): Promise<void> => {
+        await handleTaskAction(deleteTask, taskId);
+    };
+
+    const onTaskCreate = async (payload: TaskCreateDto): Promise<void> => {
+        await handleTaskAction(createTask, payload);
+    };
 
     const onTaskUpdate = async (
         taskId: string,
         payload: TaskUpdateDto,
     ): Promise<void> => {
-        try {
-            startLoading();
-            await updateTask(taskId, payload);
-        } catch (error) {
-            notification.error((error as Record<'message', string>).message);
-        } finally {
-            stopLoading();
-        }
+        await handleTaskAction(
+            (taskUpdatePayload: { taskId: string; payload: TaskUpdateDto }) =>
+                updateTask(taskUpdatePayload.taskId, taskUpdatePayload.payload),
+            { taskId, payload },
+        );
     };
+
+    const onSubmit = handleSubmit(async (data) => {
+        await (task ? onTaskUpdate(task.id, data) : onTaskCreate(data));
+        if (typeof onTaskFormClose === 'function') {
+            onTaskFormClose();
+        }
+    });
+
     return {
         onTaskDelete,
         onTaskUpdate,
