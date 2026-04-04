@@ -3,9 +3,12 @@ const TaskValidationRule = {
     MIN_TITLE_LENGTH: 5,
     MAX_TITLE_LENGTH: 250,
     MAX_DESCRIPTION_LENGTH: 2000,
+    MIN_DUE_DATE_LENGTH: 1,
 } as const;
 
 const TaskValidationMessage = {
+    DUE_DATE_REQUIRED: 'Due date is required',
+    DUE_DATE_INVALID: 'Due date cannot be in the past',
     JOB_ID_NOT_FOUND: 'Job was not selected',
     TITLE_MIN_LENGTH_NOT_VALID: `Title minimum length should be equal or more than ${String(TaskValidationRule.MIN_TITLE_LENGTH)}`,
     TITLE_MAX_LENGTH_NOT_VALID: `Title maximum length should be not more than ${String(TaskValidationRule.MAX_TITLE_LENGTH)}`,

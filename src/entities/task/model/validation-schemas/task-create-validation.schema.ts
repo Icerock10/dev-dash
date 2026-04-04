@@ -19,7 +19,16 @@ const taskCreateValidationSchema = z.object({
             message: TaskValidationMessage.DESCRIPTION_MAX_LENGTH_NOT_VALID,
         })
         .optional(),
-    dueDate: z.coerce.date().optional(),
+    dueDate: z
+        .string()
+        .min(
+            TaskValidationRule.MIN_DUE_DATE_LENGTH,
+            TaskValidationMessage.DUE_DATE_REQUIRED,
+        )
+        .refine(
+            (value) => new Date(value) >= new Date(new Date().toDateString()),
+            TaskValidationMessage.DUE_DATE_INVALID,
+        ),
     completed: z.boolean().default(false),
 });
 

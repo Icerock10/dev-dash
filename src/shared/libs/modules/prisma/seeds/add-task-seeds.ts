@@ -10,7 +10,7 @@ const taskSeed = async (jobs: Job[]): Promise<Task[]> => {
             description:
                 'Email Anna Müller about application status — it has been 5 days.',
             completed: false,
-            dueDate: new Date('2026-06-14'),
+            dueDate: '2026-06-14',
         },
         {
             jobId: stripe.id,
@@ -18,7 +18,7 @@ const taskSeed = async (jobs: Job[]): Promise<Task[]> => {
             description:
                 'Research Stripes tech stack and prepare questions about the payments infra team.',
             completed: false,
-            dueDate: new Date('2026-06-12'),
+            dueDate: '2026-06-12',
         },
         {
             jobId: nTwentySix.id,
@@ -26,7 +26,7 @@ const taskSeed = async (jobs: Job[]): Promise<Task[]> => {
             description:
                 'Review distributed systems and mobile architecture concepts before technical interview.',
             completed: false,
-            dueDate: new Date('2026-06-10'),
+            dueDate: '2026-06-10',
         },
         {
             jobId: nTwentySix.id,
@@ -34,7 +34,7 @@ const taskSeed = async (jobs: Job[]): Promise<Task[]> => {
             description:
                 'Check their engineering blog and GitHub to understand their RN setup.',
             completed: true,
-            dueDate: null,
+            dueDate: '2026-06-14',
         },
         {
             jobId: google.id,
@@ -42,7 +42,7 @@ const taskSeed = async (jobs: Job[]): Promise<Task[]> => {
             description:
                 'Highlight TypeScript, performance optimization and large-scale frontend experience.',
             completed: true,
-            dueDate: null,
+            dueDate: '2026-06-14',
         },
         {
             jobId: google.id,
@@ -50,7 +50,7 @@ const taskSeed = async (jobs: Job[]): Promise<Task[]> => {
             description:
                 'Add the design system and the open-source contributions from Q1.',
             completed: false,
-            dueDate: new Date('2026-06-20'),
+            dueDate: '2026-06-20',
         },
     ];
 
