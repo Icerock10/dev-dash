@@ -1,8 +1,7 @@
 import { Button } from '~/shared/ui/components/components';
 import { ButtonVariant } from '~/shared/libs/enums/enums';
-import { DEFAULT_STATUS_COUNT } from '../model/libs/constants/constants';
+import { sortStatusBadges, getClassNames } from '~/shared/libs/helpers/helpers';
 import { useMemo } from '~/shared/hooks/hooks';
-import { getClassNames } from '~/shared/libs/helpers/helpers';
 import {
     formatAndGetStatusBadges,
     JOB_STATUS_COLORS,
@@ -26,12 +25,9 @@ const StatusFilterList: React.FC<Properties> = ({
 }) => {
     const sortedStatusBadges = useMemo(
         () =>
-            formatAndGetStatusBadges().toSorted(
-                (a, b) =>
-                    (statusFiltersWithCount[b.toUpperCase()] ??
-                        DEFAULT_STATUS_COUNT) -
-                    (statusFiltersWithCount[a.toUpperCase()] ??
-                        DEFAULT_STATUS_COUNT),
+            sortStatusBadges(
+                formatAndGetStatusBadges(),
+                statusFiltersWithCount,
             ),
         [statusFiltersWithCount],
     );
