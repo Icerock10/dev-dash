@@ -31,11 +31,15 @@ const authOptions: AuthOptions = {
         jwt({ token, user }: { token: JWT; user?: User }) {
             if (user) {
                 token.id = user.id;
+                token.jobSearchStatus = user.jobSearchStatus;
+                token.title = user.title;
             }
             return token;
         },
         session({ session, token }) {
             session.user.id = token.id as string;
+            session.user.jobSearchStatus = token.jobSearchStatus as string;
+            session.user.title = token.title as string;
             return session;
         },
     },
