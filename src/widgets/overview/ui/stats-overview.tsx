@@ -20,28 +20,26 @@ const StatsOverview: React.FC<Properties> = ({ jobs }) => {
 
     return (
         <div className="grid grid-cols-4 gap-3">
-            <div className="rounded-lg border border-white/5 bg-[#161b27] px-5 py-4.5">
+            <div className="rounded-lg border border-white/5 bg-[#161b27] px-5 py-4.5 text-xs">
                 <h1 className="mb-3 text-[10px] tracking-wide text-slate-500 uppercase">
                     Total jobs
                 </h1>
                 <p className="mb-1 font-mono text-3xl font-semibold text-white">
                     {totalJobsCount}
                 </p>
-                <p className="text-[11px] text-slate-600">tracked listings</p>
+                <p className="text-slate-600">tracked listings</p>
             </div>
-            <div className="rounded-lg border border-white/5 bg-[#161b27] p-6">
-                <h1 className="mb-3 text-[10px] tracking-wide uppercase">
+            <div className="rounded-lg border border-white/5 bg-[#161b27] px-5 py-4.5 text-xs">
+                <h1 className="mb-3 text-[10px] tracking-wide text-slate-500 uppercase">
                     In Progress
                 </h1>
                 <p className="mb-1 font-mono text-3xl font-semibold text-emerald-400">
                     {jobsInProgressCount}
                 </p>
-                <p className="text-[11px] text-slate-600">
-                    applied + interview
-                </p>
+                <p className="text-slate-600">applied + interview</p>
             </div>
-            <div className="rounded-lg border border-white/5 bg-[#161b27] p-6">
-                <h1 className="mb-3 text-[10px] tracking-wide uppercase">
+            <div className="rounded-lg border border-white/5 bg-[#161b27] px-5 py-4.5">
+                <h1 className="mb-3 text-[10px] tracking-wide text-slate-500 uppercase">
                     Tasks Pending
                 </h1>
                 <p className="mb-1 font-mono text-3xl font-semibold text-blue-400">
@@ -53,14 +51,14 @@ const StatsOverview: React.FC<Properties> = ({ jobs }) => {
                 />
             </div>
 
-            <div className="rounded-lg border border-white/5 bg-[#161b27] p-6">
+            <div className="rounded-lg border border-white/5 bg-[#161b27] px-5 py-4.5 text-xs">
                 <h1 className="mb-3 text-[10px] tracking-wide text-slate-500 uppercase">
                     Response Rate
                 </h1>
                 <p className="mb-1 font-mono text-3xl font-semibold text-purple-400">
                     {responseRate}%
                 </p>
-                <p className="text-[11px] text-slate-600">
+                <p className="text-slate-600">
                     {responseCount} of {appliedCount} applications
                 </p>
             </div>
