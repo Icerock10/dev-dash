@@ -41,6 +41,13 @@ erDiagram
         string email
         string password
         string name
+        string title
+        string location
+        enum jobSearchStatus
+        string[] skills
+        string github
+        string linkedin
+        string portfolio
         datetime createdAt
         datetime updatedAt
     }
