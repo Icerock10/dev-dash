@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.4.0](https://github.com/Icerock10/dev-dash/compare/v1.3.0...v1.4.0) (2026-04-05)
+
+
+### Features
+
+* + base-overview layout, format-date helper dd-16 ([#21](https://github.com/Icerock10/dev-dash/issues/21)) ([01bc32d](https://github.com/Icerock10/dev-dash/commit/01bc32deb07ac904d48a35660cdd82bafbb0e266))
+* add statistics overview dd-17 ([#23](https://github.com/Icerock10/dev-dash/issues/23)) ([3e5a8e1](https://github.com/Icerock10/dev-dash/commit/3e5a8e156b3d67aa39fd9d30c25075ebcf6e289d))
+* add stats pipeline dd-18 ([#24](https://github.com/Icerock10/dev-dash/issues/24)) ([f3df78b](https://github.com/Icerock10/dev-dash/commit/f3df78bfe7686c776e59d0dd9609cd124689e265))
+* add upcoming tasks dd-19 ([#25](https://github.com/Icerock10/dev-dash/issues/25)) ([ceb0c6c](https://github.com/Icerock10/dev-dash/commit/ceb0c6cb61005de0720700feb4922db9c2e58f9f))
+* rendered status-breakdown, expanded pipeline-status with variants dd-20 ([#26](https://github.com/Icerock10/dev-dash/issues/26)) ([8c97066](https://github.com/Icerock10/dev-dash/commit/8c97066c4f9136da3a2add5cae6b11153b0c97a1))
+
 ## [1.3.0](https://github.com/Icerock10/dev-dash/compare/v1.2.0...v1.3.0) (2026-04-04)
 
 
