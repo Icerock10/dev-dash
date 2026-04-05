@@ -22,7 +22,7 @@ const SideBar: React.FC = () => {
                 <Logo />
             </div>
             <Menulist pathName={pathname} />
-            <Avatar userName={data?.user.name} />
+            <Avatar user={data?.user} />
         </aside>
     );
 };
