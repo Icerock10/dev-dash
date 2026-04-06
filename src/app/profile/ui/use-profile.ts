@@ -1,7 +1,7 @@
 import { useLoading, useAppForm, useCallback } from '~/shared/hooks/hooks';
 import { type UserDto } from '~/entities/user/model/libs/types/types';
 import { updateProfile } from '~/features/profile/model/action';
-import { type Control, type FieldErrors } from 'react-hook-form';
+import { type UpdateProfileFormContext } from '~/features/profile/model/libs/types/types';
 import { notification } from '~/shared/libs/modules/notification/notification';
 
 type Payload = {
@@ -9,11 +9,9 @@ type Payload = {
 };
 
 type UseProfileReturn = {
-    control: Control<UserDto>;
-    errors: FieldErrors<UserDto>;
     onSaveProfile: () => void;
     onFormReset: () => void;
-};
+} & UpdateProfileFormContext;
 
 const useProfile = ({ user }: Payload): UseProfileReturn => {
     const { startLoading, stopLoading } = useLoading();
