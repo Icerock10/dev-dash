@@ -26,6 +26,9 @@ class UserRepository implements BaseRepository<UserDto, UserSignUpRequestDto> {
     public getAll(): Promise<UserDto[]> {
         return this.database.user.findMany();
     }
+    public updateUser(id: string, payload: Partial<UserDto>): Promise<UserDto> {
+        return this.database.user.update({ where: { id }, data: payload });
+    }
 }
 
 export { UserRepository };

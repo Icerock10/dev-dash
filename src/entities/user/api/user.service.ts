@@ -30,6 +30,9 @@ class UserService implements BaseService<
     public async getAll(): Promise<UserResponseDto[]> {
         return this.userRepository.getAll();
     }
+    public updateUser(id: string, payload: Partial<UserDto>): Promise<UserDto> {
+        return this.userRepository.updateUser(id, payload);
+    }
 }
 
 export { UserService };
