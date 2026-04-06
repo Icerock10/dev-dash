@@ -1,0 +1,15 @@
+'use server';
+
+import { userService } from '~/entities/user/api/user';
+import { checkAuthAndGetUserId } from '~/shared/libs/helpers/helpers';
+import { type UserDto } from '~/entities/user/model/libs/types/types';
+import { revalidatePath } from 'next/cache';
+import { AppRoute } from '~/shared/libs/enums/enums';
+
+const updateProfile = async (payload: Partial<UserDto>): Promise<void> => {
+    const userId = await checkAuthAndGetUserId();
+    await userService.updateUser(userId, payload);
+    revalidatePath(AppRoute.ROOT);
+};
+
+export { updateProfile };
