@@ -3,7 +3,16 @@ import { type JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { config } from '~/shared/libs/modules/config/config';
 import { authService } from '~/features/auth/index';
+import { userService } from '~/entities/user/api/user';
 import { AppRoute } from '~/shared/libs/enums/enums';
+
+const JwtTrigger = {
+    SIGN_IN: 'signIn',
+    SIGN_UP: 'signUp',
+    UPDATE: 'update',
+} as const;
+
+type TJwtTrigger = (typeof JwtTrigger)[keyof typeof JwtTrigger];
 
 const AuthCredentials = {
     email: { label: 'Email', type: 'email' },
@@ -28,11 +37,26 @@ const authOptions: AuthOptions = {
         }),
     ],
     callbacks: {
-        jwt({ token, user }: { token: JWT; user?: User }) {
+        async jwt({
+            token,
+            user,
+            trigger,
+        }: {
+            token: JWT;
+            user?: User;
+            trigger?: TJwtTrigger;
+        }) {
             if (user) {
                 token.id = user.id;
                 token.jobSearchStatus = user.jobSearchStatus;
                 token.title = user.title;
+            }
+            if (trigger === JwtTrigger.UPDATE || !user) {
+                const freshUser = await userService.findByEmail(
+                    token.email as string,
+                );
+                token.jobSearchStatus = freshUser?.jobSearchStatus;
+                token.title = freshUser?.title;
             }
             return token;
         },
