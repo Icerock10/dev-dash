@@ -8,6 +8,7 @@ import {
     UpdateProfileForm,
     JobStatusSection,
     SkillsSection,
+    UpdateLinksForm,
 } from '~/features/profile/update/index';
 import { type UserDto } from '~/entities/user/model/libs/types/types';
 
@@ -62,6 +63,7 @@ const ProfilePage: React.FC<Properties> = ({ user }) => {
                     handleRemoveSkill={handleRemoveSkill}
                     userSkills={user.skills}
                 />
+                <UpdateLinksForm control={control} errors={errors} />
             </div>
         </div>
     );
