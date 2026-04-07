@@ -33,6 +33,12 @@ class UserService implements BaseService<
     public updateUser(id: string, payload: Partial<UserDto>): Promise<UserDto> {
         return this.userRepository.updateUser(id, payload);
     }
+    public addSkill(id: string, skill: string): Promise<UserDto> {
+        return this.userRepository.addSkill(id, skill);
+    }
+    public removeSkill(id: string, skill: string): Promise<UserDto> {
+        return this.userRepository.removeSkill(id, skill);
+    }
 }
 
 export { UserService };

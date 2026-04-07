@@ -12,4 +12,15 @@ const updateProfile = async (payload: Partial<UserDto>): Promise<void> => {
     revalidatePath(AppRoute.ROOT);
 };
 
-export { updateProfile };
+const addUserSkill = async (skill: string): Promise<void> => {
+    const userId = await checkAuthAndGetUserId();
+    await userService.addSkill(userId, skill);
+    revalidatePath(AppRoute.ROOT);
+};
+const removeUserSkill = async (skill: string): Promise<void> => {
+    const userId = await checkAuthAndGetUserId();
+    await userService.removeSkill(userId, skill);
+    revalidatePath(AppRoute.ROOT);
+};
+
+export { updateProfile, addUserSkill, removeUserSkill };
