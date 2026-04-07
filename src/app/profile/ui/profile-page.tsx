@@ -4,6 +4,7 @@ import { Header } from '~/widgets/index';
 import { Button } from '~/shared/ui/components/components';
 import { useProfile } from './use-profile';
 import { ButtonVariant } from '~/shared/libs/enums/enums';
+import { ActivityOverview } from '~/entities/profile/ui/activity-overview';
 import {
     UpdateProfileForm,
     JobStatusSection,
@@ -11,12 +12,14 @@ import {
     UpdateLinksForm,
 } from '~/features/profile/update/index';
 import { type UserDto } from '~/entities/user/model/libs/types/types';
+import { type JobWithTasksDto } from '~/entities/task/index';
 
 type Properties = {
     user: Partial<UserDto>;
+    jobs: JobWithTasksDto[];
 };
 
-const ProfilePage: React.FC<Properties> = ({ user }) => {
+const ProfilePage: React.FC<Properties> = ({ user, jobs }) => {
     const {
         control,
         errors,
@@ -64,6 +67,7 @@ const ProfilePage: React.FC<Properties> = ({ user }) => {
                     userSkills={user.skills}
                 />
                 <UpdateLinksForm control={control} errors={errors} />
+                <ActivityOverview jobs={jobs} />
             </div>
         </div>
     );
