@@ -7,6 +7,7 @@ import { ButtonVariant } from '~/shared/libs/enums/enums';
 import {
     UpdateProfileForm,
     JobStatusSection,
+    SkillsSection,
 } from '~/features/profile/update/index';
 import { type UserDto } from '~/entities/user/model/libs/types/types';
 
@@ -15,10 +16,17 @@ type Properties = {
 };
 
 const ProfilePage: React.FC<Properties> = ({ user }) => {
-    const { control, errors, onSaveProfile, onFormReset, handleStatusUpdate } =
-        useProfile({
-            user,
-        });
+    const {
+        control,
+        errors,
+        onSaveProfile,
+        onFormReset,
+        handleStatusUpdate,
+        handleAddSkill,
+        handleRemoveSkill,
+    } = useProfile({
+        user,
+    });
 
     return (
         <div className="flex-1 font-sans">
@@ -48,6 +56,11 @@ const ProfilePage: React.FC<Properties> = ({ user }) => {
                 <JobStatusSection
                     userJobSearchStatus={user.jobSearchStatus}
                     handleStatusUpdate={handleStatusUpdate}
+                />
+                <SkillsSection
+                    handleAddSkill={handleAddSkill}
+                    handleRemoveSkill={handleRemoveSkill}
+                    userSkills={user.skills}
                 />
             </div>
         </div>
