@@ -10,6 +10,7 @@ import {
     JobStatusSection,
     SkillsSection,
     UpdateLinksForm,
+    DangerZone,
 } from '~/features/profile/update/index';
 import { type UserDto } from '~/entities/user/model/libs/types/types';
 import { type JobWithTasksDto } from '~/entities/task/index';
@@ -28,6 +29,7 @@ const ProfilePage: React.FC<Properties> = ({ user, jobs }) => {
         handleStatusUpdate,
         handleAddSkill,
         handleRemoveSkill,
+        handleProfileDelete,
     } = useProfile({
         user,
     });
@@ -68,6 +70,7 @@ const ProfilePage: React.FC<Properties> = ({ user, jobs }) => {
                 />
                 <UpdateLinksForm control={control} errors={errors} />
                 <ActivityOverview jobs={jobs} />
+                <DangerZone handleProfileDelete={handleProfileDelete} />
             </div>
         </div>
     );

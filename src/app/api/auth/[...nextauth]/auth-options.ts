@@ -68,7 +68,7 @@ const authOptions: AuthOptions = {
         },
     },
     pages: {
-        signIn: AppRoute.LOGIN,
+        signIn: AppRoute.AUTH,
     },
 
     secret: config.ENV.APP.NEXTAUTH_SECRET,

@@ -1,9 +1,11 @@
 import { useLoading, useAppForm, useCallback } from '~/shared/hooks/hooks';
+import { signOut, useSession } from 'next-auth/react';
 import { type UserDto } from '~/entities/user/model/libs/types/types';
 import {
     updateProfile,
     addUserSkill,
     removeUserSkill,
+    deleteProfile,
 } from '~/features/profile/model/action';
 import { type UpdateProfileFormContext } from '~/features/profile/model/libs/types/types';
 import {
@@ -11,7 +13,7 @@ import {
     updateUserSkillSchema,
 } from '~/entities/profile/model/libs/validation-schemas/validation-schemas';
 import { notification } from '~/shared/libs/modules/notification/notification';
-import { useSession } from 'next-auth/react';
+import { AppRoute } from '~/shared/libs/enums/enums';
 
 type Payload = {
     user: Partial<UserDto>;
@@ -20,6 +22,7 @@ type Payload = {
 type UseProfileReturn = {
     onSaveProfile: () => void;
     onFormReset: () => void;
+    handleProfileDelete: () => Promise<void>;
     handleAddSkill: (skill: string) => Promise<void>;
     handleRemoveSkill: (skill: string) => Promise<void>;
     handleStatusUpdate: (payload: {
@@ -94,6 +97,12 @@ const useProfile = ({ user }: Payload): UseProfileReturn => {
     const handleRemoveSkill = async (skill: string): Promise<void> => {
         await withLoading(() => removeUserSkill(skill.trim()));
     };
+    const handleProfileDelete = async (): Promise<void> => {
+        await withLoading(async () => {
+            await deleteProfile();
+            await signOut({ callbackUrl: AppRoute.AUTH });
+        });
+    };
 
     return {
         onSaveProfile,
@@ -103,6 +112,7 @@ const useProfile = ({ user }: Payload): UseProfileReturn => {
         handleStatusUpdate,
         handleAddSkill,
         handleRemoveSkill,
+        handleProfileDelete,
     };
 };
 

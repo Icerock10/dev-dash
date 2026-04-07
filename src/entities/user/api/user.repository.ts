@@ -51,6 +51,9 @@ class UserRepository implements BaseRepository<UserDto, UserSignUpRequestDto> {
         const skills = (current?.skills ?? []).filter((s) => s !== skill);
         return this.database.user.update({ where: { id }, data: { skills } });
     }
+    public deleteUser(id: string): Promise<UserDto> {
+        return this.database.user.delete({ where: { id } });
+    }
 }
 
 export { UserRepository };

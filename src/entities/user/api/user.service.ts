@@ -39,6 +39,9 @@ class UserService implements BaseService<
     public removeSkill(id: string, skill: string): Promise<UserDto> {
         return this.userRepository.removeSkill(id, skill);
     }
+    public deleteUser(id: string): Promise<UserDto> {
+        return this.userRepository.deleteUser(id);
+    }
 }
 
 export { UserService };

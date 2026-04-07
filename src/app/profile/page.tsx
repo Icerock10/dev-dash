@@ -1,19 +1,20 @@
 import { ProfilePage } from './ui/profile-page';
 import { userService } from '~/entities/user/api/user';
+import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
-import { HTTPError } from '~/shared/libs/modules/exceptions/exceptions';
 import { taskService } from '../../entities/task/api/task';
+import { AppRoute } from '~/shared/libs/enums/enums';
 
 async function Page() {
     const session = await getServerSession();
 
     if (!session?.user.email) {
-        throw HTTPError.notFound();
+        redirect(AppRoute.AUTH);
     }
     const user = await userService.findByEmail(session.user.email);
 
     if (!user) {
-        throw HTTPError.notFound();
+        redirect(AppRoute.AUTH);
     }
     const jobsWithTasks = await taskService.getAllWithTasks(user.id, {});
 
