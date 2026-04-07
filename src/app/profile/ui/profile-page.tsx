@@ -4,7 +4,10 @@ import { Header } from '~/widgets/index';
 import { Button } from '~/shared/ui/components/components';
 import { useProfile } from './use-profile';
 import { ButtonVariant } from '~/shared/libs/enums/enums';
-import { UpdateProfileForm } from '~/features/profile/update/ui/update-profile-form';
+import {
+    UpdateProfileForm,
+    JobStatusSection,
+} from '~/features/profile/update/index';
 import { type UserDto } from '~/entities/user/model/libs/types/types';
 
 type Properties = {
@@ -12,11 +15,13 @@ type Properties = {
 };
 
 const ProfilePage: React.FC<Properties> = ({ user }) => {
-    const { control, errors, onSaveProfile, onFormReset } = useProfile({
-        user,
-    });
+    const { control, errors, onSaveProfile, onFormReset, handleStatusUpdate } =
+        useProfile({
+            user,
+        });
+
     return (
-        <div className="flex-1">
+        <div className="flex-1 font-sans">
             <Header
                 title="Profile"
                 subTitle="Manage your personal info and preferences"
@@ -39,6 +44,10 @@ const ProfilePage: React.FC<Properties> = ({ user }) => {
                     control={control}
                     errors={errors}
                     user={user as UserDto}
+                />
+                <JobStatusSection
+                    userJobSearchStatus={user.jobSearchStatus}
+                    handleStatusUpdate={handleStatusUpdate}
                 />
             </div>
         </div>
