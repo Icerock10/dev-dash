@@ -5,6 +5,8 @@ import {
 import { getClassNames, sortStatusBadges } from '~/shared/libs/helpers/helpers';
 import { type ValueOf } from '~/shared/libs/types/types';
 
+const MIN_STATUS_COUNT = 0;
+
 const PipelineStatusVariant = {
     DEFAULT: 'default',
     BRAND: 'brand',
@@ -13,35 +15,45 @@ const PipelineStatusVariant = {
 type Properties = {
     statusCounts: Record<string, number>;
     variant?: ValueOf<typeof PipelineStatusVariant>;
+    isProfileStatusList?: boolean;
 };
 
 const PipelineStatusList: React.FC<Properties> = ({
     statusCounts,
     variant = PipelineStatusVariant.DEFAULT,
+    isProfileStatusList = false,
 }) => {
     const sortedStatusBadges = sortStatusBadges(
         formatAndGetStatusBadges(),
         statusCounts,
     );
+    const activeStatusBadges = sortedStatusBadges.filter(
+        (badge) => statusCounts[badge.toUpperCase()] > MIN_STATUS_COUNT,
+    );
+
+    const badges = isProfileStatusList
+        ? activeStatusBadges
+        : sortedStatusBadges;
 
     const isBrand = variant === PipelineStatusVariant.BRAND;
 
     return (
         <div
-            className={
-                isBrand ? 'grid grid-cols-6 gap-3' : 'mb-5 flex flex-wrap gap-3'
-            }
+            className={getClassNames(
+                'flex flex-wrap gap-3',
+                !isBrand && 'mb-5',
+            )}
         >
-            {sortedStatusBadges.map((badge) => {
+            {badges.map((badge) => {
                 const key =
                     badge.toUpperCase() as keyof typeof JOB_STATUS_COLORS;
                 const statusColor = JOB_STATUS_COLORS[key];
-                const count = statusCounts[key] || '0';
+                const count = statusCounts[key] ?? '0';
 
                 return isBrand ? (
                     <div
                         key={badge}
-                        className="flex flex-col gap-2 rounded-xl border border-[#1e2a45] bg-[#0c1020] p-4"
+                        className="flex min-w-30 flex-1 flex-col gap-2 rounded-xl border border-[#1e2a45] bg-[#0c1020] p-4"
                     >
                         <div className="flex items-center gap-1.5">
                             <span

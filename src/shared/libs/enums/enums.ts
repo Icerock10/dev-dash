@@ -6,3 +6,4 @@ export { HttpMethod } from './http-method.enum';
 export { AppApiPath } from './app-api-path.enum';
 export { LoaderVariant } from './loader-variant.enum';
 export { JobStatus } from './job-status.enum';
+export { UserJobSearchStatus } from './user-job-search-status.enum';

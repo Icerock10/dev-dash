@@ -26,6 +26,34 @@ class UserRepository implements BaseRepository<UserDto, UserSignUpRequestDto> {
     public getAll(): Promise<UserDto[]> {
         return this.database.user.findMany();
     }
+    public async updateUser(
+        id: string,
+        payload: Partial<UserDto>,
+    ): Promise<UserDto> {
+        return this.database.user.update({ where: { id }, data: payload });
+    }
+    public async addSkill(id: string, skill: string): Promise<UserDto> {
+        const current = await this.getSkills(id);
+        const skills = [...new Set([...(current?.skills ?? []), skill])];
+        return this.database.user.update({ where: { id }, data: { skills } });
+    }
+    public getSkills(
+        id: string,
+    ): Promise<{ skills: UserDto['skills'] } | null> {
+        return this.database.user.findUnique({
+            where: { id },
+            select: { skills: true },
+        });
+    }
+
+    public async removeSkill(id: string, skill: string): Promise<UserDto> {
+        const current = await this.getSkills(id);
+        const skills = (current?.skills ?? []).filter((s) => s !== skill);
+        return this.database.user.update({ where: { id }, data: { skills } });
+    }
+    public deleteUser(id: string): Promise<UserDto> {
+        return this.database.user.delete({ where: { id } });
+    }
 }
 
 export { UserRepository };

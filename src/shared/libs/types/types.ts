@@ -10,3 +10,4 @@ export {
     type Job,
     type Task,
 } from '~/generated/client';
+export { type Session } from 'next-auth';

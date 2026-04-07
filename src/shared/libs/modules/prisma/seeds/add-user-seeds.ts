@@ -11,6 +11,11 @@ const userSeed = async (): Promise<User> => {
             email: 'icerock@dev.io',
             password: hash,
             name: 'Icerock10',
+            title: 'Frontend Developer',
+            location: 'Burghausen, DE',
+            skills: ['React', 'Typescript', 'NodeJs'],
+            github: 'https://github.com/someprofile',
+            linkedin: 'https://linkedin.com/someprofile',
         },
     });
 };

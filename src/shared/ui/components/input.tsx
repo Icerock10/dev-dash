@@ -80,7 +80,7 @@ const Input = <T extends FieldValues>({
                 <input
                     {...field}
                     aria-invalid={hasError}
-                    className="border-border w-full rounded-md border px-3 py-1.5 placeholder:text-xs placeholder:text-slate-600 focus:outline-none"
+                    className="border-border w-full rounded-md border bg-[#0c1020] px-3 py-1.5 placeholder:text-xs placeholder:text-slate-600 focus:outline-none"
                     disabled={disabled}
                     id={inputId}
                     max={max}
