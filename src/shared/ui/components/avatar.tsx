@@ -1,6 +1,10 @@
 import { LoaderVariant } from '~/shared/libs/enums/enums';
-import { firstCharUpperCase } from '~/shared/libs/helpers/helpers';
+import {
+    firstCharUpperCase,
+    getClassNames,
+} from '~/shared/libs/helpers/helpers';
 import { type ValueOf, type Session } from '~/shared/libs/types/types';
+import { USER_JOB_STATUS_CONFIG } from '~/features/profile/model/libs/constants/constants';
 import { Loader } from './loader';
 
 const AvatarVariant = {
@@ -28,6 +32,13 @@ const Avatar: React.FC<Properties> = ({
     }
 
     const userInitial = firstCharUpperCase(String(user.name));
+    const findUserStatusOptions = USER_JOB_STATUS_CONFIG.find(
+        (userJobStatus) => userJobStatus.status === user.jobSearchStatus,
+    );
+
+    const normalizedUserJobSearchStatus = (
+        user.jobSearchStatus as string
+    ).replace('_', ' ');
 
     if (variant === AvatarVariant.SECONDARY) {
         return (
@@ -43,9 +54,14 @@ const Avatar: React.FC<Properties> = ({
                     </p>
                     <p className="text-sm text-slate-500">{user.title}</p>
                     <div className="mt-1 flex items-center gap-3">
-                        <div className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                        <div
+                            className={getClassNames(
+                                'h-1.5 w-1.5 rounded-full',
+                                findUserStatusOptions?.itemStyles.bg,
+                            )}
+                        />
                         <span className="font-mono text-[11px] text-slate-400 lowercase first-letter:uppercase">
-                            {user.jobSearchStatus}
+                            {normalizedUserJobSearchStatus}
                         </span>
                     </div>
                 </div>
@@ -61,10 +77,15 @@ const Avatar: React.FC<Properties> = ({
             <div className="text-xs leading-tight font-medium text-white">
                 <p>{user.name}</p>
                 <p className="text-[11px] text-slate-500 lowercase first-letter:uppercase">
-                    {user.jobSearchStatus}
+                    {normalizedUserJobSearchStatus}
                 </p>
             </div>
-            <div className="ml-auto h-2 w-2 rounded-full bg-emerald-400" />
+            <div
+                className={getClassNames(
+                    'ml-auto h-2 w-2 rounded-full',
+                    findUserStatusOptions?.itemStyles.bg,
+                )}
+            />
         </div>
     );
 };

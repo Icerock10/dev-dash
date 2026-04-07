@@ -3,6 +3,7 @@ import { type UserDto } from '~/entities/user/model/libs/types/types';
 import { updateProfile } from '~/features/profile/model/action';
 import { type UpdateProfileFormContext } from '~/features/profile/model/libs/types/types';
 import { notification } from '~/shared/libs/modules/notification/notification';
+import { useSession } from 'next-auth/react';
 
 type Payload = {
     user: Partial<UserDto>;
@@ -11,10 +12,14 @@ type Payload = {
 type UseProfileReturn = {
     onSaveProfile: () => void;
     onFormReset: () => void;
+    handleStatusUpdate: (payload: {
+        jobSearchStatus: UserDto['jobSearchStatus'];
+    }) => Promise<void>;
 } & UpdateProfileFormContext;
 
 const useProfile = ({ user }: Payload): UseProfileReturn => {
     const { startLoading, stopLoading } = useLoading();
+    const { update } = useSession();
     const { control, errors, handleSubmit, reset } = useAppForm<UserDto>({
         defaultValues: {
             name: user.name ?? '',
@@ -39,6 +44,19 @@ const useProfile = ({ user }: Payload): UseProfileReturn => {
             stopLoading();
         }
     });
+    const handleStatusUpdate = async (payload: {
+        jobSearchStatus: UserDto['jobSearchStatus'];
+    }): Promise<void> => {
+        try {
+            startLoading();
+            await updateProfile(payload);
+            await update();
+        } catch (error) {
+            notification.error((error as Record<'message', string>).message);
+        } finally {
+            stopLoading();
+        }
+    };
 
     const onFormReset = (): void => {
         reset();
@@ -48,7 +66,7 @@ const useProfile = ({ user }: Payload): UseProfileReturn => {
         void handleProfileUpdate();
     }, [handleProfileUpdate]);
 
-    return { onSaveProfile, control, errors, onFormReset };
+    return { onSaveProfile, control, errors, onFormReset, handleStatusUpdate };
 };
 
 export { useProfile };
