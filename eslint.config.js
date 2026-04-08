@@ -36,6 +36,7 @@ const jsConfig = {
             sourceType: 'module',
         },
     },
+
     rules: {
         ...js.configs.recommended.rules,
         'arrow-parens': ['error', 'always'],
@@ -173,7 +174,7 @@ const overridesConfigs = [
         ],
         rules: {
             '@typescript-eslint/explicit-function-return-type': ['off'],
-            '@typescript-eslint/no-restricted-syntax': ['off'],
+            'no-restricted-syntax': 'off',
         },
     },
     {

@@ -1,5 +1,5 @@
 import { getToken } from 'next-auth/jwt';
-import { NextResponse, NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import { AppRoute } from './shared/libs/enums/enums';
 
 const protectedRoutes = [
@@ -23,16 +23,12 @@ export default async function middleware(req: NextRequest) {
             : pathname.startsWith(route),
     );
 
-    if (isProtectedRoute) {
-        if (!token) {
-            return NextResponse.redirect(new URL(AppRoute.AUTH, req.url));
-        }
+    if (isProtectedRoute && !token) {
+        return NextResponse.redirect(new URL(AppRoute.AUTH, req.url));
     }
 
-    if (pathname.startsWith(AppRoute.AUTH)) {
-        if (token) {
-            return NextResponse.redirect(new URL(AppRoute.ROOT, req.url));
-        }
+    if (pathname.startsWith(AppRoute.AUTH) && token) {
+        return NextResponse.redirect(new URL(AppRoute.ROOT, req.url));
     }
 
     return NextResponse.next();

@@ -1,7 +1,7 @@
 '*.{ts,tsx,js,json,md,html,yml}':
     - prettier --write
 '*.{ts,tsx,js}':
-    - eslint --fix --ignore-pattern src/proxy.ts
+    - eslint --fix
 '*':
     - npm run lint:editor
     - npm run lint:fs
