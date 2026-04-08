@@ -19,14 +19,31 @@ const AuthCredentials = {
     password: { label: 'Password', type: 'password' },
 } as const;
 
+const SessionTokenName = {
+    PROD: '__Secure-next-auth.session-token',
+    DEV: 'next-auth.session-token',
+} as const;
+
 const AuthStrategy = {
     JWT: 'jwt',
     DATABASE: 'database',
 } as const;
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const authOptions: AuthOptions = {
     session: { strategy: AuthStrategy.JWT },
-
+    cookies: {
+        sessionToken: {
+            name: isProduction ? SessionTokenName.PROD : SessionTokenName.DEV,
+            options: {
+                httpOnly: true,
+                sameSite: 'lax',
+                path: AppRoute.ROOT,
+                secure: isProduction,
+            },
+        },
+    },
     providers: [
         CredentialsProvider({
             credentials: AuthCredentials,
