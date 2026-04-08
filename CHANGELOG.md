@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.5.0](https://github.com/Icerock10/dev-dash/compare/v1.4.0...v1.5.0) (2026-04-08)
+
+
+### Features
+
+* add auth middleware dd-22 ([#29](https://github.com/Icerock10/dev-dash/issues/29)) ([371fdf8](https://github.com/Icerock10/dev-dash/commit/371fdf8824d3f35c3c9a683cde3beb0bd095518f))
+* add profile page dd-21 ([#27](https://github.com/Icerock10/dev-dash/issues/27)) ([217d0ff](https://github.com/Icerock10/dev-dash/commit/217d0ff7b3e2f0bb6af1d579eed59f984471a92d))
+
+
+### Bug Fixes
+
+* * dashes dd-23 ([#30](https://github.com/Icerock10/dev-dash/issues/30)) ([f1677a4](https://github.com/Icerock10/dev-dash/commit/f1677a472fba72cb92eb2442cc4f75dbaec8ff8c))
+
 ## [1.4.0](https://github.com/Icerock10/dev-dash/compare/v1.3.0...v1.4.0) (2026-04-05)
 
 
