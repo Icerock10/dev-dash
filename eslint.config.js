@@ -169,9 +169,11 @@ const overridesConfigs = [
             'eslint.config.js',
             'postcss.config.mjs',
             'prisma.config.ts',
+            'src/proxy.ts',
         ],
         rules: {
             '@typescript-eslint/explicit-function-return-type': ['off'],
+            '@typescript-eslint/no-restricted-syntax': ['off'],
         },
     },
     {
