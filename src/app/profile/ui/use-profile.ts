@@ -99,8 +99,8 @@ const useProfile = ({ user }: Payload): UseProfileReturn => {
     };
     const handleProfileDelete = async (): Promise<void> => {
         await withLoading(
-            () => signOut({ callbackUrl: AppRoute.AUTH }),
             () => deleteProfile(),
+            () => signOut({ callbackUrl: AppRoute.AUTH }),
         );
     };
 
