@@ -36,6 +36,7 @@ const jsConfig = {
             sourceType: 'module',
         },
     },
+
     rules: {
         ...js.configs.recommended.rules,
         'arrow-parens': ['error', 'always'],
@@ -169,9 +170,11 @@ const overridesConfigs = [
             'eslint.config.js',
             'postcss.config.mjs',
             'prisma.config.ts',
+            'src/proxy.ts',
         ],
         rules: {
             '@typescript-eslint/explicit-function-return-type': ['off'],
+            'no-restricted-syntax': 'off',
         },
     },
     {

@@ -98,10 +98,10 @@ const useProfile = ({ user }: Payload): UseProfileReturn => {
         await withLoading(() => removeUserSkill(skill.trim()));
     };
     const handleProfileDelete = async (): Promise<void> => {
-        await withLoading(async () => {
-            await deleteProfile();
-            await signOut({ callbackUrl: AppRoute.AUTH });
-        });
+        await withLoading(
+            () => signOut({ callbackUrl: AppRoute.AUTH }),
+            () => deleteProfile(),
+        );
     };
 
     return {
