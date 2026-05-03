@@ -8,10 +8,10 @@ import { HTTPError } from '../../shared/libs/modules/exceptions/exceptions';
 async function Page() {
     const session = await getServerSession(authOptions);
 
-    if (!session?.user.email) {
+    if (!session?.user.id) {
         throw HTTPError.notFound();
     }
-    const user = await userService.findByEmail(session.user.email);
+    const user = await userService.findById(session.user.id);
 
     if (!user) {
         throw HTTPError.notFound();

@@ -63,7 +63,10 @@ const useProfile = ({ user }: Payload): UseProfileReturn => {
     };
 
     const handleProfileUpdate = handleSubmit(async (data) => {
-        await withLoading(() => updateProfile(data));
+        await withLoading(
+            () => updateProfile(data),
+            () => update(),
+        );
     });
 
     const onSaveProfile = useCallback(() => {
@@ -77,7 +80,6 @@ const useProfile = ({ user }: Payload): UseProfileReturn => {
             () => updateProfile(payload),
             () => update(),
         );
-        reset();
     };
 
     const onFormReset = (): void => {

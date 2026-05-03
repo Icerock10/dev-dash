@@ -66,21 +66,22 @@ const authOptions: AuthOptions = {
             if (user) {
                 token.id = user.id;
                 token.jobSearchStatus = user.jobSearchStatus;
-                token.title = user.title;
             }
-            if (trigger === JwtTrigger.UPDATE || !user) {
-                const freshUser = await userService.findByEmail(
-                    token.email as string,
+            if (trigger === JwtTrigger.UPDATE) {
+                const freshUser = await userService.findById(
+                    token.id as string,
                 );
                 token.jobSearchStatus = freshUser?.jobSearchStatus;
-                token.title = freshUser?.title;
+                token.name = freshUser?.name;
+                token.email = freshUser?.email;
             }
             return token;
         },
         session({ session, token }) {
             session.user.id = token.id as string;
             session.user.jobSearchStatus = token.jobSearchStatus as string;
-            session.user.title = token.title as string;
+            session.user.name = token.name;
+            session.user.email = token.email;
             return session;
         },
     },

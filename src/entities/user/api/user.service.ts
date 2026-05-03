@@ -22,6 +22,10 @@ class UserService implements BaseService<
         const foundUser = await this.userRepository.findByEmail(email);
         return foundUser ?? null;
     }
+    public async findById(id: string): Promise<UserDto | null> {
+        const foundUser = await this.userRepository.findById(id);
+        return foundUser ?? null;
+    }
     public async create(
         payload: UserSignUpRequestDto,
     ): Promise<UserResponseDto> {
