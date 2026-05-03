@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.6.0](https://github.com/Icerock10/dev-dash/compare/v1.5.0...v1.6.0) (2026-05-03)
+
+
+### Features
+
+* add guest login dd-26 ([#34](https://github.com/Icerock10/dev-dash/issues/34)) ([1c1b93b](https://github.com/Icerock10/dev-dash/commit/1c1b93b6d4280b66eb36bfc7eee56c98e8d3cfbf))
+
+
+### Bug Fixes
+
+* fixed handleProfileDelete function order, setup cookies for dev env dd-24 ([#31](https://github.com/Icerock10/dev-dash/issues/31)) ([a1db550](https://github.com/Icerock10/dev-dash/commit/a1db5502b67ead11e1c9f443802031454a101e45))
+* user data update dd-25 ([#33](https://github.com/Icerock10/dev-dash/issues/33)) ([9e77e2e](https://github.com/Icerock10/dev-dash/commit/9e77e2e08ccba5e65e6bbe36c685a82070cf70e7))
+
 ## [1.5.0](https://github.com/Icerock10/dev-dash/compare/v1.4.0...v1.5.0) (2026-04-08)
 
 
