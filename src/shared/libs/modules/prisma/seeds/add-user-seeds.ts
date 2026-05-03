@@ -3,16 +3,14 @@ import { encryptor } from '../../encryptor/encryptor';
 import { type User } from '~/generated/client';
 
 const userSeed = async (): Promise<User> => {
-    const { hash } = await encryptor.encrypt('mypassword123');
-    return prisma.user.upsert({
-        where: { email: 'icerock@dev.io' },
-        update: {},
-        create: {
-            email: 'icerock@dev.io',
+    const { hash } = await encryptor.encrypt('guest123123');
+    return prisma.user.create({
+        data: {
+            email: `guest${String(Date.now())}@dev.io`,
             password: hash,
-            name: 'Icerock10',
+            name: 'Guest',
             title: 'Frontend Developer',
-            location: 'Burghausen, DE',
+            location: 'Berlin, DE',
             skills: ['React', 'Typescript', 'NodeJs'],
             github: 'https://github.com/someprofile',
             linkedin: 'https://linkedin.com/someprofile',
