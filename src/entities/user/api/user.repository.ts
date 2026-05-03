@@ -20,6 +20,12 @@ class UserRepository implements BaseRepository<UserDto, UserSignUpRequestDto> {
         });
         return foundUser ?? null;
     }
+    public async findById(id: string): Promise<UserDto | null> {
+        const foundUser = await this.database.user.findUnique({
+            where: { id },
+        });
+        return foundUser ?? null;
+    }
     public create(payload: UserSignUpRequestDto): Promise<UserDto> {
         return this.database.user.create({ data: payload });
     }
