@@ -26,7 +26,6 @@ const removeUserSkill = async (skill: string): Promise<void> => {
 const deleteProfile = async (): Promise<void> => {
     const userId = await checkAuthAndGetUserId();
     await userService.deleteUser(userId);
-    revalidatePath(AppRoute.ROOT);
 };
 
 export { updateProfile, addUserSkill, removeUserSkill, deleteProfile };
