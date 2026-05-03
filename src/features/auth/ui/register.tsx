@@ -6,6 +6,7 @@ import {
 import { useAppForm } from '~/shared/hooks/hooks';
 import { useAuth } from '../model/hooks/hooks';
 import { actions as authActions } from '../model/actions/actions';
+import { GuestLogin } from './guest-login';
 
 const Register: React.FC = () => {
     const { errors, control, handleSubmit } = useAppForm<RegisterDto>({
@@ -50,6 +51,7 @@ const Register: React.FC = () => {
                 type="password"
             />
             <Button className="w-full" type="submit" label="Create Account" />
+            <GuestLogin />
         </form>
     );
 };

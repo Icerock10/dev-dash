@@ -3,6 +3,7 @@ import { HTTPError } from '~/shared/libs/modules/exceptions/exceptions';
 import { type SignInDto, type RegisterDto } from '~/entities/user/index';
 import { signIn } from 'next-auth/react';
 import { AppApiPath, HttpMethod } from '../libs/enums/enums';
+import { setupGuestAccount } from './setup-guest-account';
 
 const login = async (payload: SignInDto): Promise<unknown> => {
     const response = await signIn('credentials', {
@@ -26,9 +27,15 @@ const register = async (payload: RegisterDto): Promise<void> => {
     await login(payload);
 };
 
+const loginAsGuest = async (): Promise<void> => {
+    const guestSignInPayload = await setupGuestAccount();
+    await login(guestSignInPayload);
+};
+
 const actions = {
     register,
     login,
+    loginAsGuest,
 };
 
 export { actions };
