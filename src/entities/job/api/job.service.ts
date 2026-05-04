@@ -19,11 +19,19 @@ class JobService {
     public create(userId: string, payload: JobCreateDto): Promise<JobDto> {
         return this.jobRepository.create(userId, payload);
     }
-    public getAll({ tags, status }: SearchParams): Promise<JobDto[]> {
+    public getAll({
+        tags,
+        status,
+        userId,
+    }: SearchParams & { userId: string }): Promise<JobDto[]> {
         const jobTags = Array.isArray(tags) ? tags : [tags];
         const tagsWithoutEmptyValues = jobTags.filter(Boolean) as string[];
 
-        return this.jobRepository.getAll(tagsWithoutEmptyValues, status);
+        return this.jobRepository.getAll(
+            userId,
+            tagsWithoutEmptyValues,
+            status,
+        );
     }
     public async getById(id: string): Promise<JobDto | null> {
         const foundJob = await this.jobRepository.getById(id);
@@ -46,13 +54,13 @@ class JobService {
         }
         return deletedJob;
     }
-    public async getStatusAndTags(): Promise<
+    public async getStatusAndTags(userId: string): Promise<
         {
             tags: JobDto['tags'];
             status: JobDto['status'];
         }[]
     > {
-        return this.jobRepository.getStatusAndTags();
+        return this.jobRepository.getStatusAndTags(userId);
     }
 }
 
