@@ -16,7 +16,7 @@ const Pipeline: React.FC<Properties> = ({ jobs }) => {
     const totalJobsCount = jobs.length;
 
     return (
-        <div className="grid grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
             <div className="col-span-3 rounded-lg border border-white/4 bg-[#161b27] p-5">
                 <SectionHeader title="Pipeline" href={AppRoute.JOBS} />
                 <PipelineBar

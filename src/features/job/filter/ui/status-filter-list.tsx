@@ -37,7 +37,7 @@ const StatusFilterList: React.FC<Properties> = ({
     };
 
     return (
-        <div className="flex items-center gap-3 text-sm">
+        <div className="flex flex-wrap items-center gap-3 text-sm">
             <Button
                 variant={ButtonVariant.GHOST}
                 onClick={resetFilters}

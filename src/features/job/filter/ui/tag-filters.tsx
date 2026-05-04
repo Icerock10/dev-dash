@@ -15,7 +15,7 @@ const TagFilters: React.FC<Properties> = ({
     setFilter,
 }) => {
     return (
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
             {tagFilters.map((tag) => {
                 const selectedTags = searchParams
                     .getAll(JobFilter.TAGS)

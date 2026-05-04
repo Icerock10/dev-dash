@@ -12,7 +12,7 @@ const UpdateProfileForm: React.FC<Properties> = ({ user, control, errors }) => {
             <div className="mb-5 flex items-center gap-4">
                 <Avatar variant="secondary" user={user} />
             </div>
-            <form className="grid grid-cols-2 gap-x-5 font-sans">
+            <form className="grid gap-x-5 font-sans md:grid-cols-2">
                 <Input
                     label="Full Name"
                     name="name"
