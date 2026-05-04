@@ -19,7 +19,7 @@ const JobFilters: React.FC<Properties> = ({ rawFilters }) => {
         rawFilters,
     });
     return (
-        <div className="flex items-center justify-between gap-4 border-b border-white/6 px-6 py-3">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/6 px-6 py-3">
             <StatusFilterList
                 setFilter={setFilter}
                 resetFilters={resetFilters}

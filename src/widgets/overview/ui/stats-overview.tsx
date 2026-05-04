@@ -19,7 +19,7 @@ const StatsOverview: React.FC<Properties> = ({ jobs }) => {
     } = getOverViewStats({ jobs });
 
     return (
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid-cols-auto grid gap-3 sm:grid-cols-2 md:grid-cols-4">
             <div className="rounded-lg border border-white/5 bg-[#161b27] px-5 py-4.5 text-xs">
                 <h1 className="mb-3 text-[10px] tracking-wide text-slate-500 uppercase">
                     Total jobs

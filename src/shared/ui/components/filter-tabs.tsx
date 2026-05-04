@@ -15,7 +15,7 @@ type Properties = {
 
 const FilterTabs: React.FC<Properties> = ({ tabs, activeValue, onChange }) => {
     return (
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
             {tabs.map((tab) => (
                 <Button
                     key={tab.value}

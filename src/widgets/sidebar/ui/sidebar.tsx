@@ -17,7 +17,7 @@ const SideBar: React.FC = () => {
     }
 
     return (
-        <aside className="flex w-56 min-w-56 flex-col border-r border-white/6 bg-[#0c1020] px-3 py-5">
+        <aside className="flex flex-col border-r border-white/6 bg-[#0c1020] px-3 py-5 md:min-w-56">
             <div className="px-3">
                 <Logo />
             </div>

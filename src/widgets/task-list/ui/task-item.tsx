@@ -54,7 +54,7 @@ const TaskItem: React.FC<Properties> = ({ task, onEditTask }) => {
 
             <div className="min-w-0 flex-1">
                 <h1 className={taskTitleClasses}>{task.title}</h1>
-                <p className="mt-0.5 truncate font-mono text-xs text-slate-500">
+                <p className="mt-0.5 max-w-3xs truncate font-mono text-xs text-slate-500 lg:max-w-xl">
                     {task.description}
                 </p>
             </div>

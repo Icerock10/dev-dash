@@ -18,7 +18,7 @@ const JobStatusSection: React.FC<Properties> = ({
             <h2 className="mb-4 text-sm font-medium text-white">
                 Job search status
             </h2>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid gap-2 md:grid-cols-3">
                 {USER_JOB_STATUS_CONFIG.map((jobStatus) => {
                     const isJobSeachStatusActive =
                         userJobSearchStatus === jobStatus.status;

@@ -19,9 +19,9 @@ const TasksFilter: React.FC<Properties> = ({ allJobsWithTasks }) => {
     } = useTaskFilter({ allJobsWithTasks });
 
     return (
-        <div className="flex items-center gap-6 border-b border-white/6 px-6 py-3">
+        <div className="flex flex-wrap items-center justify-between gap-6 border-b border-white/6 px-6 py-3">
             <div className="flex flex-1 items-center gap-3">
-                <div className="max-w-xs flex-1">
+                <div className="flex-1 sm:min-w-80 lg:flex-none">
                     <div className="mb-1.5 flex justify-between">
                         <span className="font-mono text-[11px] text-slate-500">
                             Progress
@@ -41,18 +41,20 @@ const TasksFilter: React.FC<Properties> = ({ allJobsWithTasks }) => {
                     </div>
                 </div>
             </div>
-            <FilterTabs
-                tabs={TaskFilterTabs}
-                onChange={(value) => {
-                    setFilter(TaskFilter.COMPLETED, value);
-                }}
-                activeValue={searchParams.get(TaskFilter.COMPLETED)}
-            />
-            <JobSelectItem
-                selectedJobId={selectedJobId}
-                setFilter={setFilter}
-                jobsWithActiveTasks={jobsWithActiveTasks}
-            />
+            <div className="flex flex-wrap gap-3">
+                <FilterTabs
+                    tabs={TaskFilterTabs}
+                    onChange={(value) => {
+                        setFilter(TaskFilter.COMPLETED, value);
+                    }}
+                    activeValue={searchParams.get(TaskFilter.COMPLETED)}
+                />
+                <JobSelectItem
+                    selectedJobId={selectedJobId}
+                    setFilter={setFilter}
+                    jobsWithActiveTasks={jobsWithActiveTasks}
+                />
+            </div>
         </div>
     );
 };
