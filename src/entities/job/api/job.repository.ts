@@ -19,6 +19,7 @@ class JobRepository {
         return this.database.job.create({ data: { ...payload, userId } });
     }
     public getAll(
+        userId: string,
         tags: JobDto['tags'],
         status?: JobDto['status'],
     ): Promise<JobDto[]> {
@@ -26,6 +27,7 @@ class JobRepository {
 
         return this.database.job.findMany({
             where: {
+                userId,
                 ...(tags.length > DEFAULT_TAGS_LENGTH && {
                     tags: { hasSome: tags },
                 }),
@@ -52,13 +54,13 @@ class JobRepository {
             return null;
         }
     }
-    public async getStatusAndTags(): Promise<
-        {
-            tags: JobDto['tags'];
-            status: JobDto['status'];
-        }[]
-    > {
+    public async getStatusAndTags(
+        userId: string,
+    ): Promise<Pick<JobDto, 'tags' | 'status'>[]> {
         return this.database.job.findMany({
+            where: {
+                userId,
+            },
             select: { tags: true, status: true },
         });
     }
