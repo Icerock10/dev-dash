@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/Icerock10/dev-dash/compare/v1.6.0...v1.6.1) (2026-05-04)
+
+
+### Bug Fixes
+
+* * displays now only user jobs dd-27 ([#35](https://github.com/Icerock10/dev-dash/issues/35)) ([c9433ad](https://github.com/Icerock10/dev-dash/commit/c9433ad6aa9ce2f4108ba96ad56e4933e81d1903))
+
 ## [1.6.0](https://github.com/Icerock10/dev-dash/compare/v1.5.0...v1.6.0) (2026-05-03)
 
 
